@@ -21,7 +21,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Verify.NUnit" Version="19.9.2" />
-    <PackageReference Include="Verify.SourceGenerators" Version="2.0.1" />
+    <PackageReference Include="Verify.SourceGenerators" Version="2.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\BuilderGenerator\BuilderGenerator.csproj" />
