@@ -6,7 +6,7 @@
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="IDisposableAnalyzers" Version="4.0.2">
+		<PackageReference Include="IDisposableAnalyzers" Version="4.0.4">
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		  <PrivateAssets>all</PrivateAssets>
 		</PackageReference>
