@@ -16,7 +16,7 @@
 		<Compile Remove="$(GeneratedFolder)/**/*.cs" />
 	</ItemGroup>
 	<ItemGroup>
-	  <PackageReference Include="IDisposableAnalyzers" Version="4.0.4">
+	  <PackageReference Include="IDisposableAnalyzers" Version="4.0.5">
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	    <PrivateAssets>all</PrivateAssets>
 	  </PackageReference>
