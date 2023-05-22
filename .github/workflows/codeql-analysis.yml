@@ -34,21 +34,20 @@ jobs:
         with:
           fetch-depth: 2
 
-      # Initializes the CodeQL tools for scanning.
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3.0.3
+        with:
+          dotnet-version: "7.x"
+
+          # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         id: init_codeql
         uses: github/codeql-action/init@v2.3.3
         with:
           languages: ${{ matrix.language }}
 
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v3.0.3
-        with:
-          dotnet-version: "7.x"
-
-      # https://github.com/github/codeql-action/issues/757#issuecomment-978693262
-      - name: Build code
-        run: dotnet build
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2.3.3
