@@ -19,7 +19,9 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v3.5.3
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v3.5.3
+
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3.2.0
         with:
@@ -29,12 +31,14 @@ jobs:
           cache-dependency-path: "**/packages.lock.json"
 
       - name: Install dependencies
-        run: dotnet restore --force-evaluate
-        if: contains(github.actor, 'dependabot') == true
-
-      - name: Install dependencies
-        run: dotnet restore
-        if: contains(github.actor, 'dependabot') == false
+        env:
+          COMMIT_VAR: ${{ contains(github.actor, 'dependabot') }}
+        run: |
+          if ${COMMIT_VAR} == true; then
+            dotnet restore --force-evaluate
+          else
+            dotnet restore
+          fi
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
