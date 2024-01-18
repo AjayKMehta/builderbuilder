@@ -8,6 +8,12 @@
         "resolved": "4.0.7",
         "contentHash": "Xrn/VABG/JhulJOmHOeOAY4/qafbEyRj3Z6gMeSABT1XCqMe8HnqOvid8gEVJt47VUZ6eD7XpTFLZ1KLyTZgdw=="
       },
+      "Microsoft.Bcl.HashCode": {
+        "type": "Direct",
+        "requested": "[1.1.1, )",
+        "resolved": "1.1.1",
+        "contentHash": "MalY0Y/uM/LjXtHfX/26l2VtN4LDNZ2OE3aumNOHDLsT4fNYy2hiHXI4CXCqKpNUNm7iJ2brrc4J89UdaL56FA=="
+      },
       "Microsoft.CodeAnalysis.Analyzers": {
         "type": "Direct",
         "requested": "[3.3.4, )",

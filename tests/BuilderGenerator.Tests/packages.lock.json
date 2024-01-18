@@ -100,6 +100,11 @@
         "resolved": "8.1.0",
         "contentHash": "K9eKlpWDyHdvCqogbQllUQvZcAPe8cApSAyGnROgEHYQaLuWXx4QQqbbM9VsbPmHjxOWIP3Il5QbDb7Z6p6t1w=="
       },
+      "Microsoft.Bcl.HashCode": {
+        "type": "Transitive",
+        "resolved": "1.1.1",
+        "contentHash": "MalY0Y/uM/LjXtHfX/26l2VtN4LDNZ2OE3aumNOHDLsT4fNYy2hiHXI4CXCqKpNUNm7iJ2brrc4J89UdaL56FA=="
+      },
       "Microsoft.CodeAnalysis.Common": {
         "type": "Transitive",
         "resolved": "4.8.0",
@@ -198,7 +203,10 @@
         }
       },
       "buildergenerator": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.Bcl.HashCode": "[1.1.1, )"
+        }
       }
     }
   }
