@@ -41,11 +41,12 @@ public class BuilderGenerator : IIncrementalGenerator
             "BuildableAttribute.g.cs", SourceText.From($"{Header}{AttributeText}", Encoding.UTF8)));
 
         IncrementalValuesProvider<ClassToGenerate?  > classesToGenerate = context.SyntaxProvider
-            .CreateSyntaxProvider(
+            .ForAttributeWithMetadataName(
+                BuildableAttribute,
                 // 👇 Runs for _every_ syntax node, on _every_ key press!
                 predicate: static (s, _) => IsSyntaxTargetForGeneration(s),
                 // 👇 Runs for _every_ node selected by the predicate, on _every_ key press!
-                transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx));
+                transform: static (ctx, _) => GetClassToGenerate(ctx.SemanticModel, ctx.TargetNode));
 
 
         // 👇 Runs for every _new_ value returned by the syntax provider
@@ -56,29 +57,6 @@ public class BuilderGenerator : IIncrementalGenerator
     public static bool IsSyntaxTargetForGeneration(SyntaxNode node)
     => node is ClassDeclarationSyntax { AttributeLists.Count: > 0 };
 
-    public static ClassToGenerate? GetSemanticTargetForGeneration(in GeneratorSyntaxContext context)
-    {
-        // we know the node is a cds thanks to IsSyntaxTargetForGeneration
-        var cds = (ClassDeclarationSyntax)context.Node;
-
-        // loop through all the attributes on the method
-        foreach (AttributeListSyntax attributeListSyntax in cds.AttributeLists)
-        {
-            foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
-            {
-                if (context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol is not IMethodSymbol attributeSymbol)
-                    continue;
-
-                INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
-
-                // Is the attribute the attribute we are interested in?
-                if (attributeContainingTypeSymbol.ToDisplayString() == BuildableAttribute)
-                    return GetClassToGenerate(context.SemanticModel, cds);
-            }
-        }
-
-        return null;
-    }
 
     private static ClassToGenerate? GetClassToGenerate(SemanticModel semanticModel, SyntaxNode classDeclarationSyntax)
     {
