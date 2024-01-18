@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
 using System.Text;
 
 using Microsoft.CodeAnalysis;
@@ -43,98 +40,56 @@ public class BuilderGenerator : IIncrementalGenerator
         context.RegisterPostInitializationOutput(ctx => ctx.AddSource(
             "BuildableAttribute.g.cs", SourceText.From($"{Header}{AttributeText}", Encoding.UTF8)));
 
-        IncrementalValuesProvider<ClassDeclarationSyntax> classDeclarations = context.SyntaxProvider
-            .CreateSyntaxProvider(
+        IncrementalValuesProvider<ClassToGenerate?  > classesToGenerate = context.SyntaxProvider
+            .ForAttributeWithMetadataName(
+                BuildableAttribute,
+                // 👇 Runs for _every_ syntax node, on _every_ key press!
                 predicate: static (s, _) => IsSyntaxTargetForGeneration(s),
-                transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx))
-            .Where(static m => m is not null)!;
+                // 👇 Runs for _every_ node selected by the predicate, on _every_ key press!
+                transform: static (ctx, _) => GetClassToGenerate(ctx.SemanticModel, ctx.TargetNode));
 
-        IncrementalValueProvider<(Compilation Left, ImmutableArray<ClassDeclarationSyntax> Right)> incValueProvider = context.CompilationProvider.Combine(classDeclarations.Collect());
-        context.RegisterSourceOutput(incValueProvider,
-    static (spc, source) => Execute(source.Left, source.Right, spc));
+
+        // 👇 Runs for every _new_ value returned by the syntax provider
+        context.RegisterImplementationSourceOutput(classesToGenerate,
+            static (spc, source) => Execute(source, spc));
     }
 
     public static bool IsSyntaxTargetForGeneration(SyntaxNode node)
     => node is ClassDeclarationSyntax { AttributeLists.Count: > 0 };
 
-    public static ClassDeclarationSyntax? GetSemanticTargetForGeneration(in GeneratorSyntaxContext context)
+
+    private static ClassToGenerate? GetClassToGenerate(SemanticModel semanticModel, SyntaxNode classDeclarationSyntax)
     {
-        // we know the node is a cds thanks to IsSyntaxTargetForGeneration
-        var cds = (ClassDeclarationSyntax)context.Node;
-
-        // loop through all the attributes on the method
-        foreach (AttributeListSyntax attributeListSyntax in cds.AttributeLists)
-        {
-            foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
-            {
-                if (context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol is not IMethodSymbol attributeSymbol)
-                    continue;
-
-                INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
-
-                // Is the attribute the attribute we are interested in?
-                if (attributeContainingTypeSymbol.ToDisplayString() == BuildableAttribute)
-                    return cds;
-            }
-        }
-
-        return null;
+        return semanticModel.GetDeclaredSymbol(classDeclarationSyntax) is not INamedTypeSymbol typeSymbol
+            ? null
+            : (ClassToGenerate?)new ClassToGenerate(typeSymbol);
     }
 
-    public static void Execute(Compilation compilation, IEnumerable<ClassDeclarationSyntax> classes, in SourceProductionContext context)
+    private static void Execute(ClassToGenerate? classToGenerate, SourceProductionContext context)
     {
-        if (!(classes?.Any() ?? false))
-        {
-            // nothing to do yet
+        if (context.CancellationToken.IsCancellationRequested)
             return;
-        }
-        INamedTypeSymbol buildableSymbol = compilation.GetTypeByMetadataName(BuildableAttribute)!;
 
-        foreach (ClassDeclarationSyntax @class in classes)
+        if (classToGenerate is { } value)
         {
-            if (context.CancellationToken.IsCancellationRequested)
-                return;
-
-            SemanticModel model = compilation.GetSemanticModel(@class.SyntaxTree, true);
-            if (model.GetDeclaredSymbol(@class) is not INamedTypeSymbol typeSymbol)
-                continue;
-
-            if (HasAttribute(typeSymbol, buildableSymbol))
-                Execute(context, typeSymbol);
-        }
-    }
-
-    private static bool HasAttribute(INamedTypeSymbol typeSymbol, INamedTypeSymbol attributeSymbol)
-    {
-        foreach (AttributeData attribute in typeSymbol.GetAttributes())
-        {
-            if (attribute.AttributeClass?.Equals(attributeSymbol, SymbolEqualityComparer.Default) == true)
-                return true;
-        }
-        return false;
-    }
-
-    private static void Execute(in SourceProductionContext context, INamedTypeSymbol typeSymbol)
-    {
-        try
-        {
-            var source = TypeBuilderWriter.Write(typeSymbol);
-            var sourceText = SourceText.From(source, Encoding.UTF8);
-            context.ReportDiagnostic(Diagnostic.Create(s_successfullyGeneratedBuilderSource, Location.None, typeSymbol.Name));
-            var name = typeSymbol.Name;
-            if (typeSymbol.IsGenericType)
+            var typeName = value.TypeName;
+            try
             {
+                var source = TypeBuilderWriter.Write(value);
+                var sourceText = SourceText.From(source, Encoding.UTF8);
+                context.ReportDiagnostic(Diagnostic.Create(s_successfullyGeneratedBuilderSource, Location.None, typeName));
+                var name = value.FullTypeName;
                 var idx = name.IndexOf('<');
                 if (idx > -1)
                 {
                     name = name.Substring(0, idx);
                 }
+                context.AddSource($"{name}Builder.g.cs", sourceText);
             }
-            context.AddSource($"{name}Builder.g.cs", sourceText);
-        }
-        catch (Exception ex)
-        {
-            context.ReportDiagnostic(Diagnostic.Create(s_errorGeneratingBuilderSource, Location.None, typeSymbol.Name, ex.Message));
+            catch (Exception ex)
+            {
+                context.ReportDiagnostic(Diagnostic.Create(s_errorGeneratingBuilderSource, Location.None, typeName, ex.Message));
+            }
         }
     }
 }
