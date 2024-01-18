@@ -45,13 +45,18 @@ public class BuilderGenerator : IIncrementalGenerator
 
         IncrementalValuesProvider<ClassDeclarationSyntax> classDeclarations = context.SyntaxProvider
             .CreateSyntaxProvider(
+                // 👇 Runs for _every_ syntax node, on _every_ key press!
                 predicate: static (s, _) => IsSyntaxTargetForGeneration(s),
+                // 👇 Runs for _every_ node selected by the predicate, on _every_ key press!
                 transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx))
             .Where(static m => m is not null)!;
 
+        // 👇 Runs for every _new_ value returned by the syntax provider
         IncrementalValueProvider<(Compilation Left, ImmutableArray<ClassDeclarationSyntax> Right)> incValueProvider = context.CompilationProvider.Combine(classDeclarations.Collect());
+
+        // 👇 Runs for every _new_ value returned by the syntax provider
         context.RegisterSourceOutput(incValueProvider,
-    static (spc, source) => Execute(source.Left, source.Right, spc));
+            static (spc, source) => Execute(source.Left, source.Right, spc));
     }
 
     public static bool IsSyntaxTargetForGeneration(SyntaxNode node)
