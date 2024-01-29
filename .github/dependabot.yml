@@ -9,6 +9,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+      day: "sunday"
     labels:
       - "Dependencies :arrow_up:"
 
@@ -16,5 +17,6 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+      day: "sunday"
     labels:
       - "Dependencies :arrow_up:"
