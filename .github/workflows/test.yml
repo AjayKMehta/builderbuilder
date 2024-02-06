@@ -47,7 +47,7 @@ jobs:
           fi
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore --tl
 
       - name: Test
         run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --no-restore --verbosity normal --logger GitHubActions
