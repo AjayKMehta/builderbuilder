@@ -50,10 +50,24 @@ jobs:
         run: dotnet build --configuration Release --no-restore --tl
 
       - name: Test
-        run: dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura --no-restore --verbosity normal --logger GitHubActions
-
+        run: dotnet test --collect "Code Coverage;Format=cobertura" --no-restore --verbosity normal --logger GitHubActions
+      - name: ReportGenerator
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
+        with:
+          reports: './**/TestResults/**/*.cobertura.xml'
+          targetdir: '${{ github.workspace }}/coveragereport'
+          reporttypes: 'MarkdownSummaryGithub'
+      - name: Upload coverage into summary
+        run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: ./**/TestResults/**/*.cobertura.xml
       - name: Code coverage
         uses:  codecov/codecov-action@v4.0.1
         with:
           flags: unittests
           verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
