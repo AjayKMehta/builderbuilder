@@ -50,7 +50,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore --tl
 
       - name: Test
-        run: dotnet test --collect "Code Coverage;Format=cobertura" --no-restore --verbosity normal --logger GitHubActions
+        run: dotnet test -s .runsettings --no-restore --verbosity normal --logger GitHubActions
 
       - name: Code coverage
         uses:  codecov/codecov-action@v4.0.1
