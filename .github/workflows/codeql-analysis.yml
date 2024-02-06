@@ -73,7 +73,7 @@ jobs:
         run: dotnet restore --force-evaluate
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore --tl
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3.24.0
