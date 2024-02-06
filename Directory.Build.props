@@ -20,6 +20,7 @@
     <!-- https://github.com/dotnet/reproducible-builds/blob/main/Documentation/Reproducible-MSBuild/Techniques/DisableImplicitNuGetFallbackFolder.md -->
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
     <NuGetAudit>true</NuGetAudit>
+    <NuGetAuditLevel>high</NuGetAuditLevel>
   </PropertyGroup>
   <!-- GH, CircleCI, GitLab and BitBucket use CI -->
   <PropertyGroup Label="CI" Condition="'$(CI)' != ''">
