@@ -65,6 +65,15 @@ jobs:
           targetdir: '${{ github.workspace }}/coveragereport'
           reporttypes: 'MarkdownSummaryGithub'
 
+      # https://github.com/danielpalme/ReportGenerator/issues/431
+      - name: Publish coverage summary
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: ${{ github.event_name == 'pull_request' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: coveragereport/SummaryGithub.md
+
       - name: Upload coverage into summary
         run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
 
