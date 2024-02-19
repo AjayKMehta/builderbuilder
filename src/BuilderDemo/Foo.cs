@@ -1,6 +1,6 @@
-using BuilderGenerator;
-
 using System;
+
+using BuilderGenerator;
 
 namespace BuilderDemo;
 

@@ -1,4 +1,4 @@
-﻿namespace BuilderGenerator;
+namespace BuilderGenerator;
 
 internal static class BuilderGeneratorHelper
 {

@@ -40,7 +40,7 @@ public class BuilderGenerator : IIncrementalGenerator
         context.RegisterPostInitializationOutput(ctx => ctx.AddSource(
             "BuildableAttribute.g.cs", SourceText.From($"{Header}{AttributeText}", Encoding.UTF8)));
 
-        IncrementalValuesProvider<ClassToGenerate?  > classesToGenerate = context.SyntaxProvider
+        IncrementalValuesProvider<ClassToGenerate?> classesToGenerate = context.SyntaxProvider
             .ForAttributeWithMetadataName(
                 BuildableAttribute,
                 // 👇 Runs for _every_ syntax node, on _every_ key press!
