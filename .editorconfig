@@ -616,6 +616,9 @@ dotnet_diagnostic.RCS1208.severity = none
 # RCS1211: Remove unnecessary 'else'
 dotnet_diagnostic.RCS1211.severity = suggestion
 
+# RCS1213: Remove unused member declaration
+dotnet_diagnostic.RCS1213.severity = none
+
 # RCS1227: Validate arguments correctly
 dotnet_diagnostic.RCS1227.severity = warning
 
