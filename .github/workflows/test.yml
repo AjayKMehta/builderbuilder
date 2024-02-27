@@ -8,6 +8,7 @@ on:
       - "**.csproj"
 permissions:
   contents: read
+  pull-requests: write
 
   # https://www.meziantou.net/how-to-cancel-github-workflows-when-pushing-new-commits-on-a-branch.htm
 concurrency:
@@ -23,6 +24,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
+    env:
+      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
       - name: 'Checkout Repository'
@@ -66,6 +71,13 @@ jobs:
           reporttypes: 'MarkdownSummaryGithub'
 
       - uses: 8BitJonny/gh-get-current-pr@3.0.0
+        with:
+          # This will work no matter the trigger event and no matter if it is the first PR commit or not.
+          sha: ${{ github.event.pull_request.head.sha }}
+          # By default it returns PRs in any state.
+          filterOutClosed: true
+          # By default it returns PRs in any state.
+          filterOutDraft: true
         id: pr-check
 
       # https://github.com/danielpalme/ReportGenerator/issues/431
@@ -75,7 +87,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          number: ${{ steps.pr-check.outputs.number }}
           path: coveragereport/SummaryGithub.md
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          header: lighthouse
 
       - name: Upload coverage into summary
         run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
