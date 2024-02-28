@@ -58,7 +58,7 @@ jobs:
         run: dotnet test -s .runsettings --no-restore --verbosity normal --logger GitHubActions
 
       - name: Code coverage
-        uses:  codecov/codecov-action@v4.0.2
+        uses:  codecov/codecov-action@v4.1.0
         with:
           flags: unittests
           verbose: true
@@ -87,10 +87,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          hide: true # Hide previous comment
+          hide_classify: "OUTDATED"
+          skip_unchanged: true
           number: ${{ steps.pr-check.outputs.number }}
           path: coveragereport/SummaryGithub.md
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          header: lighthouse
+          header: "Code coverage"
 
       - name: Upload coverage into summary
         run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
