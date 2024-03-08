@@ -62,13 +62,13 @@
       },
       "Verify.NUnit": {
         "type": "Direct",
-        "requested": "[23.2.2, )",
-        "resolved": "23.2.2",
-        "contentHash": "4BUoGczw77Wf11AHuNpZgxqZc+WQVsTNwM+eHmbLjAENn9IR7gd3KmItqsLDZOHCGb+d0m026mR6JIP//kjnTw==",
+        "requested": "[23.3.0, )",
+        "resolved": "23.3.0",
+        "contentHash": "ucodE/RyRvsVvJ0OpTZdCpP5XreF/eaGcuwQyJokso9jpt7zps/BDrKLWkbfV2Ip8q3aoB39s6QqKprB3G9lMg==",
         "dependencies": {
-          "EmptyFiles": "8.1.0",
+          "EmptyFiles": "8.1.1",
           "NUnit": "4.1.0",
-          "Verify": "23.2.2"
+          "Verify": "23.3.0"
         }
       },
       "Verify.SourceGenerators": {
@@ -88,17 +88,17 @@
       },
       "DiffEngine": {
         "type": "Transitive",
-        "resolved": "15.2.1",
-        "contentHash": "byoJFGS20HocLkV/kbFUpSNMwgJl+AafibTeYRptJP38g0pv3xmHmE6fBg98kYyGYAMUf6L0Y9Sse//ysfpPzA==",
+        "resolved": "15.2.2",
+        "contentHash": "KmufE1clNo6sfcKaceNiV6/rgBYun0lccodhkhvX2tB1+f69QlFAsw/mXFcTsf/8vyGj5KEerxQasWjZ3fXGCA==",
         "dependencies": {
-          "EmptyFiles": "8.1.0",
+          "EmptyFiles": "8.1.1",
           "System.Management": "6.0.2"
         }
       },
       "EmptyFiles": {
         "type": "Transitive",
-        "resolved": "8.1.0",
-        "contentHash": "K9eKlpWDyHdvCqogbQllUQvZcAPe8cApSAyGnROgEHYQaLuWXx4QQqbbM9VsbPmHjxOWIP3Il5QbDb7Z6p6t1w=="
+        "resolved": "8.1.1",
+        "contentHash": "s3FvzcRB4sE9yo+WNEZmPjQzuEktLY8hqAkpUbJuFemb749sWiiGL5Onfmuidc32MH+YCRCUHlRSJOujuULUiQ=="
       },
       "Microsoft.Bcl.HashCode": {
         "type": "Transitive",
@@ -186,12 +186,12 @@
       },
       "Verify": {
         "type": "Transitive",
-        "resolved": "23.2.2",
-        "contentHash": "VI0iEgGuheCrWAqMiBOTztIiH64sblSavYyuowjMK/bLjxPbLYk1gAQ0CugUVhlSpdSBFMuHMUapTY95GWB5UQ==",
+        "resolved": "23.3.0",
+        "contentHash": "SScF/w8BYP94O+FFoThFr/g9RggbIEtc2kOgJvqIceBqeM5L9n8FNYmLznmguglV9k7hwS5OKAHXWdaluYDgyA==",
         "dependencies": {
           "Argon": "0.17.0",
-          "DiffEngine": "15.2.1",
-          "EmptyFiles": "8.1.0",
+          "DiffEngine": "15.2.2",
+          "EmptyFiles": "8.1.1",
           "SimpleInfoName": "2.2.0",
           "System.IO.Hashing": "8.0.0"
         }
