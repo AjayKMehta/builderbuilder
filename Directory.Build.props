@@ -8,8 +8,9 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <Nullable>Enable</Nullable>
-    <BaseOutputPath>$(MSBuildThisFileDirectory)bin</BaseOutputPath>
-    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+    <!-- https://learn.microsoft.com/en-us/dotnet/core/sdk/artifacts-output -->
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
     <!-- https://github.com/dotnet/roslyn/issues/37876#issuecomment-738042719 -->
