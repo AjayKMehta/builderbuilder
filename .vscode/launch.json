@@ -9,11 +9,11 @@
       "request": "launch",
       "preLaunchTask": "build",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/bin/${input:rememberConfig}/net8.0/BuilderDemo.dll",
+      "program": "${workspaceFolder}/artifacts/bin/BuilderDemo/${input:rememberConfig}/BuilderDemo.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/BuilderDemo",
       "console": "internalConsole",
-      "stopAtEntry": false
+      "stopAtEntry": false,
     },
     {
       "name": "Launch BuilderGenerator.Tests",
@@ -21,7 +21,7 @@
       "request": "launch",
       "preLaunchTask": "build",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/bin/${input:rememberConfig}/net8.0/BuilderGenerator.Tests.dll",
+      "program": "${workspaceFolder}/artifacts/bin/BuilderGenerator.Tests/${input:rememberConfig}/BuilderGenerator.Tests.dll",
       "args": [],
       "cwd": "${workspaceFolder}/tests/BuilderGenerator.Tests",
       "console": "internalConsole",
