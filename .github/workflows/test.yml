@@ -55,7 +55,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore --tl
 
       - name: Test
-        run: dotnet test -s .runsettings --no-restore --verbosity normal --logger GitHubActions
+        run: dotnet test -s .runsettings --no-restore --verbosity normal --logger "GitHubActions;summary.includeNotFoundTests=false"
 
       - name: Code coverage
         uses:  codecov/codecov-action@v4.1.1
