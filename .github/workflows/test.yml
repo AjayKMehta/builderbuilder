@@ -49,10 +49,8 @@ jobs:
         run: dotnet tool install -g dotnet-coverage
 
       - name: Install dependencies
-        env:
-          COMMIT_VAR: ${{ contains(github.actor, 'dependabot') }}
         run: |
-          if ${COMMIT_VAR} == true; then
+          if ${{ contains(github.event.pull_request.user.login, 'dependabot') || contains(github.event.issue.user.login, 'dependabot') }} ; then
             dotnet restore --force-evaluate
           else
             dotnet restore

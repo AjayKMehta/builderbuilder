@@ -46,7 +46,7 @@ jobs:
       matrix:
         include:
         - language: csharp
-          build-mode: autobuild
+          build-mode: manual
         # To learn more about changing the languages that are analyzed or customizing the build mode for your analysis,
         # see https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning.
         # If you are analyzing a compiled language, you can modify the 'build-mode' for that language to customize how
