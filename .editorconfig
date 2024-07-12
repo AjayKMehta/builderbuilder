@@ -752,6 +752,9 @@ dotnet_diagnostic.CA1501.severity = suggestion
 ## Naming rules
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/naming-warnings
 
+# CA1711: Identifiers should not have incorrect suffix
+dotnet_code_quality.ca1711.allowed_suffixes = Ex|Flag|Flags|Impl
+
 # CA1712: Do not prefix enum values with type name
 dotnet_code_quality.CA1712.severity = warning
 
