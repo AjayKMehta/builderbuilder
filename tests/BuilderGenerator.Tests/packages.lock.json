@@ -53,9 +53,9 @@
       },
       "NUnit3TestAdapter": {
         "type": "Direct",
-        "requested": "[4.5.0, )",
-        "resolved": "4.5.0",
-        "contentHash": "s8JpqTe9bI2f49Pfr3dFRfoVSuFQyraTj68c3XXjIS/MRGvvkLnrg6RLqnTjdShX+AdFUCCU/4Xex58AdUfs6A=="
+        "requested": "[4.6.0, )",
+        "resolved": "4.6.0",
+        "contentHash": "R7e1+a4vuV/YS+ItfL7f//rG+JBvVeVLX4mHzFEZo4W1qEKl8Zz27AqvQSAqo+BtIzUCo4aAJMYa56VXS4hudw=="
       },
       "ReflectionAnalyzers": {
         "type": "Direct",
@@ -65,12 +65,12 @@
       },
       "Verify.NUnit": {
         "type": "Direct",
-        "requested": "[25.3.1, )",
-        "resolved": "25.3.1",
-        "contentHash": "hbpzwH0Ob2ZcCD9P3wihqdo0NEJgPni0tpmN3rNeAAVmtHadBdQK9tntRtTvtRg53NIa3mvjjr9dMFNuZ9LA+A==",
+        "requested": "[26.1.2, )",
+        "resolved": "26.1.2",
+        "contentHash": "Wv6Ixy+QdQUirDTUR8zSykm1KGOtJqrZd2vtf72QMPRqzUhqd90dpF1Pcchj6KBUsylpRc4Y+Quu2Dw+AapWdA==",
         "dependencies": {
           "NUnit": "4.1.0",
-          "Verify": "25.3.1"
+          "Verify": "26.1.2"
         }
       },
       "Verify.SourceGenerators": {
@@ -90,8 +90,8 @@
       },
       "DiffEngine": {
         "type": "Transitive",
-        "resolved": "15.4.6",
-        "contentHash": "eDvY96cVnt1jsH8I2lx+WJg1bH9fdKkjIszMVnQDNNDeTg5f8vgiMwalPDhOhk/DYmosAFPzo6/zApHTdxjMog==",
+        "resolved": "15.5.0",
+        "contentHash": "bO9PDNuH1VQ3TN/BH9xUiZOc1yxufYq/UnEKm3jg87sQJEOi0TBWLkLntRf/k/5WUpr/FpvVa4gvHqQ9M0F/fg==",
         "dependencies": {
           "EmptyFiles": "8.3.0",
           "System.Management": "8.0.0"
@@ -182,11 +182,11 @@
       },
       "Verify": {
         "type": "Transitive",
-        "resolved": "25.3.1",
-        "contentHash": "Lqbx22jJghFFCNhiTXMOgk5SIfDskvRi5Xj0YHnrDyNXdrbqfuIbRxFoZOZZLBWcMEJTTATqEybfHL4JiXKlSA==",
+        "resolved": "26.1.2",
+        "contentHash": "v9DXTXTnhefT7kocgs0IjSbP0rRZoAsFRb2GkurQJV2tKIwmwtJECXNM33K4YRoAPAojOlOzfLWbdYqR86UgBA==",
         "dependencies": {
           "Argon": "0.17.0",
-          "DiffEngine": "15.4.6",
+          "DiffEngine": "15.5.0",
           "SimpleInfoName": "2.3.0",
           "System.IO.Hashing": "8.0.0"
         }
