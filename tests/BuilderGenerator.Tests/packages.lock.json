@@ -65,28 +65,27 @@
       },
       "Verify.NUnit": {
         "type": "Direct",
-        "requested": "[26.1.2, )",
-        "resolved": "26.1.2",
-        "contentHash": "Wv6Ixy+QdQUirDTUR8zSykm1KGOtJqrZd2vtf72QMPRqzUhqd90dpF1Pcchj6KBUsylpRc4Y+Quu2Dw+AapWdA==",
+        "requested": "[26.1.6, )",
+        "resolved": "26.1.6",
+        "contentHash": "Ldi8YcYdBSdL1AFLUuSjADCfx98oz9NvFMZk7jM+1VI2LtdbcGSi2xQPb6yojZ2Y1LeP0OUq2cARjrzuGoDjIw==",
         "dependencies": {
           "NUnit": "4.1.0",
-          "Verify": "26.1.2"
+          "Verify": "26.1.6"
         }
       },
       "Verify.SourceGenerators": {
         "type": "Direct",
-        "requested": "[2.2.0, )",
-        "resolved": "2.2.0",
-        "contentHash": "7SEm/yHj6IYu/XWB01f3hiFowR/WoxauJxSiK0Y05pFcrW9ADKB4p5MQW6yIXCkNsbaVjJByuoywWszKLY0izw==",
+        "requested": "[2.3.0, )",
+        "resolved": "2.3.0",
+        "contentHash": "oDc6OterZCW0yLlClg3Wq39KAH7gjLCZXoaGCptVK9ZweLgbRjLNSa+1y7+vBlQWf/nt9Ooup2fKf8BCVwuRNQ==",
         "dependencies": {
-          "Argon": "0.11.0",
-          "Verify": "21.3.0"
+          "Verify": "26.1.2"
         }
       },
       "Argon": {
         "type": "Transitive",
-        "resolved": "0.17.0",
-        "contentHash": "TC/5P8sb2AKeC6dLAEx7ex1sr2IiQOI0tZ8yV6J3QT8qp7bUfP/blmwrgZ/zIab84XQ+XScT1zUeok96iZ7ReQ=="
+        "resolved": "0.21.0",
+        "contentHash": "c515pzYDOmF3o8TywrIsTjxbc5KJwSdZW3I7JkhhduLz15wAlxo53nLg2UnD+dqTAT838LcuawRNgneK83A30Q=="
       },
       "DiffEngine": {
         "type": "Transitive",
@@ -182,10 +181,10 @@
       },
       "Verify": {
         "type": "Transitive",
-        "resolved": "26.1.2",
-        "contentHash": "v9DXTXTnhefT7kocgs0IjSbP0rRZoAsFRb2GkurQJV2tKIwmwtJECXNM33K4YRoAPAojOlOzfLWbdYqR86UgBA==",
+        "resolved": "26.1.6",
+        "contentHash": "fBz21ObQMWOd08ITfY2OpCx0quYrBYEjqCT++UxbB3rrZ44olpa+omLjE9GXmdmQ/5xG81+pzvQ0ro6qyeMGIA==",
         "dependencies": {
-          "Argon": "0.17.0",
+          "Argon": "0.21.0",
           "DiffEngine": "15.5.0",
           "SimpleInfoName": "2.3.0",
           "System.IO.Hashing": "8.0.0"
