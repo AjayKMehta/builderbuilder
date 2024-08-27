@@ -68,7 +68,7 @@ indent_size = 2
 [Makefile]
 indent_style = tab
 
-[*.{generated.cs,g.cs}]
+[*.{AssemblyAttributes.cs,AssemblyInfo.cs,generated.cs,g.cs}]
 exclude = true
 generated_code = true
 
