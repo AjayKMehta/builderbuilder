@@ -251,7 +251,8 @@ dotnet_separate_import_directive_groups = true
 
 # Newline options
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/csharp-formatting-options#new-line-options
-csharp_new_line_before_open_brace = all #Allman
+# Allman
+csharp_new_line_before_open_brace = all
 csharp_new_line_before_else = true
 csharp_new_line_before_catch = true
 csharp_new_line_before_finally = true
