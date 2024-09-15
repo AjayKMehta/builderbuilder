@@ -620,7 +620,7 @@ dotnet_diagnostic.RCS1182.severity = suggestion
 dotnet_diagnostic.RCS1186.severity = suggestion
 
 # RCS1198: Avoid unnecessary boxing of value type
-dotnet_diagnostic.RCS1198.severity = none
+dotnet_diagnostic.RCS1198.severity = suggestion
 
 # RCS1207: Use anonymous function or method group
 roslynator_use_anonymous_function_or_method_group = method_group
