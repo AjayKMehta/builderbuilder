@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- For more information, see: -->
+<!-- https://learn.microsoft.com/en-us/visualstudio/test/configure-unit-tests-by-using-a-dot-runsettings-file -->
+<!-- https://github.com/microsoft/codecoverage/blob/main/docs/configuration.md -->
+<RunSettings>
+  <RunConfiguration>
+    <TargetPlatform>x64</TargetPlatform>
+    <TreatTestAdapterErrorsAsWarnings>False </TreatTestAdapterErrorsAsWarnings>
+    <!-- Path relative to solution directory -->
+    <ResultsDirectory>./TestResults</ResultsDirectory>
+    <!-- 0 allows as many testhosts as you have logical processors -->
+    <MaxCpuCount>0</MaxCpuCount>
+    <!-- Timeout in milliseconds. If 0, timeout will be infinity -->
+    <TestSessionTimeout>3600000</TestSessionTimeout>
+    <TreatNoTestsAsError>False</TreatNoTestsAsError>
+    <!-- Disables in-assembly parallel execution. -->
+    <DisableParallelization>False</DisableParallelization>
+    <DisableAppDomain>False</DisableAppDomain>
+    <CollectSourceInformation>True</CollectSourceInformation>
+  </RunConfiguration>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0" assemblyQualifiedName="Microsoft.VisualStudio.Coverage.DynamicCoverageDataCollector, Microsoft.VisualStudio.TraceCollector, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+        <Configuration>
+          <CoverageLogLevel>Dumps</CoverageLogLevel>
+          <InstrumentationLogLevel>Dumps</InstrumentationLogLevel>
+          <CoverageFileLogPath>coverage.log</CoverageFileLogPath>
+          <!-- Below doesn't work 😦. For details, see https://github.com/microsoft/codecoverage/issues/76 -->
+          <CoverageFileName>coverage.cobertura.xml</CoverageFileName>
+          <Format>Cobertura</Format>
+          <PerTestCodeCoverage>False</PerTestCodeCoverage>
+          <IncludeTestAssembly>False</IncludeTestAssembly>
+          <CodeCoverage>
+            <CommunicationTimeout> 120000</CommunicationTimeout>
+            <ModulePaths>
+              <Include>
+                <ModulePath>.*Dappery[^/\\]+\.dll$</ModulePath>
+              </Include>
+              <Exclude>
+                <ModulePath>.*Tests\.dll$</ModulePath>
+              </Exclude>
+            </ModulePaths>
+            <Attributes>
+              <Exclude>
+                <Attribute>^System\.Diagnostics\.DebuggerHiddenAttribute$</Attribute>
+                <Attribute>^System\.Diagnostics\.DebuggerNonUserCodeAttribute$</Attribute>
+                <Attribute>^System\.CodeDom\.Compiler\.GeneratedCodeAttribute$</Attribute>
+                <Attribute>^System\.Diagnostics\.CodeAnalysis\.ExcludeFromCodeCoverageAttribute$</Attribute>
+                <Attribute>^System\.ObsoleteAttribute$</Attribute>
+                <Attribute>^System\.Runtime\.CompilerServices\.CompilerGeneratedAttribute$</Attribute>
+                <Attribute>^System\.Text\.RegularExpressions\.GeneratedRegexAttribute$</Attribute>
+              </Exclude>
+            </Attributes>
+            <!-- Match the company name property in the assembly: -->
+            <CompanyNames>
+              <Exclude>
+                <CompanyName>.*microsoft.*</CompanyName>
+              </Exclude>
+            </CompanyNames>
+            <CollectFromChildProcesses>True</CollectFromChildProcesses>
+            <UseVerifiableInstrumentation>False</UseVerifiableInstrumentation>
+            <EnableStaticNativeInstrumentation>False</EnableStaticNativeInstrumentation>
+            <EnableDynamicNativeInstrumentation>False</EnableDynamicNativeInstrumentation>
+            <EnableDynamicManagedInstrumentation>True</EnableDynamicManagedInstrumentation>
+            <EnableStaticManagedInstrumentation>True</EnableStaticManagedInstrumentation>
+            <ExcludeAssembliesWithoutSources>MissingAll</ExcludeAssembliesWithoutSources>
+          </CodeCoverage>
+        </Configuration>
+      </DataCollector>
+      <!-- Isolate test causing crash. -->
+      <DataCollector friendlyName="blame" enabled="True">
+        <Configuration>
+          <CollectDump DumpType="Full" />
+          <CollectDumpOnTestSessionHang TestTimeout="10min" HangDumpType="Full" />
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+  <LoggerRunSettings>
+    <Loggers>
+      <Logger friendlyName="console" enabled="true">
+        <Configuration>
+          <Verbosity>normal</Verbosity>
+        </Configuration>
+      </Logger>
+      <Logger friendlyName="trx" enabled="true">
+        <Configuration>
+          <LogFilePrefix>testresults</LogFilePrefix>
+        </Configuration>
+      </Logger>
+      <Logger friendlyName="html" enabled="true">
+        <Configuration>
+          <LogFilePrefix>TestResults</LogFilePrefix>
+        </Configuration>
+      </Logger>
+      <Logger friendlyName="blame" enabled="true" />
+    </Loggers>
+  </LoggerRunSettings>
+  <!-- https://docs.nunit.org/articles/vs-test-adapter/Tips-And-Tricks.html -->
+  <NUnit>
+    <PrivateBinPath>extras;more.extras</PrivateBinPath>
+    <DefaultTimeout>60000</DefaultTimeout>
+    <InternalTraceLevel>Off</InternalTraceLevel>
+    <RandomSeed>1234567</RandomSeed>
+    <NumberOfTestWorkers>-1</NumberOfTestWorkers>
+    <Verbosity>1</Verbosity>
+    <UseVsKeepEngineRunning>False</UseVsKeepEngineRunning>
+    <ShadowCopyFiles>False</ShadowCopyFiles>
+    <DefaultTestNamePattern>{m}{a}</DefaultTestNamePattern>
+    <DumpXmlTestDiscovery>False</DumpXmlTestDiscovery>
+    <DumpXmlTestResults>False</DumpXmlTestResults>
+    <ShowInternalProperties>False</ShowInternalProperties>
+    <NewOutputXmlFileForEachRun>False</NewOutputXmlFileForEachRun>
+    <OutputXmlFolderMode>UseResultDirectory</OutputXmlFolderMode>
+    <!-- NUnit filter expression, see -->
+    <!-- https://docs.nunit.org/articles/nunit/running-tests/Test-Selection-Language.html -->
+    <ConsoleOut>2</ConsoleOut>
+    <UseTestNameInConsoleOutput>True</UseTestNameInConsoleOutput>
+    <StopOnError>False</StopOnError>
+    <SkipNonTestAssemblies>False</SkipNonTestAssemblies>
+    <MapWarningTo>Skipped</MapWarningTo>
+    <!-- Passed, Failed or Skipped -->
+    <DisplayName>Name</DisplayName>
+    <FullnameSeparator>:</FullnameSeparator>
+    <DiscoveryMethod>Current</DiscoveryMethod>
+    <AssemblySelectLimit>2000</AssemblySelectLimit>
+    <IncludeStackTraceForSuites>True</IncludeStackTraceForSuites>
+    <ExplicitMode>Strict</ExplicitMode>
+    <SkipExecutionWhenNoTests>True</SkipExecutionWhenNoTests>
+    <PreFilter>True</PreFilter>
+    <UseParentFQNForParametrizedTests>True</UseParentFQNForParametrizedTests>
+    <UseNUnitIdforTestCaseId>False</UseNUnitIdforTestCaseId>
+    <AllowParallelWithDebugger>True</AllowParallelWithDebugger>
+    <ThrowOnEachFailureUnderDebugger>True</ThrowOnEachFailureUnderDebugger>
+  </NUnit>
+</RunSettings>
