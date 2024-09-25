@@ -1,5 +1,9 @@
 name: "Run tests"
 
+env:
+  # Only merge code coverage results if 1
+  USE_MERGE: 0
+
 on:
   push:
   pull_request:
@@ -60,23 +64,26 @@ jobs:
         run: dotnet build --configuration Release --no-restore --tl
 
       - name: Test
-        run: dotnet test -s .runsettings --no-restore --verbosity normal --logger "GitHubActions;summary.includeNotFoundTests=false"
-
-      - name: Code coverage
-        uses:  codecov/codecov-action@v4.5.0
-        with:
-          flags: unittests
-          verbose: true
+        run: dotnet test --configuration Release -s cicd.runsettings --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false"
 
       - name: ReportGenerator
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.3.8
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.3.9
         with:
-          reports: './**/TestResults/**/*.cobertura.xml'
+          reports: '**/TestResults/**/coverage.cobertura.xml'
           targetdir: '${{ github.workspace }}/coveragereport'
           reporttypes: 'MarkdownSummaryGithub;MarkdownAssembliesSummary'
           classfilters: '-System.*;-Microsoft.*;-Newtonsoft.*;-System.Text.RegularExpressions.*;-xunit.*;-NUnit.*'
 
-      - uses: 8BitJonny/gh-get-current-pr@3.0.0
+      - name: Upload code coverage results to codecov
+        uses:  codecov/codecov-action@v4.5.0
+        with:
+          flags: unittests
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Check if PR for current commit
+        uses: 8BitJonny/gh-get-current-pr@3.0.0
         with:
           # This will work no matter the trigger event and no matter if it is the first PR commit or not.
           sha: ${{ github.event.pull_request.head.sha }}
@@ -87,7 +94,7 @@ jobs:
         id: pr-check
 
       # https://github.com/danielpalme/ReportGenerator/issues/431
-      - name: Publish coverage summary
+      - name: Publish PR coverage summary
         uses: marocchino/sticky-pull-request-comment@v2
         if: steps.pr-check.outputs.pr_found == 'true'
         env:
@@ -106,17 +113,18 @@ jobs:
         shell: bash
 
       - name: Merge code coverage results
+        if: env.USE_MERGE == 1
         run: dotnet-coverage merge **/*/*.cobertura.xml -f cobertura -o ./cobertura.xml
         shell: bash
 
         # In v4, Artifacts are immutable (unless deleted). So you must change
         # each of the uploaded Artifacts to have a different name and filter the
         # downloads by name to achieve the same effect
-      - name: Archive code coverage results
+      - name: Archive results
         # https://github.com/actions/upload-artifact/blob/main/docs/MIGRATION.md
         uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report-${{ matrix.os }}
           path: |
-            ./cobertura.xml
+            **/TestResults/**/coverage.cobertura.xml
             coveragereport/*.md
