@@ -31,11 +31,9 @@
           <CodeCoverage>
             <CommunicationTimeout> 120000</CommunicationTimeout>
             <ModulePaths>
-              <Include>
-                <ModulePath>.*Dappery[^/\\]+\.dll$</ModulePath>
-              </Include>
               <Exclude>
                 <ModulePath>.*Tests\.dll$</ModulePath>
+                <ModulePath>.*Argon.*\.dll$</ModulePath>
               </Exclude>
             </ModulePaths>
             <Attributes>
@@ -45,6 +43,8 @@
                 <Attribute>^System\.Diagnostics\.CodeAnalysis\.ExcludeFromCodeCoverageAttribute$</Attribute>
                 <Attribute>^System\.ObsoleteAttribute$</Attribute>
                 <Attribute>^System\.Text\.RegularExpressions\.GeneratedRegexAttribute$</Attribute>
+                <Attribute>^System\.Runtime\.CompilerServices\.CompilerGeneratedAttribute$</Attribute>
+                <Attribute>^System\.CodeDom\.Compiler\.GeneratedCodeAttribute$</Attribute>
               </Exclude>
             </Attributes>
             <!-- Match the company name property in the assembly: -->
