@@ -44,10 +44,8 @@
               <Exclude>
                 <Attribute>^System\.Diagnostics\.DebuggerHiddenAttribute$</Attribute>
                 <Attribute>^System\.Diagnostics\.DebuggerNonUserCodeAttribute$</Attribute>
-                <Attribute>^System\.CodeDom\.Compiler\.GeneratedCodeAttribute$</Attribute>
                 <Attribute>^System\.Diagnostics\.CodeAnalysis\.ExcludeFromCodeCoverageAttribute$</Attribute>
                 <Attribute>^System\.ObsoleteAttribute$</Attribute>
-                <Attribute>^System\.Runtime\.CompilerServices\.CompilerGeneratedAttribute$</Attribute>
                 <Attribute>^System\.Text\.RegularExpressions\.GeneratedRegexAttribute$</Attribute>
               </Exclude>
             </Attributes>
