@@ -18,7 +18,7 @@ public class BuilderGenerator : IIncrementalGenerator
     (
         id: "BB001",
         title: "An error has occurred while generating source for builder",
-        messageFormat: "An error has ocurred while generating source for builder with name `{0}`: {1}",
+        messageFormat: "An error has occurred while generating source for builder with name `{0}`: {1}",
         category: "Compilation",
         defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true
