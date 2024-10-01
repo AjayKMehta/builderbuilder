@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Automatically update PR
-        uses: adRise/update-pr-branch@v0.9.0
+        uses: adRise/update-pr-branch@v0.9.1
         with:
           # Add secret here: https://github.com/AjayKMehta/builderbuilder/settings/secrets/actions
           token: ${{ secrets.ACTION_USER_TOKEN }}
