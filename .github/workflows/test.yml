@@ -35,14 +35,14 @@ jobs:
 
     steps:
       - name: 'Checkout Repository'
-        uses: actions/checkout@v4.2.1
+        uses: actions/checkout@v4.2.2
         # https://github.com/adamralph/minver?tab=readme-ov-file#why-is-the-default-version-sometimes-used-in-github-actions-azure-pipelines-and-travis-ci-when-a-version-tag-exists-in-the-history
         with:
           fetch-depth: 0
           filter: tree:0
 
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v4.0.1
+        uses: actions/setup-dotnet@v4.1.0
         with:
           dotnet-version: "8.x"
           dotnet-quality: "ga"
@@ -67,7 +67,7 @@ jobs:
         run: dotnet test --configuration Release -s cicd.runsettings --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false"
 
       - name: ReportGenerator
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.3.10
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.3.11
         with:
           reports: '**/TestResults/**/coverage.cobertura.xml'
           targetdir: '${{ github.workspace }}/coveragereport'
@@ -75,7 +75,7 @@ jobs:
           classfilters: '-System.*;-Microsoft.*;-Newtonsoft.*;-System.Text.RegularExpressions.*;-xunit.*;-NUnit.*'
 
       - name: Upload code coverage results to codecov
-        uses:  codecov/codecov-action@v4.5.0
+        uses:  codecov/codecov-action@v4.6.0
         with:
           flags: unittests
           verbose: true

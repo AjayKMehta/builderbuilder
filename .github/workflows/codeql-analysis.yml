@@ -60,14 +60,14 @@ jobs:
     steps:
       - name: Checkout repository
         id: checkout_repo
-        uses: actions/checkout@v4.2.1
+        uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 2
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         id: init_codeql
-        uses: github/codeql-action/init@v3.26.10
+        uses: github/codeql-action/init@v3.27.0
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
@@ -82,7 +82,7 @@ jobs:
       # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
       - if: matrix.build-mode == 'manual'
         name: Set up .NET
-        uses: actions/setup-dotnet@v4.0.1
+        uses: actions/setup-dotnet@v4.1.0
         with:
           dotnet-version: "8.x"
           dotnet-quality: 'ga'
@@ -98,6 +98,6 @@ jobs:
         run: dotnet build --configuration Release --no-restore --tl
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3.26.10
+        uses: github/codeql-action/analyze@v3.27.0
         with:
           category: "/language:${{matrix.language}}"
