@@ -255,6 +255,8 @@ csharp_style_prefer_primary_constructors = false
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/ide0055
 #############################
 dotnet_diagnostic.IDE0055.severity = suggestion
+# https://github.com/dotnet/format/issues/1623#issuecomment-2436483000
+dotnet_diagnostic.IDE0130.severity = suggestion
 
 # Organize usings
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/dotnet-formatting-options#using-directive-options
