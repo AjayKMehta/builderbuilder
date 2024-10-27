@@ -91,7 +91,7 @@ jobs:
 
       - if: matrix.build-mode == 'manual'
         name: Install dependencies
-        run: dotnet restore --force-evaluate
+        run: dotnet restore --locked-mode
 
       - if: matrix.build-mode == 'manual'
         name: Build

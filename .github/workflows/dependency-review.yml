@@ -3,6 +3,7 @@ on: [pull_request, push, workflow_dispatch]
 
 permissions:
   contents: read
+  pull-requests: write
 
   # https://www.meziantou.net/how-to-cancel-github-workflows-when-pushing-new-commits-on-a-branch.htm
 concurrency:
@@ -12,7 +13,7 @@ concurrency:
 
 jobs:
   dependency-review:
-    if: ${{ contains(github.event.pull_request.user.login, 'dependabot') }} == false && ${{ contains(github.event.issue.user.login, 'dependabot') }} == false
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repository'
@@ -23,6 +24,7 @@ jobs:
           base-ref: master
           head-ref: master
           fail-on-severity: high
+          comment-summary-in-pr: always
       - name: Check for vulnerable packages
         run: |
           set -e # This will cause the script to exit on the first error

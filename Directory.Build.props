@@ -3,6 +3,7 @@
     <Deterministic>true</Deterministic>
     <TargetFramework>net8.0</TargetFramework>
     <LangVersion>12.0</LangVersion>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <AnalysisLevel>latest</AnalysisLevel>
@@ -20,8 +21,12 @@
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <!-- https://github.com/dotnet/reproducible-builds/blob/main/Documentation/Reproducible-MSBuild/Techniques/DisableImplicitNuGetFallbackFolder.md -->
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <NuGetAudit>true</NuGetAudit>
+    <NuGetAuditMode>all</NuGetAuditMode>
     <NuGetAuditLevel>high</NuGetAuditLevel>
+  </PropertyGroup>
+  <PropertyGroup Label="NotCI" Condition="'$(CI)' == ''">
+    <!-- https://www.meziantou.net/how-to-output-a-sarif-file-from-a-dotnet-project.htm -->
+    <ErrorLog>$(MSBuildProjectName).sarif,version=2.1</ErrorLog>
   </PropertyGroup>
   <!-- GH, CircleCI, GitLab and BitBucket use CI -->
   <PropertyGroup Label="CI" Condition="'$(CI)' != ''">
