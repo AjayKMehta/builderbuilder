@@ -38,6 +38,7 @@
       "command": "extension.commandvariable.pickStringRemember",
       "args": {
         "key": "buildConfig",
+        "addLabelToTop": "${remember:buildConfig}",
         "default": "Debug",
         "options": [
           "Debug",
