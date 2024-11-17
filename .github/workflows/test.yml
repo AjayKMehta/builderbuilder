@@ -9,10 +9,12 @@ on:
     paths:
       - "**.cs"
       - "**.csproj"
+      - ".github/workflows/test.yml"
   pull_request:
     paths:
       - "**.cs"
       - "**.csproj"
+      - ".github/workflows/test.yml"
 permissions:
   contents: read
   pull-requests: write
