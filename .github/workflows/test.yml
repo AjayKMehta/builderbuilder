@@ -6,6 +6,9 @@ env:
 
 on:
   push:
+    paths:
+      - "**.cs"
+      - "**.csproj"
   pull_request:
     paths:
       - "**.cs"
@@ -54,7 +57,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if [[ "${{ github.actor }}" == "dependabot[bot]" ]]; then
+          if [[" ${{github.event.pull_request.user.login }} " == 'dependabot[bot]']] || [[ "${{ github.actor }}" == 'dependabot[bot]' ]]; then
             dotnet restore --force-evaluate
           else
             dotnet restore --locked-mode
