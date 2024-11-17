@@ -99,10 +99,9 @@ jobs:
           cache: true
           cache-dependency-path: '**/packages.lock.json'
 
-      - if: matrix.build-mode == 'manual'
-        name: Install dependencies
+      - name: Install dependencies
         run: |
-          if [[ "${{ github.actor }}" == "dependabot[bot]" ]]; then
+          if [[" ${{github.event.pull_request.user.login }} " == 'dependabot[bot]']] || [[ "${{ github.actor }}" == 'dependabot[bot]' ]]; then
             dotnet restore --force-evaluate
           else
             dotnet restore --locked-mode
