@@ -72,7 +72,7 @@ jobs:
         run: dotnet test --configuration Release -s cicd.runsettings --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false"
 
       - name: ReportGenerator
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.3.11
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.1
         with:
           reports: '**/TestResults/**/coverage.cobertura.xml'
           targetdir: '${{ github.workspace }}/coveragereport'
@@ -80,7 +80,7 @@ jobs:
           classfilters: '-System.*;-Microsoft.*;-Newtonsoft.*;-System.Text.RegularExpressions.*;-xunit.*;-NUnit.*'
 
       - name: Upload code coverage results to codecov
-        uses:  codecov/codecov-action@v4.6.0
+        uses:  codecov/codecov-action@v5.0.2
         with:
           flags: unittests
           verbose: true
