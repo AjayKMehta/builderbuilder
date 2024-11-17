@@ -8,7 +8,7 @@ using VerifyNUnit;
 
 namespace BuilderGenerator.Tests;
 
-public static class TestHelper
+internal static class TestHelper
 {
     public static Task Verify(string source)
     {
