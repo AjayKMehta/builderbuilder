@@ -1,11 +1,27 @@
 on:
-  pull_request: {}
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [master]
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.txt"
+      - "**/.editorconfig"
+      - "**/*.runsettings"
+      - "**/typos.toml"
+      - ".github/**"
+      - "!.github/workflows/semgrep.yml"
   push:
     branches:
     - main
     - master
-    paths:
-    - .github/workflows/semgrep.yml
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.txt"
+      - "**/.editorconfig"
+      - "**/*.runsettings"
+      - "**/typos.toml"
+      - ".github/**"
+      - "!.github/workflows/semgrep.yml"
   schedule:
   - cron: '0 0 * * 0'
   workflow_dispatch:
