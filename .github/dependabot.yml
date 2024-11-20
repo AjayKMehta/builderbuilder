@@ -57,3 +57,15 @@ updates:
           - "patch"
     labels:
       - "Dependencies :arrow_up:"
+
+  - package-ecosystem: "dotnet-sdk"
+    open-pull-requests-limit: 2
+    # For GitHub Actions, you do not need to set the directory to
+    # /.github/workflows. Configuring the key to / automatically instructs
+    # Dependabot to search the /.github/workflows directory, as well as the
+    # action.yml / action.yaml file from the root directory.
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "Dependencies :arrow_up:"
