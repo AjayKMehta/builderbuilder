@@ -33,7 +33,7 @@ on:
 name: Semgrep
 jobs:
   semgrep:
-    name: Scan
+    name: Semgrep/CI
     runs-on: ubuntu-latest
     env:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
