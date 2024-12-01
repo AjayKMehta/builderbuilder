@@ -1,6 +1,6 @@
 # https://docs.microsoft.com/en-us/dotnet/devops/dotnet-secure-github-action
 
-name: "CodeQL"
+name: "CodeQL Analysis"
 
 on:
   push:
