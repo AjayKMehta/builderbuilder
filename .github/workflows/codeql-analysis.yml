@@ -102,7 +102,7 @@ jobs:
       - if: matrix.build-mode == 'manual'
         name: Install dependencies
         run: |
-          if [[" ${{github.event.pull_request.user.login }} " == 'dependabot[bot]']] || [[ "${{ github.actor }}" == 'dependabot[bot]' ]]; then
+          if [[" ${{github.event.pull_request.user.login }} " == 'app/dependabot']] || [[ "${{ github.actor }}" == 'app/dependabot' ]]; then
             dotnet restore --force-evaluate
           else
             dotnet restore --locked-mode
