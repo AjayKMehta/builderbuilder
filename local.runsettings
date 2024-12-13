@@ -55,6 +55,11 @@
                 <CompanyName>.*microsoft.*</CompanyName>
               </Exclude>
             </CompanyNames>
+            <Sources>
+              <Exclude>
+                <Source>.*EquatableArray\.cs</Source>
+              </Exclude>
+            </Sources>
             <CollectFromChildProcesses>True</CollectFromChildProcesses>
             <UseVerifiableInstrumentation>False</UseVerifiableInstrumentation>
             <EnableStaticNativeInstrumentation>False</EnableStaticNativeInstrumentation>
