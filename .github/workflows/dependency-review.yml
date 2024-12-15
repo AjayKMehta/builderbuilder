@@ -25,6 +25,12 @@ jobs:
           head-ref: master
           fail-on-severity: high
           comment-summary-in-pr: always
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4.1.0
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
       - name: Check for vulnerable packages
         run: |
           set -e # This will cause the script to exit on the first error
