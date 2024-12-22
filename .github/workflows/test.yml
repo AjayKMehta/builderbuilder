@@ -7,13 +7,15 @@ env:
 on:
   push:
     paths:
-      - "**.cs"
-      - "**.csproj"
+      - "**/*.cs"
+      - "**/*.csproj"
+      - "**/*.props"
       - ".github/workflows/test.yml"
   pull_request:
     paths:
-      - "**.cs"
-      - "**.csproj"
+      - "**/*.cs"
+      - "**/*.csproj"
+      - "**/*.props"
       - ".github/workflows/test.yml"
 permissions:
   contents: read
