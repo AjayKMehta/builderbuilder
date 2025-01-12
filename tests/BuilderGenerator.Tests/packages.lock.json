@@ -4,9 +4,9 @@
     "net8.0": {
       "coverlet.collector": {
         "type": "Direct",
-        "requested": "[6.0.2, )",
-        "resolved": "6.0.2",
-        "contentHash": "bJShQ6uWRTQ100ZeyiMqcFlhP7WJ+bCuabUs885dJiBEzMsJMSFr7BOyeCw4rgvQokteGi5rKQTlkhfQPUXg2A=="
+        "requested": "[6.0.3, )",
+        "resolved": "6.0.3",
+        "contentHash": "SvLbRq7gjzE34BI90vP6ge812+PAjinNoKhdFZHwVEu/ozJgZY+0KyDh1K0teDeMeuzQJuF8OvleRBYXsZDz0A=="
       },
       "GitHubActionsTestLogger": {
         "type": "Direct",
@@ -65,16 +65,16 @@
       },
       "Verify.NUnit": {
         "type": "Direct",
-        "requested": "[28.7.0, )",
-        "resolved": "28.7.0",
-        "contentHash": "xIHRmmG2A4+oje981qTBD7pjMgATQXB8b19wXNA20Z+6Iat63GaCb+Ctdqf66AjDibpC2HNXM6bLaWcSiJXnIg==",
+        "requested": "[28.8.1, )",
+        "resolved": "28.8.1",
+        "contentHash": "/zWHIPdYWkkueWBc0RyPG5GIv8jpkbslz0sOqBhUOqhuvLD+KshsPndF53ml926cMLi7o93hfvc/oYJwI2+g1g==",
         "dependencies": {
           "Argon": "0.26.0",
           "DiffEngine": "15.6.0",
-          "NUnit": "4.3.0",
+          "NUnit": "4.3.2",
           "SimpleInfoName": "3.1.0",
           "System.IO.Hashing": "9.0.0",
-          "Verify": "28.7.0"
+          "Verify": "28.8.1"
         }
       },
       "Verify.SourceGenerators": {
@@ -180,8 +180,8 @@
       },
       "Verify": {
         "type": "Transitive",
-        "resolved": "28.7.0",
-        "contentHash": "kbbDhWmzJXiijLuJ1ysL5jyJr2PJJ9sCgj/qbEG+LRKsXnYXCid6wVmUw/ciyVUeyH38iNtyAKtVj6YS7Q0zlg==",
+        "resolved": "28.8.1",
+        "contentHash": "lq4wiGgiTYOI6QR38qgY1H+SB4ejSrXReGiFFh5fjh7ZDdJtcEiVMbnReV3MF+4anw+SXmtIXWX6O3/cC4KIow==",
         "dependencies": {
           "Argon": "0.26.0",
           "DiffEngine": "15.6.0",
