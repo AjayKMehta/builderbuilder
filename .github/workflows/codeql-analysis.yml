@@ -5,29 +5,11 @@ name: "CodeQL Analysis"
 on:
   push:
     branches: [master]
-    paths-ignore:
-      - "**/*.md"
-      - "**/*.txt"
-      - ".git*"
-      - "global.json"
-      - "**/.editorconfig"
-      - "**/*.runsettings"
-      - "**/typos.toml"
-      - ".github/**"
-      - "!.github/workflows/codeql-analysis.yml"
+
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [master]
-    paths-ignore:
-      - "**/*.md"
-      - "**/*.txt"
-      - ".git*"
-      - "global.json"
-      - "**/.editorconfig"
-      - "**/*.runsettings"
-      - "**/typos.toml"
-      - ".github/**"
-      - "!.github/workflows/codeql-analysis.yml"
+
   workflow_dispatch:
 
 # https://www.meziantou.net/how-to-cancel-github-workflows-when-pushing-new-commits-on-a-branch.htm
@@ -78,10 +60,26 @@ jobs:
         with:
           fetch-depth: 2
 
+      - name: "Check for changed files"
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: .github/filter.yml
+
+      - name: Set environment variable
+        id: set-env
+        run: |
+          if [ "${{ steps.filter.outputs.code }}" == "true" ] || [ "${{ steps.filter.outputs.codeql }}" == "true" ]; then
+            echo "ENABLED=1" >> $GITHUB_ENV
+          else
+            echo "ENABLED=0" >> $GITHUB_ENV
+          fi
+
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         id: init_codeql
-        uses: github/codeql-action/init@v3.27.9
+        if: env.ENABLED == '1'
+        uses: github/codeql-action/init@v3.28.0
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
@@ -94,15 +92,15 @@ jobs:
       # to set the build mode to "manual" for that language. Then modify this step
       # to build your code.
       # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
-      - if: matrix.build-mode == 'manual'
+      - if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         name: Set up .NET
-        uses: actions/setup-dotnet@v4.1.0
+        uses: actions/setup-dotnet@v4.2.0
         with:
           global-json-file: global.json
           cache: true
           cache-dependency-path: '**/packages.lock.json'
 
-      - if: matrix.build-mode == 'manual'
+      - if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         name: Install dependencies
         run: |
           if [[" ${{github.event.pull_request.user.login }} " == 'app/dependabot']] || [[ "${{ github.actor }}" == 'app/dependabot' ]]; then
@@ -111,11 +109,12 @@ jobs:
             dotnet restore --locked-mode
           fi
 
-      - if: matrix.build-mode == 'manual'
+      - if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         name: Build
         run: dotnet build --configuration Release --no-restore --tl
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3.27.9
+        if: env.ENABLED == '1'
+        uses: github/codeql-action/analyze@v3.28.0
         with:
           category: "/language:${{matrix.language}}"
