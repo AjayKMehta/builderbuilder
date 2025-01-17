@@ -49,7 +49,7 @@ jobs:
           filter: tree:0
 
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v4.1.0
+        uses: actions/setup-dotnet@v4.2.0
         with:
           global-json-file: global.json
           cache: true
@@ -73,7 +73,7 @@ jobs:
         run: dotnet test --configuration Release -s cicd.runsettings --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false"
 
       - name: ReportGenerator
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.1
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
         with:
           reports: '**/TestResults/**/coverage.cobertura.xml'
           targetdir: '${{ github.workspace }}/coveragereport'
@@ -81,7 +81,7 @@ jobs:
           classfilters: '-System.*;-Microsoft.*;-Newtonsoft.*;-System.Text.RegularExpressions.*;-xunit.*;-NUnit.*'
 
       - name: Upload code coverage results to codecov
-        uses:  codecov/codecov-action@v5.1.1
+        uses:  codecov/codecov-action@v5.1.2
         with:
           flags: unittests
           verbose: true
