@@ -6,17 +6,7 @@ env:
 
 on:
   push:
-    paths:
-      - "**/*.cs"
-      - "**/*.csproj"
-      - "**/*.props"
-      - ".github/workflows/test.yml"
   pull_request:
-    paths:
-      - "**/*.cs"
-      - "**/*.csproj"
-      - "**/*.props"
-      - ".github/workflows/test.yml"
 permissions:
   contents: read
   pull-requests: write
@@ -48,17 +38,35 @@ jobs:
           fetch-depth: 0
           filter: tree:0
 
+      - name: "Check for changed files"
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: .github/filter.yml
+
+      - name: Set environment variable
+        id: set-env
+        run: |
+          if [ "${{ steps.filter.outputs.code }}" == "true" ] || [ "${{ steps.filter.outputs.test }}" == "true" ]; then
+            echo "ENABLED=1" >> $GITHUB_ENV
+          else
+            echo "ENABLED=0" >> $GITHUB_ENV
+          fi
+
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v4.1.0
+        uses: actions/setup-dotnet@v4.2.0
+        if: env.ENABLED == '1'
         with:
           global-json-file: global.json
           cache: true
           cache-dependency-path: "**/packages.lock.json"
 
       - name: Install dotnet-coverage tool
+        if: env.ENABLED == '1'
         run: dotnet tool install -g dotnet-coverage
 
       - name: Install dependencies
+        if: env.ENABLED == '1'
         run: |
           if [[" ${{github.event.pull_request.user.login }} " == 'app/dependabot']] || [[ "${{ github.actor }}" == 'app/dependabot' ]]; then
             dotnet restore --force-evaluate
@@ -67,13 +75,16 @@ jobs:
           fi
 
       - name: Build
+        if: env.ENABLED == '1'
         run: dotnet build --configuration Release --no-restore --tl
 
       - name: Test
+        if: env.ENABLED == '1'
         run: dotnet test --configuration Release -s cicd.runsettings --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false"
 
       - name: ReportGenerator
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.1
+        if: env.ENABLED == '1'
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.3
         with:
           reports: '**/TestResults/**/coverage.cobertura.xml'
           targetdir: '${{ github.workspace }}/coveragereport'
@@ -81,7 +92,8 @@ jobs:
           classfilters: '-System.*;-Microsoft.*;-Newtonsoft.*;-System.Text.RegularExpressions.*;-xunit.*;-NUnit.*'
 
       - name: Upload code coverage results to codecov
-        uses:  codecov/codecov-action@v5.1.1
+        if: env.ENABLED == '1'
+        uses:  codecov/codecov-action@v5.1.2
         with:
           flags: unittests
           verbose: true
@@ -89,6 +101,7 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Check if PR for current commit
+        if: env.ENABLED == '1'
         uses: 8BitJonny/gh-get-current-pr@3.0.0
         with:
           # This will work no matter the trigger event and no matter if it is the first PR commit or not.
@@ -115,11 +128,12 @@ jobs:
           header: "Code coverage"
 
       - name: Publish coverage in build summary
+        if: env.ENABLED == '1'
         run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
         shell: bash
 
       - name: Merge code coverage results
-        if: env.USE_MERGE == 1
+        if: env.USE_MERGE == 1 && env.ENABLED == '1'
         run: dotnet-coverage merge **/*/*.cobertura.xml -f cobertura -o ./cobertura.xml
         shell: bash
 
@@ -129,6 +143,7 @@ jobs:
       - name: Archive results
         # https://github.com/actions/upload-artifact/blob/main/docs/MIGRATION.md
         uses: actions/upload-artifact@v4
+        if: env.ENABLED == '1'
         with:
           name: code-coverage-report-${{ matrix.os }}
           path: |

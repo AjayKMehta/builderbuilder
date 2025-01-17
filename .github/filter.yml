@@ -1,0 +1,10 @@
+code:
+    - "**/*.cs"
+    - "**/*.csproj"
+    - "**/*.props"
+codeql:
+    - ".github/workflows/codeql.yml"
+semgrep:
+    - ".github/workflows/semgrep.yml"
+test:
+    - ".github/workflows/test.yml"

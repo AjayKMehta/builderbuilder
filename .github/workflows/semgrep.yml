@@ -2,26 +2,12 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [master]
-    paths-ignore:
-      - "**/*.md"
-      - "**/*.txt"
-      - "**/.editorconfig"
-      - "**/*.runsettings"
-      - "**/typos.toml"
-      - ".github/**"
-      - "!.github/workflows/semgrep.yml"
+
   push:
     branches:
     - main
     - master
-    paths-ignore:
-      - "**/*.md"
-      - "**/*.txt"
-      - "**/.editorconfig"
-      - "**/*.runsettings"
-      - "**/typos.toml"
-      - ".github/**"
-      - "!.github/workflows/semgrep.yml"
+
   schedule:
   - cron: '0 0 * * 0'
   workflow_dispatch:
@@ -39,7 +25,18 @@ jobs:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
     container:
       image: returntocorp/semgrep
+      # https://github.com/actions/runner/issues/2033#issuecomment-1598547465
       options: --user 1001
     steps:
-    - uses: actions/checkout@v4.2.2
-    - run: semgrep ci
+    - name: 'Checkout Repository'
+      uses: actions/checkout@v4.2.2
+    - name: "Check for changed files"
+      uses: dorny/paths-filter@v3
+      id: filter
+      with:
+        filters: .github/filter.yml
+
+
+    - name: 'Run Semgrep'
+      if: steps.filter.outputs.code == 'true' || steps.filter.outputs.semgrep == 'true'
+      run: semgrep ci
