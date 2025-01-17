@@ -39,6 +39,7 @@ jobs:
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
     container:
       image: returntocorp/semgrep
+      options: --user 1001
     steps:
     - uses: actions/checkout@v4.2.2
     - run: semgrep ci
