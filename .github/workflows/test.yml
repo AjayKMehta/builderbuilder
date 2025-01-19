@@ -65,14 +65,27 @@ jobs:
         if: env.ENABLED == '1'
         run: dotnet tool install -g dotnet-coverage
 
-      - name: Install dependencies
+      - name: Check if PR for current commit
         if: env.ENABLED == '1'
+        uses: 8BitJonny/gh-get-current-pr@3.0.0
+        with:
+          # This will work no matter the trigger event and no matter if it is the first PR commit or not.
+          sha: ${{ github.event.pull_request.head.sha }}
+          # By default it returns PRs in any state.
+          filterOutClosed: true
+          # By default it returns PRs in any state.
+          filterOutDraft: true
+        id: pr-check
+
+      - name: Install dependencies
+        if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'true'
         run: |
-          if [[ "${{ github.event.pull_request.user.login }}" == 'app/dependabot' ]] || [[ "${{ github.actor }}" == 'app/dependabot' ]]; then
             dotnet restore --force-evaluate
-          else
+
+      - name: Install dependencies
+        if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'false'
+        run: |
             dotnet restore --locked-mode
-          fi
 
       - name: Build
         if: env.ENABLED == '1'

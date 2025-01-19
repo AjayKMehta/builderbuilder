@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   dependency-review:
-    if: github.actor != 'app/dependabot'
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Repository'
