@@ -23,6 +23,13 @@ updates:
           - "minor"
           - "patch"
 
+      major-pkg-updates:
+        applies-to: version-updates
+        patterns:
+          - "*Analyzers"
+        update-types:
+          - "major"
+
       pkg-updates:
         applies-to: version-updates
         exclude-patterns:
@@ -36,6 +43,7 @@ updates:
         patterns:
           - "*Analyzers"
         update-types:
+          - "major"
           - "minor"
           - "patch"
     labels:

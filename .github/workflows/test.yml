@@ -8,7 +8,7 @@ on:
   push:
   pull_request:
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
   # https://www.meziantou.net/how-to-cancel-github-workflows-when-pushing-new-commits-on-a-branch.htm
@@ -80,7 +80,18 @@ jobs:
       - name: Install dependencies
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'true'
         run: |
-            dotnet restore --force-evaluate
+            dotnet restore --force-evaluate && git add .
+
+      - id: commit
+        if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'true'
+        uses: qoomon/actions--create-commit@v1
+        with:
+          message: "Committing changes to lock files [skip ci]"
+          allow-empty: false
+          skip-empty: true
+
+      - if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'true' && steps.commit.outputs.commit != null
+        run: git push origin HEAD:${{ github.head_ref || github.ref_name }}
 
       - name: Install dependencies
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'false'
@@ -106,7 +117,7 @@ jobs:
 
       - name: Upload code coverage results to codecov
         if: env.ENABLED == '1'
-        uses:  codecov/codecov-action@v5.1.2
+        uses:  codecov/codecov-action@v5.3.1
         with:
           flags: unittests
           verbose: true

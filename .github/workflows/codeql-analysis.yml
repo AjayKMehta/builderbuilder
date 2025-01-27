@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   analyze:
@@ -79,7 +79,7 @@ jobs:
       - name: Initialize CodeQL
         id: init_codeql
         if: env.ENABLED == '1'
-        uses: github/codeql-action/init@v3.28.1
+        uses: github/codeql-action/init@v3.28.5
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
@@ -105,10 +105,26 @@ jobs:
         name: Install dependencies
         run: |
           if [[ "${{ github.event.pull_request.user.login }}" == 'dependabot[bot]' ]] || [[ "${{ github.actor }}" == 'dependabot[bot]' ]]; then
-            dotnet restore --force-evaluate
+            dotnet restore --force-evaluate && git add .
           else
             dotnet restore --locked-mode
           fi
+
+      - id: commit
+        if: matrix.build-mode == 'manual' && env.ENABLED == '1'
+        uses: qoomon/actions--create-commit@v1
+        with:
+          message: "Committing changes to lock files [skip ci]"
+          allow-empty: false
+          skip-empty: true
+
+      - if: matrix.build-mode == 'manual' && env.ENABLED == '1' && steps.commit.outputs.commit != null
+        run: git push origin ${{ github.head_ref || github.ref_name }}
+
+      - name: Install dependencies
+        if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'false'
+        run: |
+            dotnet restore --locked-mode
 
       - if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         name: Build
@@ -116,6 +132,6 @@ jobs:
 
       - name: Perform CodeQL Analysis
         if: env.ENABLED == '1'
-        uses: github/codeql-action/analyze@v3.28.1
+        uses: github/codeql-action/analyze@v3.28.5
         with:
           category: "/language:${{matrix.language}}"
