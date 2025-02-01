@@ -54,7 +54,7 @@ jobs:
           fi
 
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v4.2.0
+        uses: actions/setup-dotnet@v4.3.0
         if: env.ENABLED == '1'
         with:
           global-json-file: global.json
