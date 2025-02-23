@@ -4,7 +4,6 @@
     <!-- https://docs.nunit.org/articles/vs-test-adapter/NUnit-And-Microsoft-Test-Platform.html -->
     <EnableNUnitRunner>true</EnableNUnitRunner>
     <OutputType>Exe</OutputType>
-    <IsTestProject>true</IsTestProject>
     <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
     <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
   </PropertyGroup>
@@ -24,7 +23,7 @@
     <PackageReference Include="NUnit" />
     <PackageReference Include="Microsoft.Testing.Extensions.VSTestBridge" />
     <PackageReference Include="NUnit.Analyzers" PrivateAssets="all" />
-    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
     <PackageReference Include="ReflectionAnalyzers">
       <IncludeAssets>runtime; build; native;
         contentfiles; analyzers; buildtransitive</IncludeAssets>
