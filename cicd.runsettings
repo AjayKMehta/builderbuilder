@@ -23,9 +23,6 @@
           <CoverageLogLevel>Dumps</CoverageLogLevel>
           <InstrumentationLogLevel>Dumps</InstrumentationLogLevel>
           <CoverageFileLogPath>coverage.log</CoverageFileLogPath>
-          <!-- Below doesn't work 😦. For details, see https://github.com/microsoft/codecoverage/issues/76 -->
-          <CoverageFileName>coverage.cobertura.xml</CoverageFileName>
-          <Format>Cobertura</Format>
           <PerTestCodeCoverage>False</PerTestCodeCoverage>
           <IncludeTestAssembly>False</IncludeTestAssembly>
           <CodeCoverage>
@@ -40,11 +37,11 @@
               <Exclude>
                 <Attribute>^System\.Diagnostics\.DebuggerHiddenAttribute$</Attribute>
                 <Attribute>^System\.Diagnostics\.DebuggerNonUserCodeAttribute$</Attribute>
+                <Attribute>^System\.CodeDom\.Compiler\.GeneratedCodeAttribute$</Attribute>
                 <Attribute>^System\.Diagnostics\.CodeAnalysis\.ExcludeFromCodeCoverageAttribute$</Attribute>
                 <Attribute>^System\.ObsoleteAttribute$</Attribute>
-                <Attribute>^System\.Text\.RegularExpressions\.GeneratedRegexAttribute$</Attribute>
                 <Attribute>^System\.Runtime\.CompilerServices\.CompilerGeneratedAttribute$</Attribute>
-                <Attribute>^System\.CodeDom\.Compiler\.GeneratedCodeAttribute$</Attribute>
+                <Attribute>^System\.Text\.RegularExpressions\.GeneratedRegexAttribute$</Attribute>
               </Exclude>
             </Attributes>
             <!-- Match the company name property in the assembly: -->

@@ -104,7 +104,7 @@ jobs:
 
       - name: Test
         if: env.ENABLED == '1'
-        run: dotnet test --configuration Release -s cicd.runsettings --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false"
+        run: dotnet test -s ./cicd.runsettings --configuration Release --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false" -- --coverage --coverage-output-format xml --coverage-output coverage.cobertura.xml
 
       - name: ReportGenerator
         if: env.ENABLED == '1'
