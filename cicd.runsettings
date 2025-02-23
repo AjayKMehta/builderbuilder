@@ -23,6 +23,8 @@
           <CoverageLogLevel>Dumps</CoverageLogLevel>
           <InstrumentationLogLevel>Dumps</InstrumentationLogLevel>
           <CoverageFileLogPath>coverage.log</CoverageFileLogPath>
+          <CoverageFileName>coverage.cobertura.xml</CoverageFileName>
+          <Format>Cobertura</Format>
           <PerTestCodeCoverage>False</PerTestCodeCoverage>
           <IncludeTestAssembly>False</IncludeTestAssembly>
           <CodeCoverage>
