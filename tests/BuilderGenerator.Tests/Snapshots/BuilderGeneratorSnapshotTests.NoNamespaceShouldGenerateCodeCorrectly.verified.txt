@@ -1,14 +1,17 @@
 ﻿{
   Diagnostics: [
     {
-      Id: BB002,
-      Title: Successfully generated source for builder,
+      Message: Successfully generated source for builder with name `Point`,
       Severity: Info,
       WarningLevel: 1,
-      Location: : (0,0)-(0,0),
-      MessageFormat: Successfully generated source for builder with name `{0}`,
-      Message: Successfully generated source for builder with name `Point`,
-      Category: Compilation
+      Descriptor: {
+        Id: BB002,
+        Title: Successfully generated source for builder,
+        MessageFormat: Successfully generated source for builder with name `{0}`,
+        Category: Compilation,
+        DefaultSeverity: Info,
+        IsEnabledByDefault: true
+      }
     }
   ]
 }
