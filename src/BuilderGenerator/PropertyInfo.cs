@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace BuilderGenerator;
 
+[ExcludeFromCodeCoverage]
 public record PropertyInfo
 {
     public string PropertyName { get; }
