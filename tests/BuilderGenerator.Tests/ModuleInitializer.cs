@@ -109,6 +109,4 @@ public static class ModuleInitializer
                     launchArguments)
         ));
     }
-
-    public static void Main() { }
 }
