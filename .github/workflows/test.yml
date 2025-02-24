@@ -35,12 +35,9 @@ jobs:
   test:
     needs: pre_job
     if: needs.pre_job.outputs.should_skip != 'true'
-    name: test-${{matrix.os}}
-    runs-on: ${{ matrix.os }}
+    name: test
+    runs-on: ubuntu-latest
     timeout-minutes: 10
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
     env:
       NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
       DOTNET_NOLOGO: true
