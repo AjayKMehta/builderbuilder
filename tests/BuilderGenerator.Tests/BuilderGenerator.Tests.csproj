@@ -4,8 +4,7 @@
     <IsTestProject>true</IsTestProject>
     <!-- https://docs.nunit.org/articles/vs-test-adapter/NUnit-And-Microsoft-Test-Platform.html -->
     <EnableNUnitRunner>true</EnableNUnitRunner>
-    <GenerateProgramFile>false</GenerateProgramFile>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
     <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
   </PropertyGroup>
