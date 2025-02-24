@@ -119,7 +119,7 @@ csharp_preferred_modifier_order = public,private,protected,internal,static,exter
 csharp_prefer_static_local_function = true
 csharp_style_expression_bodied_local_functions = when_on_single_line
 dotnet_style_readonly_field = true
-dotnet_style_require_accessibility_modifiers = always
+dotnet_style_require_accessibility_modifiers = for_non_interface_members
 
 # Parentheses preferences
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/ide0047-ide0048#dotnet_style_parentheses_in_arithmetic_binary_operators
