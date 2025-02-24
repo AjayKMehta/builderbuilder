@@ -18,13 +18,26 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  pre_job:
+    # continue-on-error: true # Uncomment once integration is finished
+    runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5
+        with:
+          cancel_others: 'true'
+          skip_after_successful_duplicate: 'true'
+          concurrent_skipping: same_content_newer
+
   test:
-    name: test-${{matrix.os}}
-    runs-on: ${{ matrix.os }}
+    needs: pre_job
+    if: needs.pre_job.outputs.should_skip != 'true'
+    name: test
+    runs-on: ubuntu-latest
     timeout-minutes: 10
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
     env:
       NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
       DOTNET_NOLOGO: true
