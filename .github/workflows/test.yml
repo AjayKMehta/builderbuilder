@@ -72,9 +72,9 @@ jobs:
         uses: actions/setup-dotnet@v4.3.0
         if: env.ENABLED == '1'
         with:
-          global-json-file: global.json
           cache: true
           cache-dependency-path: "**/packages.lock.json"
+          dotnet-version: '9.0.x'
 
       - name: Install dotnet-coverage tool
         if: env.ENABLED == '1'
@@ -172,7 +172,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: env.ENABLED == '1'
         with:
-          name: code-coverage-report-${{ matrix.os }}
+          name: code-coverage-report-ubuntu
           path: |
             **/TestResults/**/coverage.cobertura.xml
             coveragereport/*.md

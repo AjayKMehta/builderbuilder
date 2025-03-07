@@ -43,9 +43,9 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v4.3.0
         with:
-          global-json-file: global.json
           cache: true
           cache-dependency-path: '**/packages.lock.json'
+          dotnet-version: '9.0.x'
       - name: Check for vulnerable packages
         run: |
           set -e # This will cause the script to exit on the first error
