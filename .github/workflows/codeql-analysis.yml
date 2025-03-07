@@ -114,10 +114,9 @@ jobs:
         name: Set up .NET
         uses: actions/setup-dotnet@v4.3.0
         with:
-          global-json-file: global.json
           cache: true
           cache-dependency-path: '**/packages.lock.json'
-
+          dotnet-version: '9.0.x'
       - if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         name: Install dependencies
         run: |
