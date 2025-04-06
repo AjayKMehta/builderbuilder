@@ -103,6 +103,7 @@ public static class ModuleInitializer
             supportsText: true,
             requiresTarget: true,
             binaryExtensions: s_binaryExtensions,
+            useShellExecute: true,
             osSupport: new OsSupport(
                 Windows: new OsSettings(
                     @"D:\Apps\WinMerge\WinMergeU.exe",
