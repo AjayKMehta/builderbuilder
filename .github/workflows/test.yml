@@ -132,7 +132,7 @@ jobs:
 
       - name: Upload code coverage results to codecov
         if: env.ENABLED == '1'
-        uses:  codecov/codecov-action@v5.4.0
+        uses:  codecov/codecov-action@v5.4.2
         with:
           flags: unittests
           verbose: true
