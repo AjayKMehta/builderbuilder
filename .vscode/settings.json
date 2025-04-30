@@ -1,4 +1,3 @@
 {
-    "sarif-viewer.connectToGithubCodeScanning": "on",
-    "dotnet.defaultSolution": "BuilderBuilder.sln"
+    "sarif-viewer.connectToGithubCodeScanning": "on"
 }
