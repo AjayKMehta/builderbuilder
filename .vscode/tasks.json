@@ -40,9 +40,16 @@
         "key": "buildConfig",
         "addLabelToTop": "${remember:buildConfig}",
         "default": "Debug",
+        // Directory names are case-sensitive in Linux.
         "options": [
-          "Debug",
-          "Release"
+          [
+            "Debug",
+            "debug"
+          ],
+          [
+            "Release",
+            "release"
+          ]
         ],
         "description": "Build configuration"
       }
