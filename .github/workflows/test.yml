@@ -106,7 +106,9 @@ jobs:
           skip-empty: true
 
       - if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'true' && steps.commit.outputs.commit != null
-        run: git push origin HEAD:${{ github.head_ref || github.ref_name }}
+        env:
+          HEAD_REF: ${{ github.head_ref || github.ref_name }}
+        run: git push origin HEAD:$HEAD_REF
 
       - name: Install dependencies
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'false'
@@ -128,7 +130,7 @@ jobs:
           reports: '**/TestResults/**/coverage.cobertura.xml'
           targetdir: '${{ github.workspace }}/coveragereport'
           reporttypes: 'MarkdownSummaryGithub;MarkdownAssembliesSummary'
-          classfilters: '-System.*;-Microsoft.*;-Newtonsoft.*;-System.Text.RegularExpressions.*;-xunit.*;-NUnit.*'
+          classfilters: '-System.*;-Microsoft.*;-Newtonsoft.*;-System.Text.RegularExpressions.*;-xunit.*;-NUnit.*;-TUnit.*'
 
       - name: Upload code coverage results to codecov
         if: env.ENABLED == '1'

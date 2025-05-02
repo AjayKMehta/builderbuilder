@@ -38,12 +38,11 @@ jobs:
     if: needs.pre_job.outputs.should_skip != 'true'
     name: Semgrep/CI
     runs-on: ubuntu-latest
-    env:
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
     container:
-      image: returntocorp/semgrep
+      image: semgrep/semgrep
       # https://github.com/actions/runner/issues/2033#issuecomment-1598547465
       options: --user 1001
+
     steps:
     - name: 'Checkout Repository'
       uses: actions/checkout@v4.2.2
@@ -52,8 +51,8 @@ jobs:
       id: filter
       with:
         filters: .github/filter.yml
-
-
     - name: 'Run Semgrep'
       if: steps.filter.outputs.code == 'true' || steps.filter.outputs.semgrep == 'true'
       run: semgrep ci
+      env:
+        SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
