@@ -150,6 +150,7 @@ jobs:
           # By default it returns PRs in any state.
           filterOutDraft: true
         id: pr-check
+
       - name: Install dependencies
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'false'
         run: |
