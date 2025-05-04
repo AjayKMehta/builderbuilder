@@ -1,5 +1,11 @@
 name: 'Dependency Review'
-on: [pull_request, push, workflow_dispatch]
+on:
+  push:
+
+  pull_request_target:
+    types: [opened, reopened]
+
+  workflow_dispatch:
 
 permissions:
   contents: read
