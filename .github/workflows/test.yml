@@ -124,7 +124,7 @@ jobs:
 
       - name: ReportGenerator
         if: env.ENABLED == '1'
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.5
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.7
         with:
           reports: '**/TestResults/**/coverage.cobertura.xml'
           targetdir: '${{ github.workspace }}/coveragereport'
@@ -133,7 +133,7 @@ jobs:
 
       - name: Upload code coverage results to codecov
         if: env.ENABLED == '1'
-        uses:  codecov/codecov-action@v5.4.2
+        uses:  codecov/codecov-action@v5.4.3
         with:
           flags: unittests
           verbose: true
