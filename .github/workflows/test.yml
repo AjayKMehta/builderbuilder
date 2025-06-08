@@ -3,7 +3,7 @@ name: "Run tests"
 env:
   # Only merge code coverage results if 1
   USE_MERGE: 0
-
+  BUILD_CONFIG: Release
 on:
   push:
   pull_request:
@@ -116,11 +116,11 @@ jobs:
 
       - name: Build
         if: env.ENABLED == '1'
-        run: dotnet build --configuration Release --no-restore --tl
+        run: dotnet build --configuration $BUILD_CONFIG --no-restore --tl
 
       - name: Test
         if: env.ENABLED == '1'
-        run: dotnet test -s ./cicd.runsettings --configuration Release --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false" -- --coverage --coverage-output-format xml --coverage-output coverage.cobertura.xml --crashdump --hangdump
+        run: dotnet test -s ./cicd.runsettings --configuration $BUILD_CONFIG --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false" -- --coverage --coverage-output-format xml --coverage-output coverage.cobertura.xml --crashdump --hangdump
 
       - name: ReportGenerator
         if: env.ENABLED == '1'
