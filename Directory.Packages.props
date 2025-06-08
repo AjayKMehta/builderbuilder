@@ -19,7 +19,8 @@
     <PackageVersion Include="ReflectionAnalyzers" Version="0.3.1" />
     <PackageVersion Include="Verify.NUnit" Version="30.1.0" />
     <PackageVersion Include="Verify.SourceGenerators" Version="2.5.0" />
-    <PackageVersion Include="Microsoft.Testing.Extensions.VSTestBridge" Version="1.6.2" />
+    <!-- https://github.com/microsoft/testfx/issues/5629#issuecomment-2915817165 -->
+    <PackageVersion Include="Microsoft.Testing.Extensions.VSTestBridge" Version="1.7.0" />
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.14.2" />
   </ItemGroup>
 </Project>
