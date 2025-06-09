@@ -129,6 +129,15 @@ jobs:
         if: env.ENABLED == '1'
         run: dotnet test -s ./cicd.runsettings --configuration $BUILD_CONFIG --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false" -- --coverage --coverage-output-format xml --coverage-output coverage.cobertura.xml --crashdump --hangdump
 
+      - id: upload-logs
+        name: Upload Test Logs
+        uses: actions/upload-artifact@v4
+        if: env.ENABLED == '1' && failure() && steps.test.outcome == 'failure'
+        with:
+          name: test-logs
+          path: |
+            **/TestResults/**/*.log
+
       - id: generate-report
         name: Generate codecoverage report
         if: env.ENABLED == '1'
