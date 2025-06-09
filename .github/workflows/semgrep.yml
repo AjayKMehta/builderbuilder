@@ -42,14 +42,18 @@ jobs:
       options: --user 1001
 
     steps:
-    - name: 'Checkout Repository'
+    - id: checkout
+      name: 'Checkout Repository'
       uses: actions/checkout@v4.2.2
-    - name: "Check for changed files"
+
+    - id: filter
+      name: "Check for changed files"
       uses: dorny/paths-filter@v3
-      id: filter
       with:
         filters: .github/filter.yml
-    - name: 'Run Semgrep'
+
+    - id: run-semgrep
+      name: 'Run Semgrep'
       if: steps.filter.outputs.code == 'true' || steps.filter.outputs.semgrep == 'true'
       run: semgrep ci
       env:

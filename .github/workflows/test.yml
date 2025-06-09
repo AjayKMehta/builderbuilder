@@ -52,14 +52,14 @@ jobs:
           fetch-depth: 0
           filter: tree:0
 
-      - name: "Check for changed files"
+      - id: filter
+        name: "Check for changed files"
         uses: dorny/paths-filter@v3
-        id: filter
         with:
           filters: .github/filter.yml
 
-      - name: Set environment variable
-        id: set-env
+      - id: set-env
+        name: Set environment variable
         run: |
           if [ "${{ steps.filter.outputs.code }}" == "true" ] || [ "${{ steps.filter.outputs.test }}" == "true" ]; then
             echo "ENABLED=1" >> $GITHUB_ENV
@@ -67,7 +67,8 @@ jobs:
             echo "ENABLED=0" >> $GITHUB_ENV
           fi
 
-      - name: Setup .NET Core
+      - id: setup-dotnet
+        name: Setup .NET Core
         uses: actions/setup-dotnet@v4.3.1
         if: env.ENABLED == '1'
         with:
@@ -75,11 +76,13 @@ jobs:
           cache-dependency-path: "**/packages.lock.json"
           dotnet-version: '9.0.x'
 
-      - name: Install dotnet-coverage tool
+      - id: install-dotnet-coverage
+        name: Install dotnet-coverage tool
         if: env.ENABLED == '1'
         run: dotnet tool install -g dotnet-coverage
 
-      - name: Check if PR for current commit
+      - id: pr-check
+        name: Check if PR for current commit
         if: env.ENABLED == '1'
         uses: 8BitJonny/gh-get-current-pr@3.0.0
         with:
@@ -89,9 +92,9 @@ jobs:
           filterOutClosed: true
           # By default it returns PRs in any state.
           filterOutDraft: true
-        id: pr-check
 
-      - name: Install dependencies
+      - id: dotnet-restore
+        name: Install dependencies
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'true'
         run: |
             dotnet restore --force-evaluate && git add .
@@ -104,25 +107,30 @@ jobs:
           allow-empty: false
           skip-empty: true
 
-      - if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'true' && steps.commit.outputs.commit != null
+      - id: push-changes
+        if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'true' && steps.commit.outputs.commit != null
         env:
           HEAD_REF: ${{ github.head_ref || github.ref_name }}
         run: git push origin HEAD:$HEAD_REF
 
-      - name: Install dependencies
+      - id: dotnet-restore-locked
+        name: Install dependencies
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'false'
         run: |
             dotnet restore --locked-mode
 
-      - name: Build
+      - id: build
+        name: Build
         if: env.ENABLED == '1'
         run: dotnet build --configuration $BUILD_CONFIG --no-restore --tl
 
-      - name: Test
+      - id: test
+        name: Test
         if: env.ENABLED == '1'
         run: dotnet test -s ./cicd.runsettings --configuration $BUILD_CONFIG --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false" -- --coverage --coverage-output-format xml --coverage-output coverage.cobertura.xml --crashdump --hangdump
 
-      - name: ReportGenerator
+      - id: generate-report
+        name: Generate codecoverage report
         if: env.ENABLED == '1'
         uses: danielpalme/ReportGenerator-GitHub-Action@5.4.7
         with:
@@ -131,7 +139,8 @@ jobs:
           reporttypes: 'MarkdownSummaryGithub;MarkdownAssembliesSummary'
           classfilters: '-System.*;-Microsoft.*;-Newtonsoft.*;-System.Text.RegularExpressions.*;-xunit.*;-NUnit.*;-TUnit.*'
 
-      - name: Upload code coverage results to codecov
+      - id: upload-codecov
+        name: Upload code coverage results to codecov
         if: env.ENABLED == '1'
         uses:  codecov/codecov-action@v5.4.3
         with:
@@ -141,7 +150,8 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
       # https://github.com/danielpalme/ReportGenerator/issues/431
-      - name: Publish PR coverage summary
+      - id: publish-pr-cov-summary
+        name: Publish PR coverage summary
         uses: marocchino/sticky-pull-request-comment@v2
         if: steps.pr-check.outputs.pr_found == 'true'
         env:
@@ -155,12 +165,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           header: "Code coverage"
 
-      - name: Publish coverage in build summary
+      - id: publish-cov
+        name: Publish coverage in build summary
         if: env.ENABLED == '1'
         run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
         shell: bash
 
-      - name: Merge code coverage results
+      - id: merge-cov
+        name: Merge code coverage results
         if: env.USE_MERGE == 1 && env.ENABLED == '1'
         run: dotnet-coverage merge **/*/*.cobertura.xml -f cobertura -o ./cobertura.xml
         shell: bash
@@ -168,7 +180,8 @@ jobs:
         # In v4, Artifacts are immutable (unless deleted). So you must change
         # each of the uploaded Artifacts to have a different name and filter the
         # downloads by name to achieve the same effect
-      - name: Archive results
+      - id: archive-results
+        name: Archive results
         # https://github.com/actions/upload-artifact/blob/main/docs/MIGRATION.md
         uses: actions/upload-artifact@v4
         if: env.ENABLED == '1'

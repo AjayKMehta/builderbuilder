@@ -16,7 +16,7 @@ on:
       support:
         description: "The support level to target (STS, LTS, or Preview)."
         required: true
-        default: "LTS"        
+        default: "LTS"
 permissions:
   contents: read
 
@@ -28,20 +28,20 @@ jobs:
 
     # Checkout the repo into the workspace within the VM
     steps:
-      - uses: actions/checkout@v4.2.2
+      - id: checkout
+        uses: actions/checkout@v4.2.2
 
-      # If triggered manually, print the reason why
-      - name: "Print manual run reason"
+      - id: print-reason
+        name: "Print manual run reason"
         env:
           REASON: ${{ github.event.inputs.reason }}
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           echo "Reason: $REASON"
 
-      # Run the .NET version sweeper
       # Issues will be automatically created for any non-ignored projects that are targeting non-LTS versions
-      - name: .NET version sweeper
-        id: dotnet-version-sweeper
+      - id: dotnet-version-sweeper
+        name: .NET version sweeper
         uses: dotnet/versionsweeper@v4.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -50,7 +50,9 @@ jobs:
           name: ${{ github.repository }}
           branch: ${{ github.ref }}
           sdkCompliance: true
-      - name: Create pull requests
+
+      - id: create-pr
+        name: Create pull requests
         if: steps.dotnet-version-sweeper.outputs.has-remaining-work == 'true'
         run: |
           upgradeProjects: ${{ steps.dotnet-version-sweeper.outputs.upgrade-projects }}

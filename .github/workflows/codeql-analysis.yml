@@ -69,21 +69,21 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
-      - name: Checkout repository
-        id: checkout_repo
+      - id: checkout
+        name: Checkout repository
         uses: actions/checkout@v4.2.2
         with:
           fetch-depth: 2
 
-      - name: "Check for changed files"
+      - id: filter
+        name: "Check for changed files"
         if: ${{ github.event_name != 'workflow_dispatch' }}
         uses: dorny/paths-filter@v3
-        id: filter
         with:
           filters: .github/filter.yml
 
-      - name: Set environment variable
-        id: set-env
+      - id: set-env
+        name: Set environment variable
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] ||
              [[ "${{ steps.filter.outputs.code }}" == "true" ]] ||
@@ -94,8 +94,8 @@ jobs:
           fi
 
       # Initializes the CodeQL tools for scanning.
-      - name: Initialize CodeQL
-        id: init_codeql
+      - id: init-codeql
+        name: Initialize CodeQL
         if: env.ENABLED == '1'
         uses: github/codeql-action/init@v3.28.18
         with:
@@ -111,16 +111,18 @@ jobs:
       # to set the build mode to "manual" for that language. Then modify this step
       # to build your code.
       # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
-      - if: matrix.build-mode == 'manual' && env.ENABLED == '1'
+      - id: setup-dotnet
         name: Set up .NET
+        if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         uses: actions/setup-dotnet@v4.3.1
         with:
           cache: true
           cache-dependency-path: '**/packages.lock.json'
           dotnet-version: '9.0.x'
 
-      - if: matrix.build-mode == 'manual' && env.ENABLED == '1'
+      - id: dotnet-restore
         name: Install dependencies
+        if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         run: |
           if [[ "${{ github.event.pull_request.user.login }}" == 'dependabot[bot]' ]] || [[ "${{ github.actor }}" == 'dependabot[bot]' ]]; then
             dotnet restore --force-evaluate && git add .
@@ -129,6 +131,7 @@ jobs:
           fi
 
       - id: commit
+        name: Commit changes
         if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         uses: qoomon/actions--create-commit@v1
         with:
@@ -136,12 +139,15 @@ jobs:
           allow-empty: false
           skip-empty: true
 
-      - if: matrix.build-mode == 'manual' && env.ENABLED == '1' && steps.commit.outputs.commit != null
+      - id: push-changes
+        name: Push changes
+        if: matrix.build-mode == 'manual' && env.ENABLED == '1' && steps.commit.outputs.commit != null
         env:
           HEAD_REF: ${{ github.head_ref || github.ref_name }}
         run: git push origin HEAD:$HEAD_REF
 
-      - name: Check if PR for current commit
+      - id: pr-check
+        name: Check if PR for current commit
         if: env.ENABLED == '1'
         uses: 8BitJonny/gh-get-current-pr@3.0.0
         with:
@@ -151,18 +157,20 @@ jobs:
           filterOutClosed: true
           # By default it returns PRs in any state.
           filterOutDraft: true
-        id: pr-check
 
-      - name: Install dependencies
+      - id: dotnet-restore-locked
+        name: Install dependencies
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'false'
         run: |
             dotnet restore --locked-mode
 
-      - if: matrix.build-mode == 'manual' && env.ENABLED == '1'
+      - id: build
         name: Build
+        if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         run: dotnet build --configuration Release --no-restore --tl
 
-      - name: Perform CodeQL Analysis
+      - id: codeql-analysis
+        name: Perform CodeQL Analysis
         if: env.ENABLED == '1'
         uses: github/codeql-action/analyze@v3.28.18
         with:

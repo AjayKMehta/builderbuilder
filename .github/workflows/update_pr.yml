@@ -8,7 +8,8 @@ jobs:
   autoupdate:
     runs-on: ubuntu-latest
     steps:
-      - name: Automatically update PR
+      - id: update-pr
+        name: Automatically update PR
         uses: adRise/update-pr-branch@v0.10.1
         with:
           # Add secret here: https://github.com/AjayKMehta/builderbuilder/settings/secrets/actions
