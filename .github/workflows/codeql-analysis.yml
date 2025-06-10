@@ -160,6 +160,7 @@ jobs:
 
       - id: dotnet-restore-locked
         name: Install dependencies
+        # No PR found implies not Dependabot-related.
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'false'
         run: |
             dotnet restore --locked-mode
