@@ -43,22 +43,22 @@
       },
       "Microsoft.Testing.Extensions.CrashDump": {
         "type": "Direct",
-        "requested": "[1.7.1, )",
-        "resolved": "1.7.1",
-        "contentHash": "wPp/pCvTuzFX0pQk92g8GTFPMYVXh5us3Y2DVaa8227P/7eeb134vxsNU56Pnh00aWSnESStQs7nwbKru6HlUA==",
+        "requested": "[1.7.2, )",
+        "resolved": "1.7.2",
+        "contentHash": "beauP1uSJ9rSTc56PGlNfS6nBsJrYm/dfoZh38iHxuChfseT2LXDn8UZZ1exZjmP3AMlKikGlT+O9ALsZZ26mw==",
         "dependencies": {
-          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "1.7.1",
-          "Microsoft.Testing.Platform": "1.7.1"
+          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "1.7.2",
+          "Microsoft.Testing.Platform": "1.7.2"
         }
       },
       "Microsoft.Testing.Extensions.HangDump": {
         "type": "Direct",
-        "requested": "[1.7.1, )",
-        "resolved": "1.7.1",
-        "contentHash": "mWWGkEdffKpSrX+6WcAwj2f1dzm5tne6m/hBcP0X1A+uJ6wgFlbBN97c+gXazG4hHGkBWA78nT1px0i6rqQ1+A==",
+        "requested": "[1.7.2, )",
+        "resolved": "1.7.2",
+        "contentHash": "Uj9c+wAf/gPDw1vXsTZpJhfszM/H7bmKtBH4kocDJyRJQO90Z0rTKh5/hZ0eLMC2HAAHqi4zGyzsMPBRRVdxGw==",
         "dependencies": {
           "Microsoft.Diagnostics.NETCore.Client": "0.2.607501",
-          "Microsoft.Testing.Platform": "1.7.1"
+          "Microsoft.Testing.Platform": "1.7.2"
         }
       },
       "NUnit": {
@@ -69,9 +69,9 @@
       },
       "NUnit.Analyzers": {
         "type": "Direct",
-        "requested": "[4.8.1, )",
-        "resolved": "4.8.1",
-        "contentHash": "xRzeN2yFePqVQyIAXX6XJCYBaCZAyENtB7k1R9Xbx5XtfWtb++kHebTEvLQAr24fun/xxY/gEle23W6z2iErBQ=="
+        "requested": "[4.9.1, )",
+        "resolved": "4.9.1",
+        "contentHash": "8eduLnv74WYjf43HYasCbiYuxDJQP6WW6ij30YFTVIEFN0mjk6Z6v2XzxsvWdwsC1xtM938HwokB2S4C7r2wLw=="
       },
       "NUnit3TestAdapter": {
         "type": "Direct",
@@ -91,15 +91,15 @@
       },
       "Verify.NUnit": {
         "type": "Direct",
-        "requested": "[30.3.1, )",
-        "resolved": "30.3.1",
-        "contentHash": "0fe2ixVOoE7xT/BsceZzYeBjAJGx43jRcrKPRkjcBFYlt0K3/1vNboEud9HLG0gmfAC9I2jHv/WcHjrNXx08jg==",
+        "requested": "[30.4.0, )",
+        "resolved": "30.4.0",
+        "contentHash": "UIJiiBrTELbDSorrJzI3oo2CzS5QeOdH+wpqKkGjKuXgtMxu9vjDs3jrBKY7vsFEglsklvzlpSpEJaj9eo5k1A==",
         "dependencies": {
-          "Argon": "0.30.0",
-          "DiffEngine": "16.2.2",
+          "Argon": "0.30.1",
+          "DiffEngine": "16.2.3",
           "NUnit": "4.3.2",
-          "SimpleInfoName": "3.1.1",
-          "Verify": "30.3.1"
+          "SimpleInfoName": "3.1.2",
+          "Verify": "30.4.0"
         }
       },
       "Verify.SourceGenerators": {
@@ -113,22 +113,22 @@
       },
       "Argon": {
         "type": "Transitive",
-        "resolved": "0.30.0",
-        "contentHash": "lMX8oWRaY653eQvAx8X0PKYoDIitPkSY1Lupv7MCveLmKcfwOl3Pjrba+8DEIXPHm/Ah7fJeuTPy9UxID/UY5w=="
+        "resolved": "0.30.1",
+        "contentHash": "kjKnBzxJ1Xp4Sh9B7inrP1YjefXH4X8hV4/J5EoDKloog09Kp4KUVoJS8xxYfUbUzJ+Xe5PKZm3hj5pi4ZuCZw=="
       },
       "DiffEngine": {
         "type": "Transitive",
-        "resolved": "16.2.2",
-        "contentHash": "I6WRsb6mrGqsZ/f4jNvK54evf7zbyc2nJrqV0awBokjBUD/aYC39zRuTyRjmJleORx00ByOPrWulaehCkk4BZw==",
+        "resolved": "16.2.3",
+        "contentHash": "QWnG0MR3//Ss0G0N9mIfe1HLOrOIRZqau0AOiLt9Gm53ZQf/TLvzoccTkczEW5ACkbhRY5m+p+W7bzFVln2GDw==",
         "dependencies": {
-          "EmptyFiles": "8.10.0",
+          "EmptyFiles": "8.10.1",
           "System.Management": "8.0.0"
         }
       },
       "EmptyFiles": {
         "type": "Transitive",
-        "resolved": "8.10.0",
-        "contentHash": "g0t1E44HQMsQikDr3H/YmoZGC4eTsJ10Qk1cv2usnlhaK1xaqIx8tzduHvaOeWJcx1ztbQ86fL4R1TLfJfWiXQ=="
+        "resolved": "8.10.1",
+        "contentHash": "vhLPAqdKuo2qjVkrJbCyacGXO9XTha7G1R5amw44m877FDR/gqFjCfdncj8VyHAC6eNqrCXgYTbHJGO5+l3TJg=="
       },
       "Microsoft.ApplicationInsights": {
         "type": "Transitive",
@@ -189,16 +189,16 @@
       },
       "Microsoft.Testing.Extensions.TrxReport.Abstractions": {
         "type": "Transitive",
-        "resolved": "1.7.1",
-        "contentHash": "nOveCYpJlbCjFzzv8SQjuFAjGPCDrnvD3pWV4QvhHtEio3ixwH1CHY+vKJwFoM05twqDmIFWcdT0QQF7ZwIuFg==",
+        "resolved": "1.7.2",
+        "contentHash": "gIYsVGvN8EQn9rw0h0jTeRSxCsp2UKzHCojeLlr3H5Ks8dxUunTKOqPKd04vB2caVdEaERzcfhNX4DqTneCViw==",
         "dependencies": {
-          "Microsoft.Testing.Platform": "1.7.1"
+          "Microsoft.Testing.Platform": "1.7.2"
         }
       },
       "Microsoft.Testing.Platform": {
         "type": "Transitive",
-        "resolved": "1.7.1",
-        "contentHash": "3JTnSCETm2pduIwEchrbJj6HSpZ3UB5vMFDL1xKDZ3+vTsG0ANSv67IRu5gAgCUqIjwUudojH6NgjKPfJoHF/w=="
+        "resolved": "1.7.2",
+        "contentHash": "lVl8bRyF/p857ooHHHKJ0apxQbKNkQrUJ3LDonLPJefQ5plD3aYL6u4FeazL1luezH1BYkozUmnjma9YVN7eIQ=="
       },
       "Microsoft.Testing.Platform.MSBuild": {
         "type": "Transitive",
@@ -223,8 +223,8 @@
       },
       "SimpleInfoName": {
         "type": "Transitive",
-        "resolved": "3.1.1",
-        "contentHash": "e/Z8CkhIIHJn4jfvnCefCItPsfH0STaTWnUJFBsR0y+eu7Jp9Qas4DZE/Wepfg2SRf4OImlXUCuWsja8gDxP+g=="
+        "resolved": "3.1.2",
+        "contentHash": "/OoEZQxSW6DeTJ9nfrg8BLCOCWpxBiWHV4NkG3t+Xpe8tvzm7yCwKwxkhpauMl3fg9OjlIjJMKX61H6VavLkrw=="
       },
       "System.Buffers": {
         "type": "Transitive",
@@ -281,12 +281,12 @@
       },
       "Verify": {
         "type": "Transitive",
-        "resolved": "30.3.1",
-        "contentHash": "0PwDNUpzIxii+gvLZm72vabOFHq8AY0xsn3073BQXaBFZkog839UqrJa61B27nYkmcMqlf5c/A3pc13ieuRAmA==",
+        "resolved": "30.4.0",
+        "contentHash": "ZoPOO21Dm3GS3V1fYeEcedCJdk5XS4X6mYBwQk+813QFkPLNr4/EvCDtGXH2NrFXtmWhu0WiIiiLMa0cZ7ynqQ==",
         "dependencies": {
-          "Argon": "0.30.0",
-          "DiffEngine": "16.2.2",
-          "SimpleInfoName": "3.1.1"
+          "Argon": "0.30.1",
+          "DiffEngine": "16.2.3",
+          "SimpleInfoName": "3.1.2"
         }
       },
       "buildergenerator": {
