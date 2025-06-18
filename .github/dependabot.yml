@@ -15,21 +15,21 @@ updates:
     groups:
       # If a dependency update could belong to more than one group, it is only assigned to the first group it matches with.
       security-updates:
-        applies-to: "security-updates"
+        applies-to: security-updates
         update-types:
           - "major"
           - "minor"
           - "patch"
 
       major-pkg-updates:
-        applies-to: "version-updates"
+        applies-to: version-updates
         exclude-patterns:
           - "*[Aa]nalyzers*"
         update-types:
           - "major"
 
       pkg-updates:
-        applies-to: "version-updates"
+        applies-to: version-updates
         exclude-patterns:
           - "*[Aa]nalyzers*"
         update-types:
@@ -37,7 +37,7 @@ updates:
           - "patch"
 
       analyzer-updates:
-        applies-to: "version-updates"
+        applies-to: version-updates
         patterns:
           - "*[Aa]nalyzers*"
         update-types:
@@ -55,7 +55,7 @@ updates:
     # action.yml / action.yaml file from the root directory.
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: monthly
     groups:
       actions-dependencies:
         update-types:
@@ -69,6 +69,6 @@ updates:
     open-pull-requests-limit: 2
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: monthly
     labels:
       - "⬆️ Dependencies"
