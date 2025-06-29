@@ -864,3 +864,6 @@ dotnet_diagnostic.CA2259.severity = error
 
 # CA2260: Implement generic math interfaces correctly
 dotnet_diagnostic.CA2260.severity = error
+
+# CA5394: Do not use insecure randomness
+dotnet_diagnostic.CA5394.severity = none
