@@ -97,7 +97,7 @@ jobs:
       - id: init-codeql
         name: Initialize CodeQL
         if: env.ENABLED == '1'
-        uses: github/codeql-action/init@v3.29.0
+        uses: github/codeql-action/init@v3.29.2
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
@@ -173,6 +173,6 @@ jobs:
       - id: codeql-analysis
         name: Perform CodeQL Analysis
         if: env.ENABLED == '1'
-        uses: github/codeql-action/analyze@v3.29.0
+        uses: github/codeql-action/analyze@v3.29.2
         with:
           category: "/language:${{matrix.language}}"
