@@ -1,6 +1,7 @@
 ---
 description: Debug your application to find and fix a bug
-tools: ['codebase', 'readFiles', 'editFiles', 'githubRepo', 'runCommands', 'fetch', 'search', 'usages', 'findTestFiles', 'get_errors', 'test_failure', 'run_in_terminal', 'get_terminal_output']
+tools: ['codebase', 'editFiles', 'githubRepo', 'runCommands', 'fetch', 'search', 'usages', 'findTestFiles']
+model: Claude Sonnet 3.5
 ---
 
 # Debug Mode Instructions
