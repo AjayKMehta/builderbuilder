@@ -23,6 +23,7 @@ permissions:
 # Run on the latest version of Ubuntu
 jobs:
   version-sweep:
+    name: Sweep .NET Versions
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -54,8 +55,11 @@ jobs:
       - id: create-pr
         name: Create pull requests
         if: steps.dotnet-version-sweeper.outputs.has-remaining-work == 'true'
+        env:
+          UPGRADE_PROJECTS: ${{ steps.dotnet-version-sweeper.outputs.upgrade-projects }}
+          SUPPORT: ${{ inputs.support }}
         run: |
-          upgradeProjects: ${{ steps.dotnet-version-sweeper.outputs.upgrade-projects }}
+          upgradeProjects: "$UPGRADE_PROJECTS"
 
           # Install .NET Upgrade Assistant global tool
           dotnet tool install --global upgrade-assistant
@@ -68,7 +72,7 @@ jobs:
             git checkout -b upgrade/$projectDir
 
             # Perform the upgrade using upgrade-assistant
-            upgrade-assistant upgrade "$projectDir" --non-interactive -t ${{ inputs.support }}
+            upgrade-assistant upgrade "$projectDir" --non-interactive -t "$SUPPORT"
 
             # Commit the changes
             git add .

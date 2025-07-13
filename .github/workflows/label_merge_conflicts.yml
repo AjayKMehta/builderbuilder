@@ -18,6 +18,7 @@ concurrency:
 
 jobs:
   triage:
+    name: Label Merge Conflicts
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

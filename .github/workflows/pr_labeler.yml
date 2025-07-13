@@ -4,6 +4,7 @@ on:
 
 jobs:
   labeler:
+    name: Label PRs
     permissions:
       contents: read
       issues: write

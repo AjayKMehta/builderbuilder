@@ -4,6 +4,7 @@ env:
   # Only merge code coverage results if 1
   USE_MERGE: 0
   BUILD_CONFIG: Release
+
 on:
   push:
   pull_request:
@@ -19,6 +20,7 @@ concurrency:
 
 jobs:
   pre_job:
+    name: Check for Duplicate Actions
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
@@ -32,9 +34,9 @@ jobs:
           concurrent_skipping: same_content_newer
 
   test:
+    name: Run Tests
     needs: pre_job
     if: needs.pre_job.outputs.should_skip != 'true'
-    name: test
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:

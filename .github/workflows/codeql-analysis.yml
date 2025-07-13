@@ -23,6 +23,7 @@ permissions:
 jobs:
 
   pre_job:
+    name: Check for Duplicate Actions
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:

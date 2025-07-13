@@ -6,6 +6,7 @@ on:
       - 'master'
 jobs:
   autoupdate:
+    name: Update PR
     runs-on: ubuntu-latest
     steps:
       - id: update-pr
