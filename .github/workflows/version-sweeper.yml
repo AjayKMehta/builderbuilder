@@ -43,7 +43,7 @@ jobs:
       # Issues will be automatically created for any non-ignored projects that are targeting non-LTS versions
       - id: dotnet-version-sweeper
         name: .NET version sweeper
-        uses: dotnet/versionsweeper@v4.2
+        uses: dotnet/versionsweeper@v4.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
