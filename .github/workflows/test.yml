@@ -143,7 +143,7 @@ jobs:
       - id: generate-report
         name: Generate codecoverage report
         if: env.ENABLED == '1'
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.8
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.11
         with:
           reports: '**/TestResults/**/coverage.cobertura.xml'
           targetdir: '${{ github.workspace }}/coveragereport'
