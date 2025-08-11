@@ -40,6 +40,8 @@ jobs:
       image: semgrep/semgrep
       # https://github.com/actions/runner/issues/2033#issuecomment-1598547465
       options: --user 1001
+    permissions:
+      contents: read
 
     steps:
     - id: checkout
