@@ -43,22 +43,22 @@
       },
       "Microsoft.Testing.Extensions.CrashDump": {
         "type": "Direct",
-        "requested": "[1.8.1, )",
-        "resolved": "1.8.1",
-        "contentHash": "tmlNva/iHEEVFpQaTBFqbl2BHm9pv+y4tJrGCITizJPMJCm3nTCzeMhXidirdXifeTpVs1Sp25AN/5LeIqMrhA==",
+        "requested": "[1.8.2, )",
+        "resolved": "1.8.2",
+        "contentHash": "qSYWCetcZKkuzFr3medMWbCvJzMMKN8Qof4m2nF8daMxod7brys/EFqhCMOUC1yu0+T6KIA49sH1XhQ1sdSw+g==",
         "dependencies": {
-          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "1.8.1",
-          "Microsoft.Testing.Platform": "1.8.1"
+          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "1.8.2",
+          "Microsoft.Testing.Platform": "1.8.2"
         }
       },
       "Microsoft.Testing.Extensions.HangDump": {
         "type": "Direct",
-        "requested": "[1.8.1, )",
-        "resolved": "1.8.1",
-        "contentHash": "fmwHhQcVT6lNCOovgizoBpKVhEkxQNhoMBxcXK45C+HW6f41ClD3Vd86Uec+bF05+6g4oTwelU5zqLodKVf5WQ==",
+        "requested": "[1.8.2, )",
+        "resolved": "1.8.2",
+        "contentHash": "yb8Hm8hMeTizZLx/MV3hnBAixXdyt4kx7fHwpCNCpRDUGzf8y+1X/IYJv/lTWOdfQGv2XZ4cMRbVZB3aLuKuaQ==",
         "dependencies": {
           "Microsoft.Diagnostics.NETCore.Client": "0.2.607501",
-          "Microsoft.Testing.Platform": "1.8.1"
+          "Microsoft.Testing.Platform": "1.8.2"
         }
       },
       "NUnit": {
@@ -189,16 +189,16 @@
       },
       "Microsoft.Testing.Extensions.TrxReport.Abstractions": {
         "type": "Transitive",
-        "resolved": "1.8.1",
-        "contentHash": "Z7JGDf/hA89BMhDdQG6351ItKUC5V2ISBRLw0PozL+OuWqbzrXiVbGm/YJXMj2Z4KCqIBT2K+GEC07rpNQv7ew==",
+        "resolved": "1.8.2",
+        "contentHash": "QPaJgSfN0APwB6OtJO9jOGETv62d94fsDwLKh+Yu6vAFIP8wfml2CFLzaOlBIkbYFb8kG0s0Bd/VPLQrhCL3lg==",
         "dependencies": {
-          "Microsoft.Testing.Platform": "1.8.1"
+          "Microsoft.Testing.Platform": "1.8.2"
         }
       },
       "Microsoft.Testing.Platform": {
         "type": "Transitive",
-        "resolved": "1.8.1",
-        "contentHash": "Nb2F/2nZBn7+81HRmICCrJXjpCQny+cG2l/rW81mApHKbf+nDeydo44PYFwGMYz2ZuNnIWB96qvI5Uy4l69ceQ=="
+        "resolved": "1.8.2",
+        "contentHash": "KTr/LYPhgT3IEzElGEEHldNJec0QMTouDhtwDmW+PAPAEzSKJQHtPaNA3pf0IL7ISmoKtuxxHV2v1Cq9xmelzQ=="
       },
       "Microsoft.Testing.Platform.MSBuild": {
         "type": "Transitive",
