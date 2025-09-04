@@ -52,6 +52,7 @@ jobs:
       actions: read
       contents: read
 
+      pull-requests: read
     strategy:
       fail-fast: false
       matrix:
