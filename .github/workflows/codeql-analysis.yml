@@ -150,7 +150,7 @@ jobs:
       - id: pr-check
         name: Check if PR for current commit
         if: env.ENABLED == '1'
-        uses: 8BitJonny/gh-get-current-pr@3.0.0
+        uses: 8BitJonny/gh-get-current-pr@4.0.0
         with:
           # This will work no matter the trigger event and no matter if it is the first PR commit or not.
           sha: ${{ github.event.pull_request.head.sha }}
