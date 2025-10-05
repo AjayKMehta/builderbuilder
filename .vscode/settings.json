@@ -1,4 +1,11 @@
 {
   "explorer.excludeGitIgnore": true,
-  "sarif-viewer.connectToGithubCodeScanning": "on"
+  "sarif-viewer.connectToGithubCodeScanning": "on",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  }
 }
