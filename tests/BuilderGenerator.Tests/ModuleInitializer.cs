@@ -9,7 +9,7 @@ using VerifyTests;
 
 namespace BuilderGenerator.Tests;
 
-public static class ModuleInitializer
+internal static class ModuleInitializer
 {
     [ModuleInitializer]
     public static void Init()
