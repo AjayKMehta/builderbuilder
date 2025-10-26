@@ -2,8 +2,6 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <!-- https://docs.nunit.org/articles/vs-test-adapter/NUnit-And-Microsoft-Test-Platform.html -->
-    <EnableNUnitRunner>true</EnableNUnitRunner>
     <OutputType>Exe</OutputType>
     <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
     <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
