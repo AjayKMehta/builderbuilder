@@ -8,6 +8,7 @@ jobs:
   autoupdate:
     name: Update PR
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - id: update-pr
         name: Automatically update PR
