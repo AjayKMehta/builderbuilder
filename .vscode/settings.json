@@ -1,6 +1,6 @@
 {
   "explorer.excludeGitIgnore": true,
-  "sarif-viewer.connectToGithubCodeScanning": "on",
+  "fileVisibilityToggle.alsoToggleGitIgnoreExclusion": true,
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
