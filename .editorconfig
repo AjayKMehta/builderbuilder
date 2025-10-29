@@ -72,7 +72,7 @@ indent_style = tab
 exclude = true
 generated_code = true
 
-[{Program.cs,*Tests.cs}]
+[{Program,*Tests,*Controller,*Model,*DbContext,*Dto}.cs]
 # CA1515: Consider making public types internal
 dotnet_diagnostic.CA1515.severity = none
 
@@ -771,6 +771,10 @@ dotnet_diagnostic.CA1311.severity = warning
 
 # CA1501: Avoid excessive inheritance
 dotnet_diagnostic.CA1501.severity = suggestion
+
+CA1515: Consider making public types internal
+dotnet_code_quality.CA1515.output_kind = DynamicallyLinkedLibrary
+dotnet_diagnostic.CA1515.severity = suggestion
 
 ## Naming rules
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/naming-warnings
