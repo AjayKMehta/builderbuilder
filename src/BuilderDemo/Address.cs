@@ -3,7 +3,7 @@ using BuilderGenerator;
 namespace BuilderDemo;
 
 [Buildable]
-internal sealed class Address
+public sealed class Address
 {
     public Address(string street, string city, string state, string zipCode)
     {
