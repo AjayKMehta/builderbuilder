@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-using VerifyNUnit;
+using VerifyTests;
+
+using VerifyTUnit;
 
 namespace BuilderGenerator.Tests;
 
@@ -32,9 +34,9 @@ internal static class TestHelper
         GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
 
         driver = driver.RunGenerators(compilation);
-
+        var settings = new VerifySettings();
+        settings.UseDirectory("Snapshots");
         return Verifier
-            .Verify(driver)
-            .UseDirectory("Snapshots");
+            .Verify(driver, settings);
     }
 }

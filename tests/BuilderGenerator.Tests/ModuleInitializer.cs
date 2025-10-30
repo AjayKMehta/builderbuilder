@@ -9,7 +9,7 @@ using VerifyTests;
 
 namespace BuilderGenerator.Tests;
 
-public static class ModuleInitializer
+internal static class ModuleInitializer
 {
     [ModuleInitializer]
     public static void Init()
@@ -19,95 +19,28 @@ public static class ModuleInitializer
         if (assemblyConfigurationAttribute is not null)
             Console.WriteLine($"Build Configuration is {assemblyConfigurationAttribute.Configuration}.");
 
-        VerifySourceGenerators.Initialize();
+        DiffTools.UseOrder(DiffTool.WinMerge);
+        ResolvedTool? _ = DiffTools.AddToolBasedOn(
+            DiffTool.WinMerge,
+            name: "MyDiffTool",
+            launchArguments: new(
+                Left: TargetLeftArguments,
+                Right: TargetRightArguments)
+            );
 
-        SetupDiffTool();
+        VerifySourceGenerators.Initialize();
+    }
+    private static string TargetLeftArguments(string temp, string target)
+    {
+        var tempTitle = Path.GetFileName(temp);
+        var targetTitle = Path.GetFileName(target);
+        return $"/u /ignoreeol /wl /e \"{target}\" \"{temp}\" /dl \"{targetTitle}\" /dr \"{tempTitle}\" /cfg Backup/EnableFile=0";
     }
 
-    private static readonly string[] s_binaryExtensions =
-            [
-                ".bmp",
-                ".cut",
-                ".dds",
-                ".exr",
-                ".g3",
-                ".gif",
-                ".hdr",
-                ".ico",
-                ".iff",
-                ".lbm",
-                ".j2k",
-                ".j2c",
-                ".jng",
-                ".jp2",
-                ".jpg",
-                ".jif",
-                ".jpeg",
-                ".jpe",
-                ".jxr",
-                ".wdp",
-                ".hdp",
-                ".koa",
-                ".mng",
-                ".pcd",
-                ".pcx",
-                ".pfm",
-                ".pct",
-                ".pict",
-                ".pic",
-                ".png",
-                ".pbm",
-                ".pgm",
-                ".ppm",
-                ".psd",
-                ".ras",
-                ".sgi",
-                ".rgb",
-                ".rgba",
-                ".bw",
-                ".tga",
-                ".targa",
-                ".tif",
-                ".tiff",
-                ".wap",
-                ".wbm",
-                ".webp",
-                ".xbm",
-                ".xpm"
-            ];
-
-    private static void SetupDiffTool()
+    private static string TargetRightArguments(string temp, string target)
     {
-        static string TargetLeftArguments(string temp, string target)
-        {
-            var tempTitle = Path.GetFileName(temp);
-            var targetTitle = Path.GetFileName(target);
-            return $"/u /ignoreeol /wl /e \"{target}\" \"{temp}\" /dl \"{targetTitle}\" /dr \"{tempTitle}\"";
-        }
-
-        static string TargetRightArguments(string temp, string target)
-        {
-            var tempTitle = Path.GetFileName(temp);
-            var targetTitle = Path.GetFileName(target);
-            return $"/u /ignoreeol /wl /e \"{temp}\" \"{target}\" /dl \"{tempTitle}\" /dr \"{targetTitle}\"";
-        }
-
-        var launchArguments = new LaunchArguments(
-            Left: TargetLeftArguments,
-            Right: TargetRightArguments);
-
-        _ = DiffTools.AddTool(
-            name: "MyTool",
-            autoRefresh: true,
-            isMdi: false,
-            supportsText: true,
-            requiresTarget: true,
-            binaryExtensions: s_binaryExtensions,
-            useShellExecute: true,
-            osSupport: new OsSupport(
-                Windows: new OsSettings(
-                    @"D:\Apps\WinMerge\WinMergeU.exe",
-                    launchArguments)
-        ));
+        var tempTitle = Path.GetFileName(temp);
+        var targetTitle = Path.GetFileName(target);
+        return $"/u /ignoreeol /wl /e \"{temp}\" \"{target}\" /dl \"{tempTitle}\" /dr \"{targetTitle}\" /cfg Backup/EnableFile=0";
     }
 }

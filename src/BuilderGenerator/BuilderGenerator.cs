@@ -75,6 +75,7 @@ public class BuilderGenerator : IIncrementalGenerator
         if (classToGenerate is not { } value)
             return;
         var typeName = value.TypeName;
+#pragma warning disable CA1031 // Do not catch general exception types
         try
         {
             var compilationInfo = compilation switch
@@ -103,5 +104,6 @@ public class BuilderGenerator : IIncrementalGenerator
         {
             context.ReportDiagnostic(Diagnostic.Create(s_errorGeneratingBuilderSource, Location.None, typeName, ex.Message));
         }
+#pragma warning restore CA1031 // Do not catch general exception types
     }
 }

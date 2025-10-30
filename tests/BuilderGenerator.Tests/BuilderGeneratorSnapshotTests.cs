@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
 
-using NUnit.Framework;
+using static BuilderGenerator.Tests.TestHelper;
 
 namespace BuilderGenerator.Tests;
 
-[TestFixture]
 public class BuilderGeneratorSnapshotTests
 {
     [Test]
@@ -27,7 +26,7 @@ public class Point
     public int Y { get; }
 }";
 
-        return TestHelper.Verify(Source);
+        return Verify(Source);
     }
 
     [Test]
@@ -52,6 +51,6 @@ public class Foo<T>
     public T Y { get; }
 }";
 
-        return TestHelper.Verify(Source);
+        return Verify(Source);
     }
 }
