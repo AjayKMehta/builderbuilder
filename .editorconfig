@@ -781,6 +781,8 @@ dotnet_diagnostic.CA1311.severity = warning
 # CA1501: Avoid excessive inheritance
 dotnet_diagnostic.CA1501.severity = suggestion
 
+# CA1515: Consider making public types internal
+dotnet_diagnostic.CA1515.severity = none
 
 ## Naming rules
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/naming-warnings
@@ -840,8 +842,9 @@ dotnet_diagnostic.CA2000.severity = warning
 dotnet_diagnostic.CA2002.severity = error
 
 # CA2007: Do not directly await a Task
-dotnet_diagnostic.CA2007.severity = warning
-dotnet_code_quality.CA2007.output_kind = DynamicallyLinkedLibrary
+dotnet_code_quality.CA2007.exclude_async_void_methods = true
+dotnet_code_quality.CA2007.output_kind = DynamicallyLinkedLibrary, WindowsApplication
+dotnet_diagnostic.CA2007.severity = none
 
 # CA2013: Do not use ReferenceEquals with value types
 dotnet_diagnostic.CA2013.severity = error
