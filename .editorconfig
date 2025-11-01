@@ -811,6 +811,10 @@ dotnet_diagnostic.CA1805.severity = warning
 # CA1815: Override equals and operator equals on value types
 dotnet_diagnostic.CA1815.severity = warning
 
+# CA1822: Mark members as static
+dotnet_code_quality.CA1822.api_surface = private
+dotnet_diagnostic.CA1822.severity = suggestion
+
 # CA1845: Use span-based 'string.Concat'
 dotnet_diagnostic.CA1845.severity = warning
 
