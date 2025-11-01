@@ -11,41 +11,4 @@
     <DisableAppDomain>False</DisableAppDomain>
     <CollectSourceInformation>True</CollectSourceInformation>
   </RunConfiguration>
-  <!-- https://docs.nunit.org/articles/vs-test-adapter/Tips-And-Tricks.html -->
-  <NUnit>
-    <PrivateBinPath>extras;more.extras</PrivateBinPath>
-    <DefaultTimeout>60000</DefaultTimeout>
-    <InternalTraceLevel>Off</InternalTraceLevel>
-    <RandomSeed>1234567</RandomSeed>
-    <NumberOfTestWorkers>-1</NumberOfTestWorkers>
-    <Verbosity>1</Verbosity>
-    <UseVsKeepEngineRunning>False</UseVsKeepEngineRunning>
-    <ShadowCopyFiles>False</ShadowCopyFiles>
-    <DefaultTestNamePattern>{m}{a}</DefaultTestNamePattern>
-    <DumpXmlTestDiscovery>False</DumpXmlTestDiscovery>
-    <DumpXmlTestResults>False</DumpXmlTestResults>
-    <ShowInternalProperties>False</ShowInternalProperties>
-    <NewOutputXmlFileForEachRun>False</NewOutputXmlFileForEachRun>
-    <OutputXmlFolderMode>UseResultDirectory</OutputXmlFolderMode>
-    <!-- NUnit filter expression, see -->
-    <!-- https://docs.nunit.org/articles/nunit/running-tests/Test-Selection-Language.html -->
-    <ConsoleOut>2</ConsoleOut>
-    <UseTestNameInConsoleOutput>True</UseTestNameInConsoleOutput>
-    <StopOnError>False</StopOnError>
-    <SkipNonTestAssemblies>False</SkipNonTestAssemblies>
-    <MapWarningTo>Skipped</MapWarningTo>
-    <!-- Passed, Failed or Skipped -->
-    <DisplayName>Name</DisplayName>
-    <FullnameSeparator>:</FullnameSeparator>
-    <DiscoveryMethod>Current</DiscoveryMethod>
-    <AssemblySelectLimit>2000</AssemblySelectLimit>
-    <IncludeStackTraceForSuites>True</IncludeStackTraceForSuites>
-    <ExplicitMode>Strict</ExplicitMode>
-    <SkipExecutionWhenNoTests>True</SkipExecutionWhenNoTests>
-    <PreFilter>True</PreFilter>
-    <UseParentFQNForParametrizedTests>True</UseParentFQNForParametrizedTests>
-    <UseNUnitIdforTestCaseId>False</UseNUnitIdforTestCaseId>
-    <AllowParallelWithDebugger>True</AllowParallelWithDebugger>
-    <ThrowOnEachFailureUnderDebugger>True</ThrowOnEachFailureUnderDebugger>
-  </NUnit>
 </RunSettings>
