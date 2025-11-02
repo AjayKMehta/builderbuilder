@@ -2,9 +2,11 @@ code:
     - "**/*.cs"
     - "**/*.csproj"
     - "**/*.props"
+    - "**/*.slnx"
 codeql:
     - .github/workflows/codeql-analysis.yml
 test:
     - .github/workflows/test.yml
+    - "**/*.runsettings"
 workflows:
     - .github/workflows/*.yml
