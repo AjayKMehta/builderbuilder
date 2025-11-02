@@ -10,5 +10,7 @@
     <DisableParallelization>False</DisableParallelization>
     <DisableAppDomain>False</DisableAppDomain>
     <CollectSourceInformation>True</CollectSourceInformation>
+    <TreatNoTestsAsError>True</TreatNoTestsAsError>
+    <ResultsDirectory>TestResults</ResultsDirectory>
   </RunConfiguration>
 </RunSettings>

@@ -4,11 +4,15 @@
 <!-- https://github.com/microsoft/codecoverage/blob/main/docs/configuration.md -->
 <RunSettings>
   <RunConfiguration>
+    <MaxCpuCount>5</MaxCpuCount>
     <!-- Timeout in milliseconds. If 0, timeout will be infinity -->
-    <TestSessionTimeout>3600000</TestSessionTimeout>
+    <TestSessionTimeout>1800000</TestSessionTimeout>
     <!-- Disables in-assembly parallel execution. -->
     <DisableParallelization>False</DisableParallelization>
     <DisableAppDomain>False</DisableAppDomain>
     <CollectSourceInformation>True</CollectSourceInformation>
+    <TreatNoTestsAsError>False</TreatNoTestsAsError>
+    <ResultsDirectory>TestResults</ResultsDirectory>
+    <ExcludeAssembliesWithoutSources>MissingAll</ExcludeAssembliesWithoutSources>
   </RunConfiguration>
 </RunSettings>
