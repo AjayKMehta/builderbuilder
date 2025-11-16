@@ -76,7 +76,7 @@ jobs:
         with:
           cache: true
           cache-dependency-path: "**/packages.lock.json"
-          dotnet-version: '9.0.x'
+          dotnet-version: '10.0.x'
 
       - id: install-dotnet-coverage
         name: Install dotnet-coverage tool
@@ -129,7 +129,7 @@ jobs:
       - id: test
         name: Test
         if: env.ENABLED == '1'
-        run: dotnet test -s ./cicd.runsettings --configuration $BUILD_CONFIG --no-build --verbosity quiet --logger "GitHubActions;summary.includeNotFoundTests=false"  --blame-hang-timeout 10m -- --coverage --coverage-output-format xml --coverage-output coverage.cobertura.xml
+        run: dotnet test  --property:runsetting=./cicd.runsettings --configuration $BUILD_CONFIG --no-build --verbosity quiet --crashdump --hangdump --hangdump-timeout 10m --coverage --coverage-output-format xml --coverage-output coverage.cobertura.xml
 
       - id: upload-logs
         name: Upload Test Logs
