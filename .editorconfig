@@ -78,13 +78,6 @@ insert_final_newline = false
 tab_width = unset
 trim_trailing_whitespace = false
 
-[*.{AssemblyAttributes.cs,AssemblyInfo.cs}]
-exclude = true
-
-[*.{generated.cs,g.cs}]
-exclude = true
-generated_code = true
-
 [*.{cs,csx,cake}]
 
 ##########################################
@@ -897,3 +890,10 @@ dotnet_diagnostic.CA2260.severity = error
 
 # CA5394: Do not use insecure randomness
 dotnet_diagnostic.CA5394.severity = none
+
+[*.{AssemblyAttributes.cs,AssemblyInfo.cs}]
+exclude = true
+
+[*.{generated.cs,g.cs}]
+exclude = true
+generated_code = true
