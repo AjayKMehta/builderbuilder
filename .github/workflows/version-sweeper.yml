@@ -30,7 +30,7 @@ jobs:
     # Checkout the repo into the workspace within the VM
     steps:
       - id: checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.0
 
       - id: print-reason
         name: "Print manual run reason"

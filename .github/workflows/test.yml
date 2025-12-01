@@ -48,7 +48,7 @@ jobs:
 
     steps:
       - name: 'Checkout Repository'
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.0
         # https://github.com/adamralph/minver?tab=readme-ov-file#why-is-the-default-version-sometimes-used-in-github-actions-azure-pipelines-and-travis-ci-when-a-version-tag-exists-in-the-history
         with:
           fetch-depth: 0
