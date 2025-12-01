@@ -9,7 +9,7 @@ updates:
     directory: "/"
     schedule:
       interval: "cron"
-      cronjob: "30 12 14,28 * *"
+      cronjob: "30 12 14,28 * *" # At 12:30, on day 14 and 28 of the month
     cooldown:
       default-days: 5
       semver-major-days: 20
@@ -58,8 +58,8 @@ updates:
     # action.yml / action.yaml file from the root directory.
     directory: "/"
     schedule:
-      interval: monthly
-    # Doesn't support SemVer
+      interval: "cron"
+      cronjob: "0 8 10,20 * *" # At 08:00, on day 10 and 20 of the month
     cooldown:
       default-days: 5
     groups:
