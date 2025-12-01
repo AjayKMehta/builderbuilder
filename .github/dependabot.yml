@@ -9,7 +9,7 @@ updates:
     directory: "/"
     schedule:
       interval: "cron"
-      cronjob: "30 12 * * 7"
+      cronjob: "30 12 14,28 * *"
     cooldown:
       default-days: 5
       semver-major-days: 20
@@ -24,6 +24,13 @@ updates:
           - "minor"
           - "patch"
 
+      major-pkg-updates:
+        applies-to: version-updates
+        exclude-patterns:
+          - "*[Aa]nalyzers*"
+        update-types:
+          - "major"
+
       pkg-updates:
         applies-to: version-updates
         exclude-patterns:
@@ -37,6 +44,7 @@ updates:
         patterns:
           - "*[Aa]nalyzers*"
         update-types:
+          - "major"
           - "minor"
           - "patch"
     labels:
@@ -57,6 +65,7 @@ updates:
     groups:
       actions-dependencies:
         update-types:
+          - "major"
           - "minor"
           - "patch"
     labels:
