@@ -42,7 +42,7 @@ jobs:
     steps:
       - id: checkout
         name: 'Checkout Repository'
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.0
 
       - id: review-deps
         name: 'Dependency Review'
