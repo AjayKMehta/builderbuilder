@@ -71,7 +71,7 @@ jobs:
 
       - id: setup-dotnet
         name: Setup .NET Core
-        uses: actions/setup-dotnet@v5.0.0
+        uses: actions/setup-dotnet@v5.0.1
         if: env.ENABLED == '1'
         with:
           cache: true
@@ -144,7 +144,7 @@ jobs:
       - id: generate-report
         name: Generate codecoverage report
         if: env.ENABLED == '1'
-        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.18
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.5.0
         with:
           reports: '**/TestResults/**/coverage.cobertura.xml'
           targetdir: '${{ github.workspace }}/coveragereport'
