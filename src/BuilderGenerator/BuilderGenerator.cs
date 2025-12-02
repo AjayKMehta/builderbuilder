@@ -63,7 +63,7 @@ public class BuilderGenerator : IIncrementalGenerator
     {
         return semanticModel.GetDeclaredSymbol(classDeclarationSyntax) is not INamedTypeSymbol typeSymbol
             ? null
-            : (ClassToGenerate?)new ClassToGenerate(typeSymbol);
+            : new ClassToGenerate(typeSymbol);
     }
 
     private static void Execute(ClassToGenerate? classToGenerate, Compilation compilation, SourceProductionContext context)
