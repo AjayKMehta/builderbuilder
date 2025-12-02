@@ -3,7 +3,7 @@ name: ".NET version sweeper"
 
 # When to run this action:
 # - Scheduled on the first of every month
-# - Manually runable from the GitHub UI with a reason
+# - Manually runnable from the GitHub UI with a reason
 on:
   schedule:
     - cron: "0 0 1 * *"
@@ -58,6 +58,7 @@ jobs:
         env:
           UPGRADE_PROJECTS: ${{ steps.dotnet-version-sweeper.outputs.upgrade-projects }}
           SUPPORT: ${{ inputs.support }}
+          DOTNET_CLI_TELEMETRY_OPTOUT: true
         run: |
           upgradeProjects: "$UPGRADE_PROJECTS"
 
