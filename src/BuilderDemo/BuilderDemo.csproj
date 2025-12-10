@@ -15,14 +15,4 @@
     <!-- Exclude the output of source generators from the compilation -->
     <Compile Remove="$(GeneratedFolder)/**/*.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="IDisposableAnalyzers">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="ReflectionAnalyzers">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
 </Project>
