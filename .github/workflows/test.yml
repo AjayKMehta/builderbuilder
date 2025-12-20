@@ -134,7 +134,7 @@ jobs:
 
       - id: upload-logs
         name: Upload Test Logs
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: env.ENABLED == '1' && failure() && steps.test.outcome == 'failure'
         with:
           name: test-logs
@@ -155,7 +155,7 @@ jobs:
       - id: upload-codecov
         name: Upload code coverage results to codecov
         if: env.ENABLED == '1'
-        uses:  codecov/codecov-action@v5.5.1
+        uses:  codecov/codecov-action@v5.5.2
         with:
           flags: unittests
           fail_ci_if_error: true
@@ -197,7 +197,7 @@ jobs:
       - id: archive-results
         name: Archive results
         # https://github.com/actions/upload-artifact/blob/main/docs/MIGRATION.md
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: env.ENABLED == '1'
         with:
           name: code-coverage-report-ubuntu
