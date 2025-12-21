@@ -730,6 +730,9 @@ dotnet_diagnostic.CA1024.severity = suggestion
 # CA1028: Enum storage should be Int32
 dotnet_diagnostic.CA1028.severity = none
 
+# CA1031: Do not catch general exception types
+dotnet_diagnostic.CA1031.severity = none
+
 # CA1040: Avoid empty interfaces
 dotnet_code_quality.CA1040.api_surface = all
 dotnet_diagnostic.CA1040.severity = none
@@ -800,6 +803,9 @@ dotnet_code_quality.CA1802.required_modifiers = none
 
 # CA1805: Do not initialize unnecessarily.
 dotnet_diagnostic.CA1805.severity = warning
+
+# CA1812: Avoid uninstantiated internal classes
+dotnet_diagnostic.CA1812.severity = none
 
 # CA1815: Override equals and operator equals on value types
 dotnet_diagnostic.CA1815.severity = warning
@@ -893,7 +899,9 @@ dotnet_diagnostic.CA5394.severity = none
 
 [*.{AssemblyAttributes.cs,AssemblyInfo.cs}]
 exclude = true
+dotnet_diagnostic.CS8019.severity = none
 
 [*.{generated.cs,g.cs}]
 exclude = true
 generated_code = true
+dotnet_diagnostic.CS8019.severity = silent
