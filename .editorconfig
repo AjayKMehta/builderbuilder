@@ -149,14 +149,12 @@ csharp_style_prefer_tuple_swap = true
 dotnet_style_namespace_match_folder = true
 
 dotnet_style_collection_initializer = true
-dotnet_style_prefer_collection_expression = true
+dotnet_style_prefer_collection_expression = when_types_exactly_match
 
-dotnet_style_explicit_tuple_names = true
-dotnet_diagnostic.IDE0033.severity = suggestion
+dotnet_style_explicit_tuple_names = true:suggestion
 
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/ide0017#dotnet_style_object_initializer
-dotnet_style_object_initializer = true
-dotnet_diagnostic.IDE0017.severity = suggestion
+dotnet_style_object_initializer = true:suggestion
 
 dotnet_style_operator_placement_when_wrapping = end_of_line
 dotnet_style_prefer_auto_properties = true
@@ -165,15 +163,12 @@ dotnet_style_prefer_compound_assignment = true
 dotnet_diagnostic.IDE0054.severity = suggestion
 dotnet_diagnostic.IDE0074.severity = suggestion
 
-dotnet_style_prefer_conditional_expression_over_assignment = false
-dotnet_diagnostic.IDE0045.severity = suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = false:suggestion
 
-dotnet_style_prefer_conditional_expression_over_return = true
-dotnet_diagnostic.IDE0046.severity = suggestion
+dotnet_style_prefer_conditional_expression_over_return = false:suggestion
 
 dotnet_style_prefer_inferred_tuple_names = true
-dotnet_style_prefer_inferred_anonymous_type_member_names = true
-dotnet_diagnostic.IDE0037.severity = suggestion
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
 
 dotnet_style_prefer_simplified_boolean_expressions= true
 dotnet_style_prefer_simplified_interpolation = true
@@ -192,8 +187,7 @@ csharp_style_prefer_utf8_string_literals = true
 dotnet_diagnostic.IDE0302.severity = suggestion
 
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/ide0016#csharp_style_throw_expression
-csharp_style_throw_expression = true
-dotnet_diagnostic.IDE0016.severity = suggestion
+csharp_style_throw_expression = true:suggestion
 
 csharp_style_conditional_delegate_call = true
 dotnet_style_coalesce_expression = true
@@ -224,21 +218,15 @@ csharp_style_prefer_pattern_matching = true
 csharp_style_prefer_switch_expression = true
 
 # Code block preferences
-# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/code-block-preferences
-csharp_prefer_braces = when_multiline
-dotnet_diagnostic.IDE0011.severity = suggestion
-csharp_prefer_simple_using_statement = true
-dotnet_diagnostic.IDE0063.severity = suggestion
-dotnet_diagnostic.IDE0065.severity = none
+csharp_prefer_braces = when_multiline:suggestion
+csharp_prefer_simple_using_statement = true:suggestion
 
 # Unnecessary code rules
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/ide0059
-csharp_style_unused_value_assignment_preference = discard_variable
-dotnet_diagnostic.IDE0059.severity = suggestion
+csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 
 csharp_style_unused_value_expression_statement_preference = discard_variable
-dotnet_code_quality_unused_parameters = non_public
-dotnet_diagnostic.IDE0060.severity = suggestion
+dotnet_code_quality_unused_parameters = non_public:suggestion
 
 dotnet_remove_unnecessary_suppression_exclusions = all
 
@@ -248,13 +236,14 @@ dotnet_diagnostic.IDE0005.severity = warning
 # https://github.com/dotnet/roslyn/issues/41640#issuecomment-1314950048
 dotnet_diagnostic.CS8019.severity = suggestion
 
-csharp_style_prefer_top_level_statements = false
-dotnet_diagnostic.IDE0210.severity = none
+csharp_style_prefer_top_level_statements = false:none
 
 csharp_using_directive_placement = outside_namespace
 csharp_style_namespace_declarations = file_scoped
 
 csharp_style_prefer_primary_constructors = false
+csharp_prefer_static_anonymous_function = true
+csharp_style_prefer_implicitly_typed_lambda_expression = true
 
 #############################
 # .NET Formatting Rules
@@ -718,6 +707,10 @@ dotnet_code_quality.CA1008.severity = suggestion
 # https://github.com/dotnet/roslyn/issues/37876#issuecomment-738042719
 dotnet_diagnostic.CA1014.severity = none
 
+# CA1016: Mark assemblies with AssemblyVersionAttribute
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1016
+dotnet_diagnostic.CA1016.severity = none
+
 # CA1017: Mark assemblies with ComVisibleAttribute
 dotnet_diagnostic.CA1017.severity = none
 
@@ -897,7 +890,7 @@ dotnet_diagnostic.CA2260.severity = error
 # CA5394: Do not use insecure randomness
 dotnet_diagnostic.CA5394.severity = none
 
-[*.{AssemblyAttributes.cs,AssemblyInfo.cs}]
+[*.{AssemblyAttributes.cs,*AssemblyInfo.cs}]
 exclude = true
 dotnet_diagnostic.CS8019.severity = none
 
