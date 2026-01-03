@@ -12,7 +12,7 @@
       "args": [],
       "cwd": "${workspaceFolder}/src/BuilderDemo",
       "console": "internalConsole",
-      "stopAtEntry": false,
+      "stopAtEntry": false
     },
     {
       "name": "Launch BuilderGenerator.Tests",
