@@ -10,13 +10,13 @@ on:
   workflow_dispatch:
     inputs:
       reason:
-        description: "The reason for running the workflow"
+        description: The reason for running the workflow
         required: true
-        default: "Manual run"
+        default: Manual run
       support:
-        description: "The support level to target (STS, LTS, or Preview)."
+        description: The support level to target (STS, LTS, or Preview).
         required: true
-        default: "LTS"
+        default: LTS
 permissions:
   contents: read
 
@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v6.0.1
 
       - id: print-reason
-        name: "Print manual run reason"
+        name: Print manual run reason
         env:
           REASON: ${{ github.event.inputs.reason }}
         if: ${{ github.event_name == 'workflow_dispatch' }}
