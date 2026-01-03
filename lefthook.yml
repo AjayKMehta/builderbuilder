@@ -1,0 +1,56 @@
+#   Refer for explanation to following link:
+#   https://lefthook.dev/configuration/
+
+assert_lefthook_installed: true
+source_dir: .lefthook/
+
+output:
+  - meta           # Print lefthook version
+  - summary        # Print summary block (successful and failed steps)
+  # - empty_summary  # Print summary heading when there are no steps to run
+  - success        # Print successful steps
+  - failure        # Print failed steps printing
+  - execution      # Print any execution logs
+  - execution_out  # Print execution output
+  - execution_info # Print `EXECUTE > ...` logging
+  - skips          # Print "skip" (i.e. no files matched)
+
+pre-push:
+  parallel: true
+  jobs:
+    - name: Run tests (.NET)
+      run: dotnet test
+    - name: Detect secrets
+      tags: [secrets]
+      run: gitleaks git --pre-commit --staged --ignore-gitleaks-allow --redact -c gitleaks.toml
+
+pre-commit:
+  parallel: true
+  skip:
+    - merge
+    - merge-commit
+    - rebase
+  jobs:
+    - name: Lint Markdown
+      glob: "*.md"
+      run: markdownlint-cli2 {staged_files} --fix
+      stage_fixed: true
+    - name: Lint YAML
+      glob: "*.{yml,yaml}"
+      run: yamllint -f colored {staged_files}
+    - name: Lint VSCode Settings
+      glob: .vscode/settings.json
+      run: jsonlint {staged_files} -C --no-duplicate-keys --compact --quiet --continue --trailing-newline --enforce-double-quotes --in-place --pretty-print --sort-keys-ignore-case --trim-trailing-commas
+    - name: Lint Docker images
+      glob: "Dockerfile*"
+      run: hadolint {staged_files}
+    - name: TOML
+      glob: "*.toml"
+      group:
+        piped: true
+        jobs:
+          - name: Format TOML files
+            run: taplo fmt {staged_files}
+            stage_fixed: true
+          - name: Lint TOML files
+            run: taplo lint {staged_files}
