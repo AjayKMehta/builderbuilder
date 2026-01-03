@@ -1,29 +1,29 @@
 [default]
-    check-filename = false
-    unicode = true
-    extend-ignore-re = [
-        "(?s)^.*?`[^`]+`.*$",
-        # Ignore current line
-        ".*(#|--|//).*(spellchecker|typos):\\s?ignore[^\\n]*\\n",
-        # Ignore next line
-        ".*(#|--|//).*(spellchecker|typos):\\s?ignore-next-line[^\\n]*\\n[^\\n]*",
-        # Line block
-        "(?s)(#|--|//)\\s*(spellchecker|typos):off.*?\\n\\s*(#|--|//)\\s*(spellchecker|typos):on",
-        "[A-Za-z]+://\\S{3,50}:(\\S{8,50})@[\\dA-Za-z#%&+./:=?_~-]+",
-    ]
+check-filename = false
+unicode = true
+extend-ignore-re = [
+  "(?s)^.*?`[^`]+`.*$",
+  # Ignore current line
+  ".*(#|--|//).*(spellchecker|typos):\\s?ignore[^\\n]*\\n",
+  # Ignore next line
+  ".*(#|--|//).*(spellchecker|typos):\\s?ignore-next-line[^\\n]*\\n[^\\n]*",
+  # Line block
+  "(?s)(#|--|//)\\s*(spellchecker|typos):off.*?\\n\\s*(#|--|//)\\s*(spellchecker|typos):on",
+  "[A-Za-z]+://\\S{3,50}:(\\S{8,50})@[\\dA-Za-z#%&+./:=?_~-]+",
+]
 
 [files]
-    extend-exclude = [
-        "typos.toml",
-        "**/.git*",
-        "*.csv",
-        "*.js",
-        "**/package-lock.json",
-        "**/node-modules/**",
-        "**/vscodeextension/**",
-        "**/.git/objects/**",
-        "**/.vscode/**",
-        "**/.vscode-insiders/**",
-        "**/.tmp-projections/**",
-        "**/*.interactive"
-    ]
+extend-exclude = [
+  "typos.toml",
+  "**/.git*",
+  "*.csv",
+  "*.js",
+  "**/package-lock.json",
+  "**/node-modules/**",
+  "**/vscodeextension/**",
+  "**/.git/objects/**",
+  "**/.vscode/**",
+  "**/.vscode-insiders/**",
+  "**/.tmp-projections/**",
+  "**/*.interactive",
+]
