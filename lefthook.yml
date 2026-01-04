@@ -4,6 +4,9 @@
 assert_lefthook_installed: true
 source_dir: .lefthook/
 
+templates:
+  build_config: Release
+
 output:
   - meta           # Print lefthook version
   - summary        # Print summary block (successful and failed steps)
@@ -19,7 +22,14 @@ pre-push:
   parallel: true
   jobs:
     - name: Run tests (.NET)
-      run: dotnet test
+      glob: "**/*.{cs,csproj,sln,slnx}"
+      group:
+        piped: true
+        jobs:
+          - name: Build solution
+            run: dotnet build -c {build_config}
+          - name: Run tests
+            run: dotnet test --no-build -c {build_config}
     - name: Detect secrets
       tags: [secrets]
       run: gitleaks git --pre-commit --staged --ignore-gitleaks-allow --redact -c gitleaks.toml
