@@ -42,7 +42,7 @@ pre-commit:
       glob: .vscode/settings.json
       run: jsonlint {staged_files} -C --no-duplicate-keys --compact --quiet --continue --trailing-newline --enforce-double-quotes --in-place --pretty-print --sort-keys-ignore-case --trim-trailing-commas
     - name: Lint Docker images
-      glob: "Dockerfile*"
+      glob: Dockerfile*
       run: hadolint {staged_files}
     - name: TOML
       glob: "*.toml"
@@ -54,3 +54,6 @@ pre-commit:
             stage_fixed: true
           - name: Lint TOML files
             run: taplo lint {staged_files}
+    - name: Actions Lint
+      glob: .github/workflows/*.yml
+      run: actionlint
