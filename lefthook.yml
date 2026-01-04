@@ -67,3 +67,9 @@ pre-commit:
     - name: Actions Lint
       glob: .github/workflows/*.yml
       run: actionlint
+    - name: Format C# code
+      glob: "**/*.cs"
+      run: dotnet format --severity warn --verbosity normal --verify-no-changes --include {staged_files}
+    - name: Run analyzers for C# code
+      glob: "**/*.{cs,csproj,sln,slnx}"
+      run: dotnet format analyzers --severity warn --verbosity normal --verify-no-changes
