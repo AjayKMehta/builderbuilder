@@ -36,6 +36,8 @@ pre-push:
 
 pre-commit:
   parallel: true
+  fail_on_changes: ci
+  fail_on_changes_diff: true
   skip:
     - merge
     - merge-commit
@@ -80,6 +82,7 @@ post-merge:
     - name: Restore NuGet packages
       glob: packages.lock.json
       run: dotnet restore
+      stage_fixed: true
 
 commit-msg:
   jobs:
