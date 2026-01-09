@@ -47,7 +47,6 @@ pre-commit:
       stage_fixed: true
     - name: Lint YAML
       glob: "*.{yml,yaml}"
-      exclude: lefthook.yml
       run: yamllint -f colored {staged_files}
     - name: Lint VSCode Settings
       glob: .vscode/settings.json
@@ -77,8 +76,8 @@ pre-commit:
 
 post-merge:
   files: git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD
-  commands:
-    dependencies:
+  jobs:
+    - name: Restore NuGet packages
       glob: packages.lock.json
       run: dotnet restore
 
