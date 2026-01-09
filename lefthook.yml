@@ -47,6 +47,7 @@ pre-commit:
       stage_fixed: true
     - name: Lint YAML
       glob: "*.{yml,yaml}"
+      exclude: lefthook.yml
       run: yamllint -f colored {staged_files}
     - name: Lint VSCode Settings
       glob: .vscode/settings.json
@@ -73,3 +74,18 @@ pre-commit:
     - name: Run analyzers for C# code
       glob: "**/*.{cs,csproj,sln,slnx}"
       run: dotnet format analyzers --severity warn --verbosity normal --verify-no-changes
+
+post-merge:
+  files: git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD
+  commands:
+    dependencies:
+      glob: packages.lock.json
+      run: dotnet restore
+
+commit-msg:
+  jobs:
+    - name: Run commitlint
+      run: commitlint --edit $1
+      skip: true
+    - name: Run typos
+      run: typos $1
