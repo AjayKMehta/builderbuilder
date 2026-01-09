@@ -88,4 +88,5 @@ commit-msg:
       run: commitlint --edit $1
       skip: true
     - name: Run typos
-      run: typos $1
+      run: typos -w $1
+      stage_fixed: true
