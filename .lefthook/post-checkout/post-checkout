@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+
+prevHEAD=$1
+newHEAD=$2
+checkoutType=$3
+
+# Exit if file checkout
+if [ $checkoutType == "0" ]; then exit; fi
+# Exit if check out same commit
+if [ "$newHEAD" == "$prevHEAD" ]; then exit; fi
+
+# Exit if rebase in progress on same branch.
+origBranch=$(git branch --contains ORIG_HEAD 2>/dev/null | sed 's/* //')
+rebaseBranch=$(git branch --contains REBASE_HEAD 2>/dev/null | sed 's/* //')
+
+if [ -n "$rebaseBranch" ] && [ "$origBranch" == "$rebaseBranch" ]; then
+    exit
+fi
+
+echo "prev HEAD: $(git name-rev --name-only $prevHEAD)"
+echo "new HEAD: $(git name-rev --name-only $newHEAD)"
+dotnet clean -c Release
+dotnet clean -c Debug

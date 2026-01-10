@@ -92,3 +92,8 @@ commit-msg:
     - name: Run typos
       run: typos -w $1
       stage_fixed: true
+
+post-checkout:
+  jobs:
+    - script: post-checkout
+      runner: bash
