@@ -43,6 +43,11 @@ pre-commit:
     - merge-commit
     - rebase
   jobs:
+    - name: Lint JSON
+      glob: "*.json"
+      exclude: .vscode/settings.json
+      run: jsonlint {staged_files} -C --no-duplicate-keys --compact --quiet --continue --trailing-newline --enforce-double-quotes --in-place --pretty-print --trim-trailing-commas
+      stage_fixed: true
     - name: Lint Markdown
       glob: "*.md"
       run: markdownlint-cli2 {staged_files} --fix
