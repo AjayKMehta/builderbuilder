@@ -1,6 +1,6 @@
 # https://docs.microsoft.com/en-us/dotnet/devops/dotnet-secure-github-action
 
-name: "CodeQL Analysis"
+name: CodeQL Analysis
 
 on:
   push:
@@ -30,10 +30,10 @@ jobs:
       should_skip: ${{ steps.skip_check.outputs.should_skip }}
     steps:
       - id: skip_check
-        uses: fkirc/skip-duplicate-actions@v5
+        uses: fkirc/skip-duplicate-actions@f75f66ce1886f00957d99748a42c724f4330bdcf # v5
         with:
-          cancel_others: 'true'
-          skip_after_successful_duplicate: 'true'
+          cancel_others: true
+          skip_after_successful_duplicate: true
           concurrent_skipping: same_content_newer
 
   analyze:
@@ -73,14 +73,14 @@ jobs:
     steps:
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 2
 
       - id: filter
         name: "Check for changed files"
         if: ${{ github.event_name != 'workflow_dispatch' }}
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3
         with:
           filters: .github/filter.yml
 
@@ -99,7 +99,7 @@ jobs:
       - id: init-codeql
         name: Initialize CodeQL
         if: env.ENABLED == '1'
-        uses: github/codeql-action/init@v3.29.5
+        uses: github/codeql-action/init@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
@@ -116,7 +116,7 @@ jobs:
       - id: setup-dotnet
         name: Set up .NET
         if: matrix.build-mode == 'manual' && env.ENABLED == '1'
-        uses: actions/setup-dotnet@v5.0.1
+        uses: actions/setup-dotnet@2016bd2012dba4e32de620c46fe006a3ac9f0602 # v5.0.1
         with:
           cache: true
           cache-dependency-path: '**/packages.lock.json'
@@ -135,7 +135,7 @@ jobs:
       - id: commit
         name: Commit changes
         if: matrix.build-mode == 'manual' && env.ENABLED == '1'
-        uses: qoomon/actions--create-commit@v1
+        uses: qoomon/actions--create-commit@dfef4d264de752be6d6195a4d61a2f3d3262d406 # v1
         with:
           message: "Committing changes to lock files [skip ci]"
           allow-empty: false
@@ -151,7 +151,7 @@ jobs:
       - id: pr-check
         name: Check if PR for current commit
         if: env.ENABLED == '1'
-        uses: 8BitJonny/gh-get-current-pr@4.0.0
+        uses: 8BitJonny/gh-get-current-pr@4056877062a1f3b624d5d4c2bedefa9cf51435c9 # 4.0.0
         with:
           # This will work no matter the trigger event and no matter if it is the first PR commit or not.
           sha: ${{ github.event.pull_request.head.sha }}
@@ -175,6 +175,6 @@ jobs:
       - id: codeql-analysis
         name: Perform CodeQL Analysis
         if: env.ENABLED == '1'
-        uses: github/codeql-action/analyze@v3.29.5
+        uses: github/codeql-action/analyze@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
         with:
           category: "/language:${{matrix.language}}"

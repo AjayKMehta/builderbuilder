@@ -25,7 +25,7 @@ jobs:
       # https://github.com/marketplace/actions/auto-label-merge-conflicts
       - id: label-merge-conflict
         name: Label merge conflict
-        uses: mschilde/auto-label-merge-conflicts@master
+        uses: mschilde/auto-label-merge-conflicts@591722e97f3c4142df3eca156ed0dcf2bcd362bd # master
         with:
           CONFLICT_LABEL_NAME: "💥 Conflicts"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

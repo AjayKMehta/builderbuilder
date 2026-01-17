@@ -27,7 +27,7 @@ jobs:
       should_skip: ${{ steps.skip_check.outputs.should_skip }}
     steps:
       - id: skip_check
-        uses: fkirc/skip-duplicate-actions@v5
+        uses: fkirc/skip-duplicate-actions@f75f66ce1886f00957d99748a42c724f4330bdcf # v5
         with:
           cancel_others: 'true'
           skip_after_successful_duplicate: 'true'
@@ -42,11 +42,11 @@ jobs:
     steps:
       - id: checkout
         name: 'Checkout Repository'
-        uses: actions/checkout@v6.0.1
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - id: review-deps
         name: 'Dependency Review'
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4
         with:
           base-ref: master
           head-ref: master
@@ -55,7 +55,7 @@ jobs:
 
       - id: setup-dotnet
         name: Set up .NET
-        uses: actions/setup-dotnet@v5.0.1
+        uses: actions/setup-dotnet@2016bd2012dba4e32de620c46fe006a3ac9f0602 # v5.0.1
         with:
           cache: true
           cache-dependency-path: '**/packages.lock.json'
