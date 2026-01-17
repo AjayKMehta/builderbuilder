@@ -21,7 +21,6 @@ permissions:
   pull-requests: read
 
 jobs:
-
   pre_job:
     name: Check for Duplicate Actions
     runs-on: ubuntu-latest
@@ -58,12 +57,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - language: csharp
-          build-mode: manual
-        # To learn more about changing the languages that are analyzed or customizing the build mode for your analysis,
-        # see https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning.
-        # If you are analyzing a compiled language, you can modify the 'build-mode' for that language to customize how
-        # your codebase is analyzed, see https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/codeql-code-scanning-for-compiled-languages
+          - language: csharp
+            build-mode: manual
 
     env:
       NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
@@ -78,7 +73,7 @@ jobs:
           fetch-depth: 2
 
       - id: filter
-        name: "Check for changed files"
+        name: Check for changed files
         if: ${{ github.event_name != 'workflow_dispatch' }}
         uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3
         with:
@@ -104,23 +99,14 @@ jobs:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
           dependency-caching: true
-          # If you wish to specify custom queries, you can do so here or in a config file.
-          # By default, queries listed here will override any specified in a config file.
-          # Prefix the list here with "+" to use these queries and those in the config file.
-
-      # If the analyze step fails for one of the languages you are analyzing with
-      # "We were unable to automatically build your code", modify the matrix above
-      # to set the build mode to "manual" for that language. Then modify this step
-      # to build your code.
-      # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
       - id: setup-dotnet
         name: Set up .NET
         if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         uses: actions/setup-dotnet@2016bd2012dba4e32de620c46fe006a3ac9f0602 # v5.0.1
         with:
           cache: true
-          cache-dependency-path: '**/packages.lock.json'
-          dotnet-version: '10.0.x'
+          dotnet-version: 10.0.x
+          cache-dependency-path: "**/packages.lock.json"
 
       - id: dotnet-restore
         name: Install dependencies
@@ -137,7 +123,7 @@ jobs:
         if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         uses: qoomon/actions--create-commit@dfef4d264de752be6d6195a4d61a2f3d3262d406 # v1
         with:
-          message: "Committing changes to lock files [skip ci]"
+          message: Committing changes to lock files [skip ci]
           allow-empty: false
           skip-empty: true
 
@@ -165,7 +151,7 @@ jobs:
         # No PR found implies not Dependabot-related.
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'false'
         run: |
-            dotnet restore --locked-mode
+          dotnet restore --locked-mode
 
       - id: build
         name: Build
@@ -177,4 +163,5 @@ jobs:
         if: env.ENABLED == '1'
         uses: github/codeql-action/analyze@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
         with:
+          # yamllint disable-line
           category: "/language:${{matrix.language}}"

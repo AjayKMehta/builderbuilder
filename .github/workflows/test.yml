@@ -1,4 +1,4 @@
-name: "Run tests"
+name: Run tests
 
 env:
   # Only merge code coverage results if 1
@@ -48,7 +48,7 @@ jobs:
       TESTINGPLATFORM_DIAGNOSTIC_VERBOSITY: Information
 
     steps:
-      - name: 'Checkout Repository'
+      - name: Checkout Repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         # https://github.com/adamralph/minver?tab=readme-ov-file#why-is-the-default-version-sometimes-used-in-github-actions-azure-pipelines-and-travis-ci-when-a-version-tag-exists-in-the-history
         with:
@@ -56,7 +56,7 @@ jobs:
           filter: tree:0
 
       - id: filter
-        name: "Check for changed files"
+        name: Check for changed files
         uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3
         with:
           filters: .github/filter.yml
@@ -77,7 +77,7 @@ jobs:
         with:
           cache: true
           cache-dependency-path: "**/packages.lock.json"
-          dotnet-version: '10.0.x'
+          dotnet-version: 10.0.x
 
       - id: install-dotnet-coverage
         name: Install dotnet-coverage tool
@@ -106,7 +106,7 @@ jobs:
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'true'
         uses: qoomon/actions--create-commit@dfef4d264de752be6d6195a4d61a2f3d3262d406 # v1
         with:
-          message: "Committing changes to lock files [skip ci]"
+          message: Committing changes to lock files [skip ci]
           allow-empty: false
           skip-empty: true
 
@@ -148,14 +148,15 @@ jobs:
         uses: danielpalme/ReportGenerator-GitHub-Action@ee0ae774f6d3afedcbd1683c1ab21b83670bdf8e # 5.5.1
         with:
           reports: '**/TestResults/**/coverage.cobertura.xml'
-          targetdir: '${{ github.workspace }}/coveragereport'
-          reporttypes: 'Cobertura;MarkdownSummaryGithub;MarkdownAssembliesSummary'
-          classfilters: '-System.*;-Microsoft.*;-Newtonsoft.*;-System.Text.RegularExpressions.*;-xunit.*;-NUnit.*;-TUnit.*'
+          # yamllint disable-line
+          targetdir: "${{ github.workspace }}/coveragereport"
+          reporttypes: Cobertura;MarkdownSummaryGithub;MarkdownAssembliesSummary
+          classfilters: -System.*;-Microsoft.*;-Newtonsoft.*;-System.Text.RegularExpressions.*;-xunit.*;-NUnit.*;-TUnit.*
 
       - id: upload-codecov
         name: Upload code coverage results to codecov
         if: env.ENABLED == '1'
-        uses:  codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
+        uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
         with:
           flags: unittests
           fail_ci_if_error: true
@@ -172,12 +173,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           hide: true # Hide previous comment
-          hide_classify: "OUTDATED"
+          hide_classify: OUTDATED
           skip_unchanged: true
           number: ${{ steps.pr-check.outputs.number }}
           path: coveragereport/Summary.md
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          header: "Code coverage"
+          header: Code coverage
 
       - id: publish-cov
         name: Publish coverage in build summary

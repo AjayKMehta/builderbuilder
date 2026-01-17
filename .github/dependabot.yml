@@ -71,7 +71,7 @@ updates:
     labels:
       - ⬆️ Dependencies
 
-# https://devblogs.microsoft.com/dotnet/using-dependabot-to-manage-dotnet-sdk-updates/
+  # https://devblogs.microsoft.com/dotnet/using-dependabot-to-manage-dotnet-sdk-updates/
   - package-ecosystem: dotnet-sdk
     open-pull-requests-limit: 2
     directory: /
