@@ -5,18 +5,18 @@ comment: # this is a top-level key
   behavior: default
   require_changes: true
 ignore:
-  - "tests"
+  - tests
 coverage:
   precision: 2
   round: down
-  range: "60...80"
+  range: 60...80
   status:
     project:
       default:
         target: 75% # the required coverage value
         threshold: 1% # the leniency in hitting the target
         paths:
-          - "src"
+          - src
         removed_code_behavior: removals_only
     patch:
       default:

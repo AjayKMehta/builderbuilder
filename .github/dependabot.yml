@@ -3,13 +3,13 @@
 
 version: 2
 updates:
-  - package-ecosystem: "nuget"
+  - package-ecosystem: nuget
     # Set to zero to disable
     open-pull-requests-limit: 2
-    directory: "/"
+    directory: /
     schedule:
-      interval: "cron"
-      cronjob: "30 12 14,28 * *" # At 12:30, on day 14 and 28 of the month
+      interval: cron
+      cronjob: 30 12 14,28 * * # At 12:30, on day 14 and 28 of the month
     cooldown:
       default-days: 5
       semver-major-days: 20
@@ -20,68 +20,68 @@ updates:
       security-updates:
         applies-to: security-updates
         update-types:
-          - "version-update:semver-major"
-          - "version-update:semver-minor"
-          - "version-update:semver-patch"
+          - version-update:semver-major
+          - version-update:semver-minor
+          - version-update:semver-patch
 
       major-pkg-updates:
         applies-to: version-updates
         exclude-patterns:
           - "*[Aa]nalyzers*"
         update-types:
-          - "version-update:semver-major"
+          - version-update:semver-major
 
       pkg-updates:
         applies-to: version-updates
         exclude-patterns:
           - "*[Aa]nalyzers*"
         update-types:
-          - "version-update:semver-minor"
-          - "version-update:semver-patch"
+          - version-update:semver-minor
+          - version-update:semver-patch
 
       analyzer-updates:
         applies-to: version-updates
         patterns:
           - "*[Aa]nalyzers*"
         update-types:
-          - "version-update:semver-major"
-          - "version-update:semver-minor"
-          - "version-update:semver-patch"
+          - version-update:semver-minor
+          - version-update:semver-major
+          - version-update:semver-patch
     labels:
-      - "⬆️ Dependencies"
+      - ⬆️ Dependencies
 
-  - package-ecosystem: "github-actions"
+  - package-ecosystem: github-actions
     open-pull-requests-limit: 2
     # For GitHub Actions, you do not need to set the directory to
     # /.github/workflows. Configuring the key to / automatically instructs
     # Dependabot to search the /.github/workflows directory, as well as the
     # action.yml / action.yaml file from the root directory.
-    directory: "/"
+    directory: /
     schedule:
-      interval: "cron"
-      cronjob: "0 8 10,20 * *" # At 08:00, on day 10 and 20 of the month
+      interval: cron
+      cronjob: 0 8 10,20 * * # At 08:00, on day 10 and 20 of the month
     cooldown:
       default-days: 5
     groups:
       actions-dependencies:
         update-types:
-          - "version-update:semver-major"
-          - "version-update:semver-minor"
-          - "version-update:semver-patch"
+          - version-update:semver-major
+          - version-update:semver-minor
+          - version-update:semver-patch
     labels:
-      - "⬆️ Dependencies"
+      - ⬆️ Dependencies
 
 # https://devblogs.microsoft.com/dotnet/using-dependabot-to-manage-dotnet-sdk-updates/
-  - package-ecosystem: "dotnet-sdk"
+  - package-ecosystem: dotnet-sdk
     open-pull-requests-limit: 2
-    directory: "/"
+    directory: /
     schedule:
-      interval: "cron"
-      cronjob: "0 9 20 * *"
+      interval: cron
+      cronjob: 0 9 20 * *
     cooldown:
       default-days: 40
       semver-major-days: 30
       semver-minor-days: 15
       semver-patch-days: 10
     labels:
-      - "⬆️ Dependencies"
+      - ⬆️ Dependencies
