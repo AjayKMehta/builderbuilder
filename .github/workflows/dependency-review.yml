@@ -1,4 +1,4 @@
-name: 'Dependency Review'
+name: Dependency Review
 on:
   push:
 
@@ -41,11 +41,11 @@ jobs:
     timeout-minutes: 15
     steps:
       - id: checkout
-        name: 'Checkout Repository'
+        name: Checkout Repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
       - id: review-deps
-        name: 'Dependency Review'
+        name: Dependency Review
         uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4
         with:
           base-ref: master
@@ -59,7 +59,7 @@ jobs:
         with:
           cache: true
           cache-dependency-path: '**/packages.lock.json'
-          dotnet-version: '10.0.x'
+          dotnet-version: 10.0.x
 
       - id: check-vulnerable
         name: Check for vulnerable packages

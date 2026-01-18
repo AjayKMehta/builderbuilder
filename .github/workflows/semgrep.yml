@@ -6,14 +6,14 @@ on:
     branches: [master]
 
   schedule:
-  - cron: '0 0 * * 0'
+    - cron: 0 0 * * 0
 
   workflow_dispatch:
     inputs:
       reason:
-        description: "The reason for running the workflow"
+        description: The reason for running the workflow
         required: true
-        default: "Manual run"
+        default: Manual run
 
 name: Semgrep
 
@@ -27,8 +27,8 @@ jobs:
       - id: skip_check
         uses: fkirc/skip-duplicate-actions@f75f66ce1886f00957d99748a42c724f4330bdcf # v5
         with:
-          cancel_others: 'true'
-          skip_after_successful_duplicate: 'true'
+          cancel_others: "true"
+          skip_after_successful_duplicate: "true"
           concurrent_skipping: same_content_newer
 
   semgrep:
@@ -46,19 +46,19 @@ jobs:
       pull-requests: read
 
     steps:
-    - id: checkout
-      name: 'Checkout Repository'
-      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - id: checkout
+        name: Checkout Repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
-    - id: filter
-      name: "Check for changed files"
-      uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3
-      with:
-        filters: .github/filter.yml
+      - id: filter
+        name: Check for changed files
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3
+        with:
+          filters: .github/filter.yml
 
-    - id: run-semgrep
-      name: 'Run Semgrep'
-      if: steps.filter.outputs.code == 'true' || steps.filter.outputs.workflows == 'true'
-      run: semgrep ci
-      env:
-        SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+      - id: run-semgrep
+        name: Run Semgrep
+        if: steps.filter.outputs.code == 'true' || steps.filter.outputs.workflows == 'true'
+        run: semgrep ci
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}

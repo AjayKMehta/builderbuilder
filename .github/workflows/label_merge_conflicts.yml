@@ -1,4 +1,4 @@
-name: "Label merge conflicts"
+name: Label merge conflicts
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
         name: Label merge conflict
         uses: mschilde/auto-label-merge-conflicts@591722e97f3c4142df3eca156ed0dcf2bcd362bd # master
         with:
-          CONFLICT_LABEL_NAME: "💥 Conflicts"
+          CONFLICT_LABEL_NAME: 💥 Conflicts
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAX_RETRIES: 5
           WAIT_MS: 5000
