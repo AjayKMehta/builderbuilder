@@ -1,17 +1,30 @@
 name: Pull Request Labeler
 on:
-  - pull_request_target
+  - pull_request
+
+concurrency:
+  # github.event.pull_request.number || github.ref: pull request number or branch name if not a pull request
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  CHECK_PERMISSIONS: 0
+
+permissions: {}
 
 jobs:
-  labeler:
-    name: Label PRs
+  label-pr:
+    name: Label PR
     permissions:
       contents: read
-      issues: write
-      pull-requests: write
+      pull-requests: write # Need to label PR
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
+      - id: check-permissions
+        name: Check action permissions
+        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1
+        if: env.CHECK_PERMISSIONS == '1'
       - id: label-pr
         name: Label PR
         uses: actions/labeler@634933edcd8ababfe52f92936142cc22ac488b1b # v6

@@ -15,20 +15,39 @@ on:
         required: true
         default: Manual run
 
+concurrency:
+  # github.event.pull_request.number || github.ref: pull request number or branch name if not a pull request
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  CHECK_PERMISSIONS: 0
+
+permissions: {}
+
 name: Semgrep
 
 jobs:
   pre_job:
+    name: Check for Duplicate Actions
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
     # Map a step output to a job output
     outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+      should_skip: ${{ steps.check-duplicate-actions.outputs.should_skip }}
     steps:
-      - id: skip_check
+      - id: check-permissions
+        name: Check action permissions
+        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1
+        if: env.CHECK_PERMISSIONS == '1'
+      - id: check-duplicate-actions
+        name: Check for duplicate actions
         uses: fkirc/skip-duplicate-actions@f75f66ce1886f00957d99748a42c724f4330bdcf # v5
         with:
-          cancel_others: "true"
-          skip_after_successful_duplicate: "true"
+          cancel_others: true
+          skip_after_successful_duplicate: true
           concurrent_skipping: same_content_newer
 
   semgrep:
@@ -38,18 +57,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     container:
-      image: semgrep/semgrep
-      # https://github.com/actions/runner/issues/2033#issuecomment-1598547465
+      image: semgrep/semgrep@sha256:543f663e06ef0806a62c832a2d55760d6c84b3eb4f3e0e5a0af0321611062c28 # 1.150.0-nonroot
+      # # https://github.com/actions/runner/issues/2033#issuecomment-1598547465
       options: --user 1001
     permissions:
       contents: read
       pull-requests: read
 
     steps:
-      - id: checkout
+      - id: checkout-repo
         name: Checkout Repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-
+        with:
+          persist-credentials: true
       - id: filter
         name: Check for changed files
         uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3

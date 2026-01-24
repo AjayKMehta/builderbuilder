@@ -1,5 +1,3 @@
-# https://docs.microsoft.com/en-us/dotnet/devops/dotnet-secure-github-action
-
 name: CodeQL Analysis
 
 on:
@@ -11,47 +9,52 @@ on:
 
   workflow_dispatch:
 
-# https://www.meziantou.net/how-to-cancel-github-workflows-when-pushing-new-commits-on-a-branch.htm
 concurrency:
+  # github.event.pull_request.number || github.ref: pull request number or branch name if not a pull request
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: write
-  pull-requests: read
+env:
+  CHECK_PERMISSIONS: 0
+
+permissions: {}
 
 jobs:
   pre_job:
     name: Check for Duplicate Actions
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
     # Map a step output to a job output
     outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+      should_skip: ${{ steps.check-duplicate-actions.outputs.should_skip }}
     steps:
-      - id: skip_check
+      - id: check-permissions
+        name: Check action permissions
+        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1
+        if: env.CHECK_PERMISSIONS == '1'
+      - id: check-duplicate-actions
+        name: Check for duplicate actions
         uses: fkirc/skip-duplicate-actions@f75f66ce1886f00957d99748a42c724f4330bdcf # v5
         with:
-          cancel_others: true
-          skip_after_successful_duplicate: true
+          cancel_others: 'true'
+          skip_after_successful_duplicate: 'true'
           concurrent_skipping: same_content_newer
-
   analyze:
     needs: pre_job
     if: needs.pre_job.outputs.should_skip != 'true'
+
     name: Analyze (${{ matrix.language }})
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
     timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
     permissions:
       # required for all workflows
       security-events: write
-
       # required to fetch internal or private CodeQL packs
       packages: read
-
-      # only required for workflows in private repositories
       actions: read
-      contents: read
-
+      contents: write # Need to push changes
       pull-requests: read
     strategy:
       fail-fast: false
@@ -66,11 +69,16 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
 
     steps:
-      - id: checkout
-        name: Checkout repository
+      - id: check-permissions
+        name: Check action permissions
+        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1
+        if: env.CHECK_PERMISSIONS == '1'
+      - id: checkout-repo
+        name: Checkout repo
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           fetch-depth: 2
+          persist-credentials: true # Need for next step.
 
       - id: filter
         name: Check for changed files
@@ -109,7 +117,7 @@ jobs:
           cache-dependency-path: "**/packages.lock.json"
 
       - id: dotnet-restore
-        name: Install dependencies
+        name: Restore NuGet packages
         if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         run: |
           if [[ "${{ github.event.pull_request.user.login }}" == 'dependabot[bot]' ]] || [[ "${{ github.actor }}" == 'dependabot[bot]' ]]; then
@@ -118,7 +126,7 @@ jobs:
             dotnet restore --locked-mode
           fi
 
-      - id: commit
+      - id: commit-changes
         name: Commit changes
         if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         uses: qoomon/actions--create-commit@dfef4d264de752be6d6195a4d61a2f3d3262d406 # v1
@@ -129,7 +137,7 @@ jobs:
 
       - id: push-changes
         name: Push changes
-        if: matrix.build-mode == 'manual' && env.ENABLED == '1' && steps.commit.outputs.commit != null
+        if: matrix.build-mode == 'manual' && env.ENABLED == '1' && steps.commit-changes.outputs.commit != null
         env:
           HEAD_REF: ${{ github.head_ref || github.ref_name }}
         run: git push origin HEAD:$HEAD_REF
@@ -147,7 +155,7 @@ jobs:
           filterOutDraft: true
 
       - id: dotnet-restore-locked
-        name: Install dependencies
+        name: Restore NuGet packages (locked)
         # No PR found implies not Dependabot-related.
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'false'
         run: |

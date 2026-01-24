@@ -5,23 +5,29 @@ on:
     branches:
       - master
 
-permissions:
-  contents: read
-  pull-requests: write
-
-# https://www.meziantou.net/how-to-cancel-github-workflows-when-pushing-new-commits-on-a-branch.htm
 concurrency:
   # github.event.pull_request.number || github.ref: pull request number or branch name if not a pull request
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+env:
+  CHECK_PERMISSIONS: 0
+
+permissions: {}
 
 jobs:
-  triage:
+  label-conflicts:
     name: Label Merge Conflicts
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write # Need to label PR
     steps:
+      - id: check-permissions
+        name: Check action permissions
+        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1
+        if: env.CHECK_PERMISSIONS == '1'
       # https://github.com/marketplace/actions/auto-label-merge-conflicts
       - id: label-merge-conflict
         name: Label merge conflict
