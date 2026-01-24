@@ -1,11 +1,5 @@
-#   Refer for explanation to following link:
-#   https://lefthook.dev/configuration/
-
 assert_lefthook_installed: true
 source_dir: .lefthook/
-
-templates:
-  build_config: Release
 
 output:
   - meta # Print lefthook version
@@ -18,22 +12,6 @@ output:
   - execution_info # Print `EXECUTE > ...` logging
   - skips # Print "skip" (i.e. no files matched)
 
-pre-push:
-  parallel: true
-  jobs:
-    - name: Run tests (.NET)
-      glob: "**/*.{cs,csproj,sln,slnx}"
-      group:
-        piped: true
-        jobs:
-          - name: Build solution
-            run: dotnet build -c {build_config}
-          - name: Run tests
-            run: dotnet test --no-build -c {build_config}
-    - name: Detect secrets
-      tags: [secrets]
-      run: gitleaks git --pre-commit --staged --ignore-gitleaks-allow --redact -c gitleaks.toml
-
 pre-commit:
   parallel: true
   fail_on_changes: ci
@@ -42,66 +20,21 @@ pre-commit:
     - merge
     - merge-commit
     - rebase
-  jobs:
-    - name: Lint JSON
-      glob: "*.json"
-      exclude: .vscode/settings.json
-      run: jsonlint {staged_files} -C --no-duplicate-keys --compact --quiet --continue --trailing-newline --enforce-double-quotes --in-place --pretty-print --trim-trailing-commas
-      stage_fixed: true
-    - name: Lint Markdown
-      glob: "*.md"
-      run: markdownlint-cli2 {staged_files} --fix
-      stage_fixed: true
-    - name: Lint YAML
-      glob: "*.{yml,yaml}"
-      run: yamllint -f colored {staged_files}
-    - name: Lint VSCode Settings
-      glob: .vscode/settings.json
-      run: jsonlint {staged_files} -C --no-duplicate-keys --compact --quiet --continue --trailing-newline --enforce-double-quotes --in-place --pretty-print --sort-keys-ignore-case --trim-trailing-commas
-      stage_fixed: true
-    - name: Lint Docker images
-      glob: Dockerfile*
-      run: hadolint {staged_files}
-    - name: TOML
-      glob: "*.toml"
-      group:
-        piped: true
-        jobs:
-          - name: Format TOML files
-            run: taplo fmt {staged_files}
-            stage_fixed: true
-          - name: Lint TOML files
-            run: taplo lint {staged_files}
-    - name: Actions Lint
-      glob: .github/workflows/*.yml
-      run: actionlint
-    - name: Format C# code
-      glob: "**/*.cs"
-      run: dotnet format --severity warn --verbosity normal --verify-no-changes --include {staged_files}
-    - name: Run analyzers for C# code
-      glob: "**/*.{cs,csproj,sln,slnx}"
-      run: dotnet format analyzers --severity warn --verbosity normal --verify-no-changes
 
-post-merge:
-  files: git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD
-  jobs:
-    - name: Restore NuGet packages
-      glob: packages.lock.json
-      run: dotnet restore
-      stage_fixed: true
-
-commit-msg:
-  skip:
-    - run: cat .git/COMMIT_EDITMSG | rg -e "^fixup! "
-  jobs:
-    - name: Run commitlint
-      run: commitlint --edit $1
-      skip: true
-    - name: Run typos
-      run: typos -w $1
-      stage_fixed: true
-
-post-checkout:
-  jobs:
-    - script: post-checkout
-      runner: bash
+remotes:
+  - git_url: https://github.com/AjayKMehta/lefthook.git
+    ref: v1.0.1
+    configs:
+      - /hooks/commit-msg/run-typos.yml
+      - /hooks/post-checkout/dotnet-clean.yml
+      - /hooks/post-merge/restore-nuget.yml
+      - /hooks/pre-commit/analyze-csharp.yml
+      - /hooks/pre-commit/format-csharp.yml
+      - /hooks/pre-commit/lint-actions.yml
+      - /hooks/pre-commit/lint-json.yml
+      - /hooks/pre-commit/lint-markdown.yml
+      - /hooks/pre-commit/lint-toml.yml
+      - /hooks/pre-commit/lint-vscode.yml
+      - /hooks/pre-commit/lint-yaml.yml
+      - /hooks/pre-push/detect-secrets.yml
+      - /hooks/pre-push/test-dotnet.yml
