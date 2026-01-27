@@ -1,5 +1,10 @@
 name: CodeQL Analysis
 
+defaults:
+  run:
+    # bash --noprofile --norc -e(o) pipefail {0}
+    shell: bash
+
 on:
   push:
     branches: [master]
@@ -38,8 +43,8 @@ jobs:
         name: Check for duplicate actions
         uses: fkirc/skip-duplicate-actions@f75f66ce1886f00957d99748a42c724f4330bdcf # v5
         with:
-          cancel_others: 'true'
-          skip_after_successful_duplicate: 'true'
+          cancel_others: true
+          skip_after_successful_duplicate: true
           concurrent_skipping: same_content_newer
   analyze:
     needs: pre_job
@@ -49,13 +54,9 @@ jobs:
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
     timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
     permissions:
-      # required for all workflows
-      security-events: write
-      # required to fetch internal or private CodeQL packs
-      packages: read
-      actions: read
+      security-events: write # Required for all workflows
       contents: write # Need to push changes
-      pull-requests: read
+      pull-requests: read # Need to check if PR
     strategy:
       fail-fast: false
       matrix:
@@ -90,13 +91,17 @@ jobs:
       - id: set-env
         name: Set environment variable
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] ||
-             [[ "${{ steps.filter.outputs.code }}" == "true" ]] ||
-             [[ "${{ steps.filter.outputs.codeql }}" == "true" ]]; then
+          if [[ "${EVENT_NAME}" == "workflow_dispatch" ]] ||
+             [[ "${IS_CODE}" == "true" ]] ||
+             [[ "${IS_CODEQL}" == "true" ]]; then
             echo "ENABLED=1" >> $GITHUB_ENV
           else
             echo "ENABLED=0" >> $GITHUB_ENV
           fi
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          IS_CODE: ${{ steps.filter.outputs.code }}
+          IS_CODEQL: ${{ steps.filter.outputs.codeql }}
 
       # Initializes the CodeQL tools for scanning.
       - id: init-codeql
@@ -120,11 +125,13 @@ jobs:
         name: Restore NuGet packages
         if: matrix.build-mode == 'manual' && env.ENABLED == '1'
         run: |
-          if [[ "${{ github.event.pull_request.user.login }}" == 'dependabot[bot]' ]] || [[ "${{ github.actor }}" == 'dependabot[bot]' ]]; then
+          if [[ "${PR_LOGIN}" == 'dependabot[bot]' ]]; then
             dotnet restore --force-evaluate && git add .
           else
             dotnet restore --locked-mode
           fi
+        env:
+          PR_LOGIN: ${{ github.event.pull_request.user.login }}
 
       - id: commit-changes
         name: Commit changes
