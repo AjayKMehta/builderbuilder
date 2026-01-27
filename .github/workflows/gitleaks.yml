@@ -19,8 +19,7 @@ jobs:
     name: Check for Duplicate Actions
     runs-on: ubuntu-latest
     permissions:
-      actions: write
-      contents: read
+      actions: write # Need to check/cancel actions.
     # Map a step output to a job output
     outputs:
       should_skip: ${{ steps.check-duplicate-actions.outputs.should_skip }}
