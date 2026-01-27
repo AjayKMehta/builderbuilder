@@ -1,17 +1,21 @@
 name: Dependency Review
+
+defaults:
+  run:
+    # bash --noprofile --norc -e(o) pipefail {0}
+    shell: bash
+
 on:
   push:
-
-  pull_request_target:
+  pull_request:
     types: [opened, reopened]
-
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pull-requests: write
+env:
+  CHECK_PERMISSIONS: 1
 
-  # https://www.meziantou.net/how-to-cancel-github-workflows-when-pushing-new-commits-on-a-branch.htm
+permissions: {}
+
 concurrency:
   # pull request number or branch name if not a pull request
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -23,29 +27,41 @@ jobs:
     # continue-on-error: true # Uncomment once integration is finished
     runs-on: ubuntu-latest
     # Map a step output to a job output
+    permissions:
+      actions: write
+      contents: read
     outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+      should_skip: ${{ steps.check-duplicate-actions.outputs.should_skip }}
     steps:
-      - id: skip_check
+      - id: check-permissions
+        name: Check action permissions
+        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1
+        if: env.CHECK_PERMISSIONS == '1'
+      - id: check-duplicate-actions
+        name: Check for duplicate actions
         uses: fkirc/skip-duplicate-actions@f75f66ce1886f00957d99748a42c724f4330bdcf # v5
         with:
-          cancel_others: 'true'
-          skip_after_successful_duplicate: 'true'
+          cancel_others: true
+          skip_after_successful_duplicate: true
           concurrent_skipping: same_content_newer
 
-  dependency-review:
+  review-deps:
     name: Review Dependencies
     needs: pre_job
     if: github.actor != 'dependabot[bot]' && needs.pre_job.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write # Updates PR comments
     steps:
-      - id: checkout
-        name: Checkout Repository
+      - id: checkout-repo
+        name: Checkout repo
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-
+        with:
+          persist-credentials: false
       - id: review-deps
-        name: Dependency Review
+        name: Review dependencies
         uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4
         with:
           base-ref: master
@@ -54,17 +70,16 @@ jobs:
           comment-summary-in-pr: always
 
       - id: setup-dotnet
-        name: Set up .NET
+        name: Setup .NET
         uses: actions/setup-dotnet@2016bd2012dba4e32de620c46fe006a3ac9f0602 # v5.0.1
         with:
           cache: true
-          cache-dependency-path: '**/packages.lock.json'
+          cache-dependency-path: "**/packages.lock.json"
           dotnet-version: 10.0.x
 
       - id: check-vulnerable
         name: Check for vulnerable packages
         run: |
-          set -e # This will cause the script to exit on the first error
           dotnet restore --force-evaluate
           OUTPUT=$(dotnet list package --vulnerable --include-transitive)
           echo "$OUTPUT"
