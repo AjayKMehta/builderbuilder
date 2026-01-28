@@ -828,6 +828,12 @@ dotnet_diagnostic.CA1851.severity = warning
 # CA1852: Seal internal types
 dotnet_diagnostic.CA1852.severity = error
 
+# CA1853: Unnecessary call to 'Dictionary.ContainsKey(key)'
+dotnet_diagnostic.CA1853.severity = warning
+
+# CA1877: Use 'Path.Combine' or 'Path.Join' overloads
+dotnet_diagnostic.CA1877.severity = warning
+
 ## Reliability rules
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/reliability-warnings
 
@@ -886,6 +892,12 @@ dotnet_diagnostic.CA2259.severity = error
 
 # CA2260: Implement generic math interfaces correctly
 dotnet_diagnostic.CA2260.severity = error
+
+# CA2263: Prefer generic overload when type is known
+dotnet_diagnostic.CA2263.severity = warning
+
+# CA2265: Do not compare Span<T> to null or default
+dotnet_diagnostic.CA2265.severity = warning
 
 # CA5394: Do not use insecure randomness
 dotnet_diagnostic.CA5394.severity = none
