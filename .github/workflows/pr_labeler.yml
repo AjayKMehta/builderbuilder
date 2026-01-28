@@ -23,10 +23,10 @@ jobs:
     steps:
       - id: check-permissions
         name: Check action permissions
-        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1
+        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1.0.2-beta8
         if: env.CHECK_PERMISSIONS == '1'
       - id: label-pr
         name: Label PR
-        uses: actions/labeler@634933edcd8ababfe52f92936142cc22ac488b1b # v6
+        uses: actions/labeler@634933edcd8ababfe52f92936142cc22ac488b1b # v6.0.1
         with:
           sync-labels: true
