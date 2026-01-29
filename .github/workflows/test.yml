@@ -1,37 +1,49 @@
 name: Run tests
 
-env:
-  # Only merge code coverage results if 1
-  USE_MERGE: 0
-  BUILD_CONFIG: Release
+defaults:
+  run:
+    # bash --noprofile --norc -e(o) pipefail {0}
+    shell: bash
 
 on:
   push:
   pull_request:
   workflow_dispatch:
-permissions:
-  contents: write
-  pull-requests: write
 
-  # https://www.meziantou.net/how-to-cancel-github-workflows-when-pushing-new-commits-on-a-branch.htm
 concurrency:
   # github.event.pull_request.number || github.ref: pull request number or branch name if not a pull request
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+env:
+  CHECK_PERMISSIONS: 0
+  # Only merge code coverage results if 1
+  USE_MERGE: 0
+  BUILD_CONFIG: Release
+
+permissions: {}
+
 jobs:
   pre_job:
     name: Check for Duplicate Actions
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
     # Map a step output to a job output
     outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+      should_skip: ${{ steps.check-duplicate-actions.outputs.should_skip }}
     steps:
-      - id: skip_check
+      - id: check-permissions
+        name: Check action permissions
+        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1.0.2-beta8
+        if: env.CHECK_PERMISSIONS == '1'
+      - id: check-duplicate-actions
+        name: Check for duplicate actions
         uses: fkirc/skip-duplicate-actions@f75f66ce1886f00957d99748a42c724f4330bdcf # v5.3.1
         with:
-          cancel_others: 'true'
-          skip_after_successful_duplicate: 'true'
+          cancel_others: true
+          skip_after_successful_duplicate: true
           concurrent_skipping: same_content_newer
 
   test:
@@ -46,6 +58,9 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: true
       TESTINGPLATFORM_DIAGNOSTIC: 1
       TESTINGPLATFORM_DIAGNOSTIC_VERBOSITY: Information
+    permissions:
+      contents: write # Need to check out code and push changes
+      pull-requests: write # Need to update PR
 
     steps:
       - name: Checkout Repository
