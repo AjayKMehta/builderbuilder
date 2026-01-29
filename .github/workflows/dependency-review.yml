@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  CHECK_PERMISSIONS: 1
+  CHECK_PERMISSIONS: 0
 
 permissions: {}
 

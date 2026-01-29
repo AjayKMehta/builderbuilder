@@ -1,3 +1,5 @@
+name: Semgrep
+
 on:
   pull_request:
     branches: [master]
@@ -24,8 +26,6 @@ env:
   CHECK_PERMISSIONS: 0
 
 permissions: {}
-
-name: Semgrep
 
 jobs:
   pre_job:
