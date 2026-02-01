@@ -2,8 +2,7 @@ name: Label merge conflicts
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 
 concurrency:
   # github.event.pull_request.number || github.ref: pull request number or branch name if not a pull request
