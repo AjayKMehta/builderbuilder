@@ -8,10 +8,8 @@ defaults:
 on:
   push:
     branches: [master]
-
   pull_request:
     branches: [master]
-
   workflow_dispatch:
 
 concurrency:
@@ -37,7 +35,7 @@ jobs:
     steps:
       - id: check-permissions
         name: Check action permissions
-        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1.0.2-beta8
+        uses: GitHubSecurityLab/actions-permissions/monitor@bf82d13b9b10051d224345ab9184f5ede0a94289 # v1.0.2-beta9
         if: env.CHECK_PERMISSIONS == '1'
       - id: check-duplicate-actions
         name: Check for duplicate actions
@@ -72,7 +70,7 @@ jobs:
     steps:
       - id: check-permissions
         name: Check action permissions
-        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1.0.2-beta8
+        uses: GitHubSecurityLab/actions-permissions/monitor@bf82d13b9b10051d224345ab9184f5ede0a94289 # v1.0.2-beta9
         if: env.CHECK_PERMISSIONS == '1'
       - id: checkout-repo
         name: Checkout repo
@@ -80,7 +78,6 @@ jobs:
         with:
           fetch-depth: 2
           persist-credentials: true # Need for next step.
-
       - id: filter
         name: Check for changed files
         if: ${{ github.event_name != 'workflow_dispatch' }}
@@ -107,7 +104,7 @@ jobs:
       - id: init-codeql
         name: Initialize CodeQL
         if: env.ENABLED == '1'
-        uses: github/codeql-action/init@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
+        uses: github/codeql-action/init@6bc82e05fd0ea64601dd4b465378bbcf57de0314 # v4.32.1
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
@@ -176,7 +173,7 @@ jobs:
       - id: codeql-analysis
         name: Perform CodeQL Analysis
         if: env.ENABLED == '1'
-        uses: github/codeql-action/analyze@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
+        uses: github/codeql-action/analyze@6bc82e05fd0ea64601dd4b465378bbcf57de0314 # v4.32.1
         with:
           # yamllint disable-line
           category: "/language:${{matrix.language}}"

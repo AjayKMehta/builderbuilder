@@ -3,13 +3,10 @@ name: Semgrep
 on:
   pull_request:
     branches: [master]
-
   push:
     branches: [master]
-
   schedule:
     - cron: 0 0 * * 0
-
   workflow_dispatch:
     inputs:
       reason:
@@ -40,7 +37,7 @@ jobs:
     steps:
       - id: check-permissions
         name: Check action permissions
-        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1.0.2-beta8
+        uses: GitHubSecurityLab/actions-permissions/monitor@bf82d13b9b10051d224345ab9184f5ede0a94289 # v1.0.2-beta9
         if: env.CHECK_PERMISSIONS == '1'
       - id: check-duplicate-actions
         name: Check for duplicate actions
@@ -75,7 +72,7 @@ jobs:
         uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
         with:
           filters: .github/filter.yml
-
+          list-files: shell
       - id: run-semgrep
         name: Run Semgrep
         if: steps.filter.outputs.code == 'true' || steps.filter.outputs.workflows == 'true'

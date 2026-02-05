@@ -26,7 +26,7 @@ jobs:
     steps:
       - id: check-permissions
         name: Check action permissions
-        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1.0.2-beta8
+        uses: GitHubSecurityLab/actions-permissions/monitor@bf82d13b9b10051d224345ab9184f5ede0a94289 # v1.0.2-beta9
         if: env.CHECK_PERMISSIONS == '1'
       - id: check-duplicate-actions
         name: Check for duplicate actions
@@ -47,7 +47,7 @@ jobs:
     steps:
       - id: check-permissions
         name: Check action permissions
-        uses: GitHubSecurityLab/actions-permissions/monitor@b25f731bf2f9eb9748c2e9757d366c3e72fa2109 # v1.0.2-beta8
+        uses: GitHubSecurityLab/actions-permissions/monitor@bf82d13b9b10051d224345ab9184f5ede0a94289 # v1.0.2-beta9
         if: env.CHECK_PERMISSIONS == '1'
       - id: checkout-repo
         name: Checkout repo
