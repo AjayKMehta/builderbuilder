@@ -23,7 +23,7 @@ pre-commit:
 
 remotes:
   - git_url: https://github.com/AjayKMehta/lefthook.git
-    ref: v3.2.0
+    ref: v3.4.0
     configs:
       - /hooks/commit-msg/run-typos.yml
       - /hooks/post-checkout/dotnet-clean.yml
@@ -37,4 +37,4 @@ remotes:
       - /hooks/pre-commit/lint-vscode.yml
       - /hooks/pre-commit/lint-yaml.yml
       - /hooks/pre-push/detect-secrets.yml
-      - /hooks/pre-push/test-dotnet.yml
+      - /hooks/pre-push/check-dotnet.yml
