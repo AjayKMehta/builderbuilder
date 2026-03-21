@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Label="Build">
     <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <!-- https://learn.microsoft.com/en-us/visualstudio/extensibility/roslyn-version-support?view=vs-2022 -->
     <RoslynVersion>4.14.0</RoslynVersion>
     <IsRoslynComponent>true</IsRoslynComponent>
