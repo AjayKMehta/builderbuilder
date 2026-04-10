@@ -171,7 +171,7 @@ jobs:
       - id: upload-codecov
         name: Upload code coverage results to codecov
         if: env.ENABLED == '1'
-        uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
+        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
         with:
           flags: unittests
           fail_ci_if_error: true
@@ -182,7 +182,7 @@ jobs:
       # https://github.com/danielpalme/ReportGenerator/issues/431
       - id: publish-pr-cov-summary
         name: Publish PR coverage summary
-        uses: marocchino/sticky-pull-request-comment@70d2764d1a7d5d9560b100cbea0077fc8f633987 # v3.0.2
+        uses: marocchino/sticky-pull-request-comment@d4d6b0936434b21bc8345ad45a440c5f7d2c40ff # v3.0.3
         if: steps.pr-check.outputs.pr_found == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
