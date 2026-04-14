@@ -133,7 +133,7 @@ jobs:
       - id: commit-changes
         name: Commit changes
         if: matrix.build-mode == 'manual' && env.ENABLED == '1'
-        uses: qoomon/actions--create-commit@dfef4d264de752be6d6195a4d61a2f3d3262d406 # v1.2.3
+        uses: qoomon/actions--create-commit@0f4cc87a8ad11282dfed4639db11c6e4ac09b25b # v1.2.4
         with:
           message: Committing changes to lock files [skip ci]
           allow-empty: false

@@ -69,6 +69,7 @@ jobs:
         with:
           fetch-depth: 0
           filter: tree:0
+          persist-credentials: true
 
       - id: filter
         name: Check for changed files
@@ -79,11 +80,14 @@ jobs:
       - id: set-env
         name: Set environment variable
         run: |
-          if [ "${{ steps.filter.outputs.code }}" == "true" ] || [ "${{ steps.filter.outputs.test }}" == "true" ]; then
+          if [ "${STEPS_FILTER_OUTPUTS_CODE}" == "true" ] || [ "${STEPS_FILTER_OUTPUTS_TEST}" == "true" ]; then
             echo "ENABLED=1" >> $GITHUB_ENV
           else
             echo "ENABLED=0" >> $GITHUB_ENV
           fi
+        env:
+          STEPS_FILTER_OUTPUTS_CODE: ${{ steps.filter.outputs.code }}
+          STEPS_FILTER_OUTPUTS_TEST: ${{ steps.filter.outputs.test }}
 
       - id: setup-dotnet
         name: Setup .NET Core
@@ -119,7 +123,7 @@ jobs:
 
       - id: commit
         if: env.ENABLED == '1' && steps.pr-check.outputs.pr_found == 'true'
-        uses: qoomon/actions--create-commit@dfef4d264de752be6d6195a4d61a2f3d3262d406 # v1.2.3
+        uses: qoomon/actions--create-commit@0f4cc87a8ad11282dfed4639db11c6e4ac09b25b # v1.2.4
         with:
           message: Committing changes to lock files [skip ci]
           allow-empty: false
@@ -149,7 +153,7 @@ jobs:
 
       - id: upload-logs
         name: Upload Test Logs
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: env.ENABLED == '1' && failure() && steps.test.outcome == 'failure'
         with:
           name: test-logs
@@ -182,7 +186,7 @@ jobs:
       # https://github.com/danielpalme/ReportGenerator/issues/431
       - id: publish-pr-cov-summary
         name: Publish PR coverage summary
-        uses: marocchino/sticky-pull-request-comment@d4d6b0936434b21bc8345ad45a440c5f7d2c40ff # v3.0.3
+        uses: marocchino/sticky-pull-request-comment@0ea0beb66eb9baf113663a64ec522f60e49231c0 # v3.0.4
         if: steps.pr-check.outputs.pr_found == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -213,7 +217,7 @@ jobs:
       - id: archive-results
         name: Archive results
         # https://github.com/actions/upload-artifact/blob/main/docs/MIGRATION.md
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: env.ENABLED == '1'
         with:
           name: code-coverage-report-ubuntu
