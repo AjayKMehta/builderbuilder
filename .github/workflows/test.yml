@@ -164,7 +164,7 @@ jobs:
       - id: generate-report
         name: Generate codecoverage report
         if: env.ENABLED == '1'
-        uses: danielpalme/ReportGenerator-GitHub-Action@cf6fe1b38ed5becc89ffe056c1f240825993be5b # 5.5.4
+        uses: danielpalme/ReportGenerator-GitHub-Action@7ae927204961589fcb0b0be245c51fbbc87cbca2 # 5.5.5
         with:
           reports: '**/TestResults/**/coverage.cobertura.xml'
           # yamllint disable-line
