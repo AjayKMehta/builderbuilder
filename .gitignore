@@ -388,3 +388,4 @@ ehthumbs_vista.db
 *.bacpac
 *.sarif
 tags
+.grepai/

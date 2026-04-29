@@ -15,6 +15,9 @@ Dockerfile text
 *.markdown text diff=markdown linguist-detectable
 *.md       text diff=markdown linguist-detectable
 
+# Images
+*.png binary
+
 # VS Code
 .vscode/*.json linguist-language=JSON-with-Comments
 
