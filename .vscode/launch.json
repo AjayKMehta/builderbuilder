@@ -1,9 +1,8 @@
 {
-  // For further information visit https://code.visualstudio.com/docs/csharp/debugger-settings
-  // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
   "version": "0.2.0",
   "configurations": [
     {
+      // For further information visit https://github.com/dotnet/vscode-csharp/blob/main/debugger-launchjson.md    	
       "name": "Launch BuilderDemo",
       "type": "coreclr",
       "request": "launch",

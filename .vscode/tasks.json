@@ -7,9 +7,9 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/BuilderBuilder.sln",
+        "${workspaceFolder}/BuilderBuilder.slnx",
         "/property:GenerateFullPaths=true",
-        "/consoleloggerparameters:NoSummary",
+        "/consoleloggerparameters:NoSummary;ForceNoAlign",
         "-c",
         "${input:config}"
       ],

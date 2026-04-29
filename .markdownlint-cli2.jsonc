@@ -2,12 +2,7 @@
     "config": {
         "default": true,
         "ul-indent": false,
-        "line-length": {
-            "code_blocks": false,
-            "headings": false,
-            "line_length": 120,
-            "tables": false
-        },
+        "line-length": false,
         "no-duplicate-heading": {
             "siblings_only": true
         },
@@ -47,7 +42,7 @@
     "gitignore": true,
     "ignores": [
         ".git",
-        ".github/"
+        ".github"
     ],
     "outputFormatters": [
         [
