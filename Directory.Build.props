@@ -24,6 +24,7 @@
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
     <NuGetAuditMode>all</NuGetAuditMode>
     <NuGetAuditLevel>high</NuGetAuditLevel>
+    <RestoreEnablePackagePruning>true</RestoreEnablePackagePruning>
   </PropertyGroup>
   <PropertyGroup Label="NotCI" Condition="'$(CI)' == ''">
     <!-- https://www.meziantou.net/how-to-output-a-sarif-file-from-a-dotnet-project.htm -->
