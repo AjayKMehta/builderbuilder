@@ -18,6 +18,9 @@ Dockerfile text
 # Images
 *.png binary
 
+# Configuration
+*.toml     text eol=lf
+
 # VS Code
 .vscode/*.json linguist-language=JSON-with-Comments
 
