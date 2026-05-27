@@ -44,7 +44,7 @@ jobs:
       actions: write
       contents: read
       pull-requests: write
-      security-events: read
+      security-events: write
     steps:
       - id: check-permissions
         name: Check action permissions
