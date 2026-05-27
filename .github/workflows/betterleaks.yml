@@ -1,5 +1,4 @@
-name: gitleaks
-
+name: betterleaks
 on:
   pull_request:
   push:
@@ -45,6 +44,7 @@ jobs:
       actions: write
       contents: read
       pull-requests: write
+      security-events: read
     steps:
       - id: check-permissions
         name: Check action permissions
@@ -58,7 +58,13 @@ jobs:
           persist-credentials: false
       - id: detect-secrets
         name: Detect secrets
-        uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2.3.9
+        uses: dortort/betterleaks-action@cd0b905aa4befb8f42f8b1ab98150180c9e77515 # v0.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_NOTIFY_USER_LIST: "@AjayKMehta"
+          fail-on-leak: 'false'  # Don't fail here; let code scanning handle it
+      - id: upload-sarif
+        name: Upload sarif
+        uses: github/codeql-action/upload-sarif@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4.36.0
+        if: always()
+        with:
+          sarif_file: ${{ steps.detect-secrets.outputs.sarif-path }}
