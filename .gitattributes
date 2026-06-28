@@ -20,6 +20,7 @@ Dockerfile text
 
 # Configuration
 *.toml     text eol=lf
+*.yml      text eol=lf
 
 # VS Code
 .vscode/*.json linguist-language=JSON-with-Comments
