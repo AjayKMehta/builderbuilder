@@ -552,6 +552,9 @@ dotnet_diagnostic.RCS1052.severity = none
 # RCS1055: Avoid semicolon at the end of declaration
 dotnet_diagnostic.RCS1052.severity = suggestion
 
+# RCS1060: Declare each type in separate file
+dotnet_diagnostic.RCS1060.severity = suggestion
+
 # RCS1061: Merge 'if' with nested 'if'
 dotnet_diagnostic.RCS1061.severity = suggestion
 
@@ -609,6 +612,9 @@ dotnet_diagnostic.RCS1164.severity = none
 # https://github.com/JosefPihrt/Roslynator/issues/384
 # RCS1165: Unconstrained type parameter checked for null
 dotnet_diagnostic.RCS1165.severity = none
+
+# RCS1166: Value type object is never equal to null
+dotnet_diagnostic.RCS1166.severity = warning
 
 # RCS1168: Parameter name differs from base name
 dotnet_diagnostic.RCS1168.severity = suggestion
