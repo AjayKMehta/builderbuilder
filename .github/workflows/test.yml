@@ -40,7 +40,7 @@ jobs:
         if: env.CHECK_PERMISSIONS == '1'
       - id: check-duplicate-actions
         name: Check for duplicate actions
-        uses: fkirc/skip-duplicate-actions@f75f66ce1886f00957d99748a42c724f4330bdcf # v5.3.1
+        uses: fkirc/skip-duplicate-actions@b974a9395958c231af965b70070979a577efa578 # v5.3.2
         with:
           cancel_others: true
           skip_after_successful_duplicate: true
@@ -64,7 +64,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         # https://github.com/adamralph/minver?tab=readme-ov-file#why-is-the-default-version-sometimes-used-in-github-actions-azure-pipelines-and-travis-ci-when-a-version-tag-exists-in-the-history
         with:
           fetch-depth: 0
@@ -73,7 +73,7 @@ jobs:
 
       - id: filter
         name: Check for changed files
-        uses: dorny/paths-filter@7b450fff21473bca461d4b92ce414b9d0420d706 # v4.0.2
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
         with:
           filters: .github/filter.yml
 
@@ -164,7 +164,7 @@ jobs:
       - id: generate-report
         name: Generate codecoverage report
         if: env.ENABLED == '1'
-        uses: danielpalme/ReportGenerator-GitHub-Action@049f7ec958c672fd31d5cc1cb01622dc8d2e23ab # 5.5.10
+        uses: danielpalme/ReportGenerator-GitHub-Action@d3ebf1f760f7d8ab92cc44d9bcfee7ad73722a31 # 5.5.11
         with:
           reports: '**/TestResults/**/coverage.cobertura.xml'
           # yamllint disable-line
