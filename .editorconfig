@@ -482,7 +482,7 @@ dotnet_diagnostic.RCS0031.severity = suggestion
 # RCS0032: Place new line after/before arrow token
 roslynator_arrow_token_new_line = after
 
-# RCS0034: Add new line before type parameter constraint
+# RCS0034: Put type parameter constraint on its own line
 dotnet_diagnostic.RCS0034.severity = suggestion
 
 # RCS0039: Remove new line before base list
@@ -676,6 +676,10 @@ dotnet_diagnostic.rcs1256.severity = suggestion
 
 # RCS1257: Use enum field explicitly
 dotnet_diagnostic.rcs1257.severity = warning
+
+# RCS1260: Add/remove trailing comma
+roslynator_trailing_comma_style = omit
+dotnet_diagnostic.rcs1261.severity = silent
 
 # RCS9001: Use pattern matching
 dotnet_diagnostic.RCS9001.severity = suggestion
