@@ -1,15 +1,23 @@
 {
     "config": {
+        "blanks-around-headings": true,
+        "code-block-style": false,
+        "commands-show-output": false,
         "default": true,
-        "ul-indent": false,
+        "descriptive-link-text": false,
+        "first-header-h1": false,
+        "first-line-h1": false,
+        "header-start-left": false,
         "line-length": false,
+        "list-marker-space": false,
+        "no-alt-text": false,
+        "no-blanks-blockquote": false,
+        "no-duplicate-header": {
+            "siblings_only": true
+        },
         "no-duplicate-heading": {
             "siblings_only": true
         },
-        "single-h1": false,
-        "blanks-around-headings": true,
-        "no-trailing-punctuation": false,
-        "no-blanks-blockquote": false,
         "no-inline-html": {
             "allowed_elements": [
                 "a",
@@ -30,13 +38,13 @@
                 "kbd"
             ]
         },
-        "first-line-h1": false,
-        "no-alt-text": false,
-        "code-block-style": false,
-        "descriptive-link-text": false,
+        "no-trailing-punctuation": false,
+        "single-h1": false,
         "table-column-style": {
             "aligned_delimiter": true
-        }
+        },
+        "ul-indent": false,
+        "ul-start-left": false
     },
     // Ignore files referenced by .gitignore (only valid at root)
     "gitignore": true,
