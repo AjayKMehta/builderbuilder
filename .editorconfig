@@ -912,6 +912,10 @@ dotnet_diagnostic.CA2265.severity = warning
 # CA5394: Do not use insecure randomness
 dotnet_diagnostic.CA5394.severity = none
 
+######################################
+# Special Overrides
+######################################
+
 [*.{AssemblyAttributes.cs,*AssemblyInfo.cs}]
 exclude = true
 dotnet_diagnostic.CS8019.severity = none
