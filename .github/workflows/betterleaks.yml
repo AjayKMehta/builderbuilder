@@ -61,6 +61,8 @@ jobs:
         uses: dortort/betterleaks-action@cd0b905aa4befb8f42f8b1ab98150180c9e77515 # v0.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BETTERLEAKS_CONFIG: .betterleaks.toml
+        with:
           fail-on-leak: 'false'  # Don't fail here; let code scanning handle it
           scan-mode: 'auto'
           redact: 'true'
