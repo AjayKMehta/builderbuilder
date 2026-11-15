@@ -26,6 +26,11 @@
     <NuGetAuditLevel>high</NuGetAuditLevel>
     <RestoreEnablePackagePruning>true</RestoreEnablePackagePruning>
   </PropertyGroup>
+  <!-- https://github.com/VerifyTests/Verify/blob/main/docs/maintenance-fee.md#exempt -->
+  <PropertyGroup Label="Verify">
+    <Verify_SponsorshipExemption>OpenSource</Verify_SponsorshipExemption>
+    <Verify_SponsorshipExemptionUntil>2027-11</Verify_SponsorshipExemptionUntil>
+  </PropertyGroup>
   <PropertyGroup Label="NotCI" Condition="'$(CI)' == ''">
     <!-- https://www.meziantou.net/how-to-output-a-sarif-file-from-a-dotnet-project.htm -->
     <ErrorLog>$(MSBuildProjectName).sarif,version=2.1</ErrorLog>
