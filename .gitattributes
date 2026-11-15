@@ -2,6 +2,7 @@
 *          text=auto
 
 *.cs       text diff=csharp
+*.verified.cs text eol=lf working-tree-encoding=UTF-8 diff=csharp
 *.cshtml   text diff=html
 *.csx      text diff=csharp
 *.sln      text eol=crlf
@@ -16,7 +17,7 @@ Dockerfile text
 *.md       text diff=markdown linguist-detectable
 
 # Images
-*.png binary
+*.png      binary
 
 # Configuration
 *.toml     text eol=lf
