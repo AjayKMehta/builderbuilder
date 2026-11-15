@@ -18,7 +18,7 @@ internal static class ModuleInitializer
         AssemblyConfigurationAttribute? assemblyConfigurationAttribute = typeof(ModuleInitializer).Assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();
         if (assemblyConfigurationAttribute is not null)
             Console.WriteLine($"Build Configuration is {assemblyConfigurationAttribute.Configuration}.");
-
+        VerifierSettings.IgnoreTrailingNewline();
         DiffTools.UseOrder(DiffTool.WinMerge);
         ResolvedTool? _ = DiffTools.AddToolBasedOn(
             DiffTool.WinMerge,
