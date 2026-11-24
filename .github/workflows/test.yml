@@ -149,10 +149,10 @@ jobs:
         name: Test
         if: env.ENABLED == '1'
         run: |
-          dotnet test  --property:runsetting=./cicd.runsettings --configuration $BUILD_CONFIG --no-build \
+          dotnet test --property:runsetting=./cicd.runsettings --configuration $BUILD_CONFIG --no-build \
             --verbosity quiet --crashdump --hangdump --hangdump-timeout 10m \
             --results-directory "${{ github.workspace }}/TestResults" --results-directory-layout per-module \
-            -- --coverage --coverage-output-format cobertura --coverage-output coverage.cobertura.xml
+            --coverage --coverage-output-format cobertura --coverage-output coverage.cobertura.xml
 
       - id: upload-logs
         name: Upload Test Logs
