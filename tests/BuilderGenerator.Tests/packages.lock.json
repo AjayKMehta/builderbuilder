@@ -56,6 +56,15 @@
           "Microsoft.Testing.Platform": "[2.5.3, 3.0.0)"
         }
       },
+      "Microsoft.Testing.Extensions.HotReload": {
+        "type": "Direct",
+        "requested": "[2.5.3, )",
+        "resolved": "2.5.3",
+        "contentHash": "RFXllzt2Ng8XEdWH3k5lUaY9Vn0C/dXIFHoB5wtbAVknoAEuElzPAbvaCPY7/DwOzSfFQcx+l7Jw3qbKTSW+hQ==",
+        "dependencies": {
+          "Microsoft.Testing.Platform": "[2.5.3, 3.0.0)"
+        }
+      },
       "TUnit": {
         "type": "Direct",
         "requested": "[1.85.0, )",

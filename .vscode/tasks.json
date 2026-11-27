@@ -28,6 +28,31 @@
         "/consoleloggerparameters:NoSummary"
       ],
       "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Test: MTP Hot Reload",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "${workspaceFolder}/tests/BuilderGenerator.Tests/BuilderGenerator.Tests.csproj"
+      ],
+      "options": {
+        "env": {
+          "TESTINGPLATFORM_HOTRELOAD_ENABLED": "1"
+        }
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": "$msCompile"
     }
   ],
   "inputs": [
